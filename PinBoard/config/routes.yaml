@@ -1,0 +1,3 @@
+app:
+    path: /
+    controller: App\Controller\BoardController::index
