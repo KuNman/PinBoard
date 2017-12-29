@@ -7,7 +7,7 @@ use Doctrine\ORM\EntityRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -17,15 +17,11 @@ class ServiceController extends Controller
     /**
      * @Route("/", name="")
      */
-    public function index()
+    public function index(Request $request)
     {
-        $categories = $this->getDoctrine()->getRepository(Service::class)->findAll();
 
-//        return $this->render('index.html.twig', array(
-//            'categories' => $categories,
-//        ));
+    return ServiceController::form($request);
 
-//        return $this->redirectToRoute('form');
     }
 
     /**
@@ -33,22 +29,15 @@ class ServiceController extends Controller
      * @return Response
      * @Route("/form", name="form")
      */
-    public static function form(Request $request)
+    public function form(Request $request)
     {
 
-//        $task = new Task();
-        $form = $this->createFormBuilder()
-            ->add('name', EntityType::class, array(
-                'class' => Service::class,
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('s')
-                        ->orderBy('s.name', 'ASC');
-                },
-                'choice_label' => 'name',
-            ));
+        $categories = $this->getDoctrine()->getRepository(Service::class)->findAll();
 
         return $this->render('index.html.twig', array(
-            'form' => $form->createView(),
+            'categories' => $categories,
         ));
+
     }
+
 }
