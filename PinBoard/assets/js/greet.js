@@ -1,4 +1,3 @@
-$(document).ready(function() {
-    console.log('aasa');
-    $('.js-example-basic-single').select2();
-});
+module.exports = function(name) {
+    return `Yo yo ${name} - welcome to Encore!`;
+};

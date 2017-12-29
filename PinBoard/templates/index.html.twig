@@ -1,51 +1,19 @@
-{#{% block css %}#}
-    {#<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />#}
-{#{% endblock %}#}
-
-{#<h1>Home page</h1>#}
-
-{#<br>#}
-{#<select class="js-example-basic-single" multiple="multiple">#}
-    {#{% for category in categories %}#}
-    {#<option value="{{ category.name }}">{{  category.name }}</option>#}
-    {#{% endfor %}#}
-{#</select>#}
-
-{#{% block javascripts %}#}
-    {#<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>#}
-    {#<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>#}
-    {#<script>#}
-        {#$(document).ready(function() {#}
-            {#$('.js-example-basic-single').select2();#}
-        {#});#}
-    {#</script>#}
-{#{% endblock %}#}
-
 <!DOCTYPE html>
 <html>
 <head>
     <!-- ... -->
-    {% block css %}
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="{{ asset('build/app.scss') }}">
-    {% endblock %}
+    <link rel="stylesheet" href="{{ asset('build/app.css') }}">
 </head>
+<h1>Home page</h1>
 <body>
 <br>
-<select class="js-example-basic-single" multiple="multiple">
-{% for category in categories %}
-<option value="{{ category.name }}">{{  category.name }}</option>
-{% endfor %}
-</select>
-</body>
-<!-- ... -->
-{% block javascripts %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-{#<script>#}
-    {#$(document).ready(function() {#}
-        {#$('.js-example-basic-single').select2();#}
-    {#});#}
-{#</script>#}
+    <div class="search-bar">
+        <select class="js-example-basic-single" multiple="multiple">
+            {% for category in categories %}
+                <option value="{{ category.name }}">{{  category.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
 <script src="{{ asset('build/app.js') }}"></script>
-{% endblock %}
+</body>
 </html>
