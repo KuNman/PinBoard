@@ -6,10 +6,32 @@ body {
   color: $primary-color;
 }
 
-.search-bar {
+h1 {
+  margin: 0 auto;
+  max-width: 50%;
+  text-align: center;
+}
+
+.search-bar-start, .search-bar-city, .button-search {
   display: flex;
   flex-direction: row;
   flex: 0 0 80%;
-  max-width: 80%;
+  max-width: 40%;
   margin: 0 auto;
+  margin-top: 1.5em;
+  margin-bottom: 2em;
+}
+
+.button-search {
+  align-items: flex-end;
+  align-content: flex-end;
+  justify-content: center;
+}
+
+#city {
+  display: none;
+}
+
+#city.visible {
+  display: flex;
 }
