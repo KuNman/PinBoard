@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,6 +24,13 @@ class ServiceController extends Controller
 
     return ServiceController::form($request);
 
+    }
+
+    /**
+     * @Route("/maps", name="maps")
+     */
+    public function maps() {
+        return $this->render('maps.html.twig');
     }
 
     /**
@@ -50,14 +58,9 @@ class ServiceController extends Controller
                 },
                 'choice_label' => 'name',
             ))
-            ->add('city', EntityType::class, array(
-            'class' => Service::class,
-            'query_builder' => function (EntityRepository $entityRepository) {
-                return $entityRepository->createQueryBuilder('c')
-                    ->orderBy('c.city', 'ASC');
-            },
-            'choice_label' => 'city',
-        ))
+            ->add('city', TextareaType::class, array(
+                'attr' => array('class' => 'city'),
+            ))
         ->add('search', SubmitType::class)
         ->getForm();
 

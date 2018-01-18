@@ -22,4 +22,8 @@ $(document).ready(function() {
         width: '100%'
     });
 
-});
+    $( "form .search-bar-city" ).click(function() {
+        // alert( "Handler for .click() called." );
+    });
+
+ });
