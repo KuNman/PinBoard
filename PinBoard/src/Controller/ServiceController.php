@@ -41,15 +41,11 @@ class ServiceController extends Controller
     public function form(Request $request)
     {
 
-//        $categories = $this->getDoctrine()->getRepository(Service::class)->findAll();
-//
-//        return $this->render('index.html.twig', array(
-//            'categories' => $categories,
-//        ));
-
         $builder = new Service();
 
         $builder = $this->createFormBuilder($builder)
+            ->setAction($this->generateUrl('results'))
+            ->setMethod('POST')
             ->add('name', EntityType::class, array(
                 'class' => Service::class,
                 'query_builder' => function (EntityRepository $entityRepository) {
@@ -61,10 +57,23 @@ class ServiceController extends Controller
             ->add('search', SubmitType::class)
             ->getForm();
 
+        if ($builder->isSubmitted()) {
+
+            return $this->redirectToRoute('results');
+        }
+
         return $this->render('index.html.twig', array(
         'form' => $builder->createView(),
     ));
 
+    }
+
+    /**
+     * @Route("/results", name="results")
+     */
+    public function results(Request $request) {
+
+        return var_dump($_POST);
     }
 
 }

@@ -14,10 +14,16 @@
     <select>
         {{ form_row(form.name) }}
     </select>
-        W
+        w
+    <select>
         {% include 'maps.html.twig' %}
+    </select>
     </div>
 </div>
+<select class="hidden" id="type" name="type">
+    <option value="1"></option>
+</select>
+<select class="hidden" name="city"></select>
 <div class="button-search">
     {{ form_row(form.search, { 'label': 'Search' }) }}
 </div>

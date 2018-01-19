@@ -6,14 +6,13 @@ var $ = require('jquery');
 
 $(document).ready(function() {
 
-    $('#start').on("select2:selecting", function(e) {
-        $('.search-bar-city').fadeIn(500).toggleClass('visible');
+    $('#start:first-child').on('select2:select', function (e) {
+        var type = $('.select2-selection__rendered').text();
+        $('#type option').val(type);
+    });
 
-        // $('#city').select2({
-        //     dropdownAutoWidth : true,
-        //     placeholder: 'Please select kind',
-        //     width: '100%'
-        // });
+    $('#start:nth-child(2)').on('select2:select', function (e) {
+        alert('aaa');
     });
 
     $('#start').select2({
