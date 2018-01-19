@@ -9,19 +9,13 @@
 <body>
 
 {{ form_start(form) }}
-<div class="search-bar-start">
+<div class="form">
     <div class="select2" id="start">
     <select>
         {{ form_row(form.name) }}
     </select>
-    </div>
-</div>
-<div class="search-bar-city">
-    <div class="select2" id="city">
-        <select>
-            {{ form_row(form.city) }}
-            {% include 'maps.html.twig' %}
-        </select>
+        W
+        {% include 'maps.html.twig' %}
     </div>
 </div>
 <div class="button-search">

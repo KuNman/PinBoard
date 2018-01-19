@@ -12,14 +12,22 @@ h1 {
   text-align: center;
 }
 
-.search-bar-start, .search-bar-city, .button-search {
+.form, .button-search {
   display: flex;
   flex-direction: row;
-  flex: 0 0 80%;
-  max-width: 40%;
+  flex: 0 0 35%;
+  max-width: 35%;
   margin: 0 auto;
   margin-top: 1.5em;
   margin-bottom: 2em;
+}
+
+.select2 {
+  margin-right: 0.5em !important;
+}
+
+#locationField {
+  margin-left: 0.5em !important;
 }
 
 .button-search {

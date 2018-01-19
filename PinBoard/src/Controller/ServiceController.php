@@ -58,11 +58,8 @@ class ServiceController extends Controller
                 },
                 'choice_label' => 'name',
             ))
-            ->add('city', TextareaType::class, array(
-                'attr' => array('class' => 'city'),
-            ))
-        ->add('search', SubmitType::class)
-        ->getForm();
+            ->add('search', SubmitType::class)
+            ->getForm();
 
         return $this->render('index.html.twig', array(
         'form' => $builder->createView(),
