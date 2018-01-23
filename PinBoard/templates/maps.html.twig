@@ -54,7 +54,10 @@
         country: 'long_name',
         postal_code: 'short_name'
     };
-
+    var options = {
+        types: ['(regions)'],
+        componentRestrictions: {country: "fr"}
+    };
 
     function initAutocomplete() {
         autocomplete = new google.maps.places.Autocomplete(
@@ -63,7 +66,7 @@
 
         autocomplete.addListener('place_changed', function () {
             var place = autocomplete.getPlace();
-            console.log(address);
+
             var componentForm = {
                 street_number: 'short_name',
                 route: 'long_name',
@@ -82,10 +85,15 @@
                 if (componentForm[addressType]) {
                     var val = place.address_components[i][componentForm[addressType]];
                     document.getElementById(addressType).value = val;
-                    console.log(addressType + ' ' + val);
+                    var a = new Array();
+                    a[addressType] = val;
+                    var string = a[addressType].toString();
+                    console.log(string);
+                    if (string != null) {
+                        document.getElementById(string).value = string;
+                    }
                 }
             }
-
         });
     }
 
