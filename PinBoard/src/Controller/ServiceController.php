@@ -72,7 +72,7 @@ class ServiceController extends Controller
      * @Route("/results", name="results")
      */
     public function results(Request $request) {
-        return var_dump($_POST);
+        return dd($_POST);
     }
 
 }

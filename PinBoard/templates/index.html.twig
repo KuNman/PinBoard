@@ -47,16 +47,9 @@
         </tr>
     </table>
 </div>
-<select class="hidden" id="type" name="type">
-    <option value="1"></option>
-</select>
-<select class="hidden" id="address" name="address">
-    <input id="locality" name="locality" value="none">
-    <input name="country" value="none">
-    <input name="array" id="array" value="">
-    <input name="" value="">
-    <input name="" value="">
-</select>
+    <input type="text" id="locality" value="">
+    <input type="text" id="administrative_area_level_1" value="">
+    <input type="text" id="country" value="">
 <div class="button-search">
     {{ form_row(form.search, { 'label': 'Search' }) }}
 </div>
