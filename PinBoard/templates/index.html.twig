@@ -2,26 +2,9 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- ... -->
-    <link rel="stylesheet" href="{{ asset('build/app.css') }}">
 </head>
 <h1>Home page</h1>
 <body>
-
-{#{{ form_start(form) }}#}
-{#<div class="form">#}
-    {#<div class="select2" id="start">#}
-    {#<select>#}
-        {#{{ form_row(form.name) }}#}
-    {#</select>#}
-        {#w#}
-    {#<select class="hidden">#}
-        {#{% include 'maps.html.twig' %}#}
-    {#</select>#}
-    {#</div>#}
-    {#<select class="address" style="display: none"><input class="address_input" style="display: block" type="text" id="maps" value=""></select>#}
-{#</div>#}
-{#{{ form_end(form) }}#}
 
 {{ form_start(form) }}
 {{ form_widget(form) }}

@@ -1,3 +1,7 @@
-app:
+index:
     path: /
     controller: App\Controller\ServiceController::indexAction
+
+results:
+    path: /results
+    controller: App\Controller\ServiceController::resultsAction

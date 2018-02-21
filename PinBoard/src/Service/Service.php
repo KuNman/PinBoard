@@ -9,20 +9,35 @@
 namespace App\Service;
 
 
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Forms;
+use Symfony\Component\HttpFoundation\Request;
 
 class Service
 {
     public function form() {
-        
+
         $formfactory = Forms::createFormFactory();
 
         $form = $formfactory->createBuilder()
+            ->setAction('/results')
+            ->setMethod('POST')
             ->add('name', TextType::class)
             ->add('place', TextType::class)
+            ->add('button', SubmitType::class)
             ->getForm();
 
         return $form->createView() ? $form->createView() : false;
+    }
+
+
+    public function results(Request $request) {
+
+        $response = $request->request->get('form');
+        $name = $response["name"];
+        $place = $response["place"];
+        echo $name, $place;
+
     }
 }

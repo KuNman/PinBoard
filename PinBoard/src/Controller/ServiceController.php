@@ -26,15 +26,17 @@ class ServiceController extends Controller
     {
         $service = new Service();
         $form = $service->form($request);
+
         return $this->render('index.html.twig', array("form" => $form));
     }
 
     /**
      */
-    public function results(Request $request) {
-         echo "<pre>";
-         print_r($_POST);
-         echo "</pre>";
+    public function resultsAction(Request $request) {
+
+        $service = new Service();
+        $results = $service->results($request);
+        return $results;
     }
 
 }
