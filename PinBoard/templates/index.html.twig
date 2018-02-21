@@ -1,15 +1,18 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-<h1>Home page</h1>
-<body>
-
-{{ form_start(form) }}
-{{ form_widget(form) }}
-{{ form_end(form) }}
-
-<script src="{{ asset('build/app.js') }}"></script>
-</body>
-</html>
+{% extends 'base.html.twig' %}
+    {% block content %}
+        <div class="content">
+            <div class="content-header">
+                <div>Header</div>
+            </div>
+            <div class="content-content">
+                <div class="text">
+                    <p>I'am looking for</p>
+                </div>
+                <div class="form">
+                    {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    {% endblock %}

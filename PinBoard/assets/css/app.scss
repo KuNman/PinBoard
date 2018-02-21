@@ -1,45 +1,58 @@
 $font-stack:    Helvetica, sans-serif;
 $primary-color: #250;
+//$font-fancy: Indie Flower, cursive;
+$font-fancy: Amatic SC, cursive;
+$font-fancy-size: 60px;
+$background: azure;
+$background-side: ivory;
 
 body {
   font: 100% $font-stack;
   color: $primary-color;
 }
 
-h1 {
-  margin: 0 auto;
-  max-width: 50%;
-  text-align: center;
-}
-
-.form, .button-search {
+body .page {
   display: flex;
   flex-direction: row;
-  flex: 0 0 35%;
-  max-width: 35%;
-  margin: 0 auto;
-  margin-top: 1.5em;
-  margin-bottom: 2em;
 }
 
-.select2 {
-  margin-right: 0.5em !important;
+body .page .left {
+  flex: 0 0 7.5%;
+  max-width: 7.5%;
+  justify-content: flex-start;
+  background: $background-side;
 }
 
-#locationField {
-  margin-left: 0.5em !important;
+body .page .right {
+  flex: 0 0 7.5%;
+  max-width: 7.5%;
+  justify-content: flex-end;
+  background: $background-side;
 }
 
-.button-search {
-  align-items: flex-end;
-  align-content: flex-end;
+body .page .content {
+  flex: 0 0 85%;
+  max-width: 85%;
   justify-content: center;
 }
 
-#city, .hidden {
-  display: none;
+body .page .content .content-header,
+body .page .content .content-content {
+  display: flex;
+  flex-direction: column;
 }
 
-#city.visible {
-  display: flex;
+body .page .content .content-header {
+  background: $background;
+}
+
+body .page .content-content .text {
+  font-family: $font-fancy;
+  font-size: $font-fancy-size;
+}
+
+body .footer {
+  background: $background;
+  width: 100%;
+  height: 2.5em;
 }
