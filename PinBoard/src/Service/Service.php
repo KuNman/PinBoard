@@ -25,7 +25,7 @@ class Service
             ->setMethod('POST')
             ->add('name', TextType::class)
             ->add('place', TextType::class)
-            ->add('button', SubmitType::class)
+            ->add('submit', SubmitType::class)
             ->getForm();
 
         return $form->createView() ? $form->createView() : false;
@@ -37,7 +37,8 @@ class Service
         $response = $request->request->get('form');
         $name = $response["name"];
         $place = $response["place"];
-        echo $name, $place;
+
+
 
     }
 }

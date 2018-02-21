@@ -36,7 +36,8 @@ class ServiceController extends Controller
 
         $service = new Service();
         $results = $service->results($request);
-        return $results;
+
+        return $this->render('results.html.twig', array("results" => $results));
     }
 
 }

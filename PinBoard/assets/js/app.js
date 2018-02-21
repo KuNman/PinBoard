@@ -1,9 +1,8 @@
 require('../css/app.scss');
 
-var $ = require('jquery');
-
+const $ = require('jquery');
+global.$ = global.jQuery = $;
 $(document).ready(function() {
 
 
-
- });
+});

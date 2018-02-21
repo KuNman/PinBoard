@@ -1,15 +1,9 @@
-$font-stack:    Helvetica, sans-serif;
-$primary-color: #250;
+$font-normal: Helvetica, sans-serif;
 //$font-fancy: Indie Flower, cursive;
 $font-fancy: Amatic SC, cursive;
-$font-fancy-size: 60px;
+$font-big-size: 60px;
 $background: azure;
 $background-side: ivory;
-
-body {
-  font: 100% $font-stack;
-  color: $primary-color;
-}
 
 body .page {
   display: flex;
@@ -30,7 +24,8 @@ body .page .right {
   background: $background-side;
 }
 
-body .page .content {
+body .page .content,
+body .page .results {
   flex: 0 0 85%;
   max-width: 85%;
   justify-content: center;
@@ -46,13 +41,62 @@ body .page .content .content-header {
   background: $background;
 }
 
-body .page .content-content .text {
+body .page .content .content-content,
+body .page .results .results-content {
+  display: flex;
+  flex-direction: row;
+}
+
+body .page .content-content .welcome {
   font-family: $font-fancy;
-  font-size: $font-fancy-size;
+  font-size: $font-big-size;
+  flex: 0 0 45%;
+  max-width: 45%;
+  text-align: end;
+}
+
+body .page .content-content .form {
+  font: $font-normal;
+  flex: 0 0 55%;
+  max-width: 55%;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+}
+
+body .page .results-content .text {
+  font: $font-normal;
+  flex: 0 0 65%;
+  max-width: 65%;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+body .page .content-content .form .name,
+body .page .content-content .form .place {
+  flex: 0 0 50%;
+  max-width: 185px;
+}
+
+body .page .content .content-button {
+  height: 35px;
+}
+
+body .page .content .content-button .button {
+  margin: 0 auto;
+  text-align: center;
 }
 
 body .footer {
   background: $background;
   width: 100%;
   height: 2.5em;
+}
+
+#form_place {
+  display: none;
+}
+
+#autocomplete {
+  width: 160px;
 }

@@ -4,15 +4,29 @@
             <div class="content-header">
                 <div>Header</div>
             </div>
+            {{ form_start(form) }}
             <div class="content-content">
-                <div class="text">
-                    <p>I'am looking for</p>
+                <div class="welcome">
+                    <div id="#typed-welcome">I'am looking for</div>
                 </div>
                 <div class="form">
-                    {{ form_start(form) }}
-                    {{ form_widget(form) }}
-                    {{ form_end(form) }}
+                    <div class="name">
+                    {{ form_widget(form.name) }}
+                    </div>
+                    <div class="place" id="locationField">
+                    in {{ include('maps.html.twig') }}{{ form_widget(form.place) }}
+                    </div>
+                </div>
+            </div>
+            <div class="content-button">
+                <div class="button">
+                    {{ form_widget(form.submit)}}
                 </div>
             </div>
         </div>
+    {% endblock %}
+    {% block javascripts %}
+    <script>
+        document.getElementById("form_place").value = '';
+    </script>
     {% endblock %}
