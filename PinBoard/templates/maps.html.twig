@@ -64,12 +64,10 @@
             types: ['(regions)']
         });
 
-
         autocomplete.addListener('place_changed', function () {
             var place = autocomplete.getPlace();
-            var adr_address = (place['adr_address']);
-            var split = adr_address.split(',');
-            var string = split.toString();
+            var address = (place['formatted_address']);
+            document.getElementsByClassName(address_input).value = address;
         });
     }
 

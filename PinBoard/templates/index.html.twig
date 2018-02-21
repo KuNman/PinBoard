@@ -8,58 +8,24 @@
 <h1>Home page</h1>
 <body>
 
+{#{{ form_start(form) }}#}
+{#<div class="form">#}
+    {#<div class="select2" id="start">#}
+    {#<select>#}
+        {#{{ form_row(form.name) }}#}
+    {#</select>#}
+        {#w#}
+    {#<select class="hidden">#}
+        {#{% include 'maps.html.twig' %}#}
+    {#</select>#}
+    {#</div>#}
+    {#<select class="address" style="display: none"><input class="address_input" style="display: block" type="text" id="maps" value=""></select>#}
+{#</div>#}
+{#{{ form_end(form) }}#}
+
 {{ form_start(form) }}
-<div class="form">
-    <div class="select2" id="start">
-    <select>
-        {{ form_row(form.name) }}
-    </select>
-        w
-    <select class="hidden">
-        {% include 'maps.html.twig' %}
-    </select>
-    </div>
-    <table style="display:none;" id="address">
-        <tr>
-            <td class="label">Street address</td>
-            <td class="slimField"><input class="field" id="street_number"
-                                         disabled="true"></input></td>
-            <td class="wideField" colspan="2"><input class="field" id="route"
-                                                     disabled="true"></input></td>
-        </tr>
-        <tr>
-            <td class="label">City</td>
-            <td class="wideField" colspan="3"><input class="field" id="locality"
-                                                     disabled="true"></input></td>
-        </tr>
-        <tr>
-            <td class="label">State</td>
-            <td class="slimField"><input class="field"
-                                         id="administrative_area_level_1" disabled="true"></input></td>
-            <td class="label">Zip code</td>
-            <td class="wideField"><input class="field" id="postal_code"
-                                         disabled="true"></input></td>
-        </tr>
-        <tr>
-            <td class="label">Country</td>
-            <td class="wideField" colspan="3"><input class="field"
-                                                     id="country" disabled="true"></input></td>
-        </tr>
-    </table>
-</div>
-    <input type="text" id="locality" value="">
-    <input type="text" id="administrative_area_level_1" value="">
-    <input type="text" id="country" value="">
-<div class="button-search">
-    {{ form_row(form.search, { 'label': 'Search' }) }}
-</div>
-
+{{ form_widget(form) }}
 {{ form_end(form) }}
-
-<div class="button-search">
-    {{ form_row(form.search, { 'label': 'Search' }) }}
-</div>
-
 
 <script src="{{ asset('build/app.js') }}"></script>
 </body>
