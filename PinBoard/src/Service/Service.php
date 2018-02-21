@@ -9,15 +9,20 @@
 namespace App\Service;
 
 
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Forms;
+
 class Service
 {
     public function form() {
+        
+        $formfactory = Forms::createFormFactory();
 
-        $form = $this->createFormBuilder()
-            ->add('task', TextType::class)
-            ->add('location', TextType::class)
+        $form = $formfactory->createBuilder()
+            ->add('name', TextType::class)
+            ->add('place', TextType::class)
             ->getForm();
 
-        return $form->createView();
+        return $form->createView() ? $form->createView() : false;
     }
 }

@@ -26,7 +26,7 @@ class ServiceController extends Controller
     {
         $service = new Service();
         $form = $service->form($request);
-        return $form ? $form : 'error';
+        return $this->render('index.html.twig', array("form" => $form));
     }
 
     /**
