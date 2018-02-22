@@ -5,3 +5,11 @@ index:
 results:
     path: /results
     controller: App\Controller\ServiceController::resultsAction
+
+admin:
+    path: /admin
+    controller: App\Controller\AdminPanelController::indexAction
+
+register:
+    path: /register
+    controller: App\Controller\RegisterController::indexAction
