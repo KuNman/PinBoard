@@ -27,19 +27,12 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
         <script>
             function registerUser(){
-                let username = $('#form_username').val();
-                let password = $('#form_password').val();
-                console.log(password, username);
+                const username = $('#form_username').val();
+                const password = $('#form_password').val();
                 $.ajax({
                     url: "/registeruser",
                     type: "post",
                     data : { username : username, password : password },
-                    success: function (response) {
-                        console.log(response);
-                        if(response === 'error') {
-                            alert ('error');
-                        }
-                    },
                 });
             }
         </script>

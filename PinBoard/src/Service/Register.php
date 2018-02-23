@@ -11,18 +11,21 @@ namespace App\Service;
 use App\Entity\Users;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Forms;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Encoder;
+
 
 class Register
 {
-
     private $entityManager;
+    private $encoder;
 
-    public function __construct(EntityManagerInterface $entityManager) {
+    public function __construct(EntityManagerInterface $entityManager, Encoder\UserPasswordEncoderInterface $encoder) {
         $this->entityManager = $entityManager;
+        $this->encoder = $encoder;
     }
 
     public function form(Request $request) {
@@ -32,7 +35,7 @@ class Register
         $form = $formFactory->createBuilder()
             ->setAction('/')
             ->setMethod('POST')
-            ->add('username', TextType::class)
+            ->add('username', EmailType::class)
             ->add('password', PasswordType::class)
             ->add('submit', ButtonType::class)
             ->getForm();
@@ -44,20 +47,24 @@ class Register
         if(self::validateUsername($username) && self::validatePassword($password)) {
             $user = new Users();
             $user->setUsername($username);
-            $user->setPassword($password);
+            $hashed = $this->encoder->encodePassword($user, $password);
+            $user->setPassword($hashed);
             $user->setRole('user');
             $this->entityManager->persist($user);
             $this->entityManager->flush();
+
             return true;
         }
     }
 
     static function validateUsername($username) {
-        return true;
+        return preg_match("/[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+.[a-zA-Z]{2,4}/", $username) ? true : false;
     }
 
     static function validatePassword($password) {
-        return true;
+        return (strlen($password) >= 6) ? true : false;
     }
+
+
 
 }
