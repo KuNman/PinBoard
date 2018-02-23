@@ -36,8 +36,6 @@ class Service
         $response = $request->request->get('form');
         $name = $response["name"];
         $place = $response["place"];
-
-
-
+        return $name;
     }
 }

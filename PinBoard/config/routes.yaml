@@ -10,10 +10,14 @@ admin:
     path: /admin
     controller: App\Controller\AdminPanelController::indexAction
 
+checkUsernameAvaibility:
+    path: /checkUsernameAvaibility
+    controller: App\Controller\RegisterController::checkUsernameAvaibility
+
 register:
     path: /register
     controller: App\Controller\RegisterController::indexAction
 
 registerUser:
-    path: /registeruser
+    path: /registerUser
     controller: App\Controller\RegisterController::registerUserAction

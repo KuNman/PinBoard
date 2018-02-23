@@ -7,7 +7,7 @@
             {{ form_start(form) }}
             <div class="content-content">
                 <div class="register-form">
-                    <div class="username">
+                    <div class="username" onfocusout="checkUsernameAvaibility()">
                         Username : {{ form_widget(form.username) }}
                     </div>
                     <div class="password">
@@ -16,8 +16,8 @@
                 </div>
             </div>
             <div class="content-button">
-                <div class="button" onClick="registerUser()">
-                    {{ form_widget(form.submit)}}
+                <div class="button">
+                    <span onClick="registerUser()"> {{ form_widget(form.submit)}} </span>
                 </div>
             </div>
             {{ form_end(form) }}
@@ -26,14 +26,53 @@
     {% block javascripts %}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
         <script>
-            function registerUser(){
+
+            const checkUsernameAvaibility = () => {
+
+                 if(validateUsername()) {
+                     const usernameValid = validateUsername();
+                     $.ajax({
+                         url: "/checkUsernameAvaibility",
+                         type: "post",
+                         data: { username : usernameValid },
+                         success: function() {
+                             const message = '<div class="emailError">This email is registered. <a href="google.pl">May you reset password?</a></div>';
+                             if($('.username .emailError').length == 0) {
+                                 $('.username').append(message);
+                                 $('#form_submit').attr('disabled', true);
+                             }
+                         },
+                         error: function(){
+                             if($('.username .emailError')) {
+                                 $('.username .emailError').remove();
+                                 $('#form_submit').attr('disabled', false);
+                             }
+                         }
+                     })
+                 }
+            };
+
+            const validateUsername = () => {
+                let username = $('#form_username').val();
+                const checkLength = (username) => username.length;
+                const regexEmail = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+                const checkRegexEmail = (username) => regexEmail.test(username);
+                if( checkLength(username) > 4 && checkRegexEmail(username)) {
+                    return username;
+                }
+                return username = '';
+            };
+
+            const registerUser = () => {
                 const username = $('#form_username').val();
                 const password = $('#form_password').val();
                 $.ajax({
-                    url: "/registeruser",
+                    url: "/registerUser",
                     type: "post",
                     data : { username : username, password : password },
+                    success: window.location.href = "/",
                 });
-            }
+            };
+
         </script>
     {% endblock javascripts %}

@@ -37,10 +37,22 @@ class Register
             ->setMethod('POST')
             ->add('username', EmailType::class)
             ->add('password', PasswordType::class)
-            ->add('submit', ButtonType::class)
+            ->add('submit', ButtonType::class, array(
+                'attr' => array('disabled' => true),
+            ))
             ->getForm();
 
         return $form->createView() ? $form->createView() : false;
+    }
+
+    public function checkUserNameAvaibility($username) {
+
+        $check = $this->entityManager->getRepository('App:Users')->findOneBy(array('username' => $username));
+
+        //false = user exists
+        //true = method passed
+        return $check ? false : true;
+
     }
 
     public function addNewUser($username, $password) {
