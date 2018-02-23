@@ -13,7 +13,7 @@ class UsersRepository extends ServiceEntityRepository
         parent::__construct($registry, Users::class);
     }
 
-    /*
+
     public function findBySomething($value)
     {
         return $this->createQueryBuilder('u')
@@ -24,5 +24,5 @@ class UsersRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    */
+
 }

@@ -25,13 +25,34 @@ class Users
      * @ORM\Column(type="string", length=64, nullable=false)
      */
     private $password;
-    
+
+    /**
+     * @ORM\Column(type="string", length=10, nullable=false, options={"default":"user"})
+     */
+    private $role;
+
     /**
      * @return mixed
      */
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    /**
+     * @param mixed $role
+     */
+    public function setRole($role)
+    {
+        $this->role = $role;
     }
 
     /**

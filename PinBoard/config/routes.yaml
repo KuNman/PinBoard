@@ -13,3 +13,7 @@ admin:
 register:
     path: /register
     controller: App\Controller\RegisterController::indexAction
+
+registerUser:
+    path: /registeruser
+    controller: App\Controller\RegisterController::registerUserAction

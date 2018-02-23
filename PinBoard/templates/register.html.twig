@@ -4,20 +4,43 @@
             <div class="content-header">
                 <div>Header</div>
             </div>
+            {{ form_start(form) }}
             <div class="content-content">
-                <div class="welcome">
-                </div>
-                <div class="form">
-                    <div class="name">
+                <div class="register-form">
+                    <div class="username">
+                        Username : {{ form_widget(form.username) }}
                     </div>
-                    <div class="place" id="locationField">
+                    <div class="password">
+                        Password : {{ form_widget(form.password) }}
                     </div>
                 </div>
             </div>
             <div class="content-button">
-                <div class="button">
-
+                <div class="button" onClick="registerUser()">
+                    {{ form_widget(form.submit)}}
                 </div>
             </div>
+            {{ form_end(form) }}
         </div>
-    {% endblock %}
+    {% endblock content%}
+    {% block javascripts %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+        <script>
+            function registerUser(){
+                let username = $('#form_username').val();
+                let password = $('#form_password').val();
+                console.log(password, username);
+                $.ajax({
+                    url: "/registeruser",
+                    type: "post",
+                    data : { username : username, password : password },
+                    success: function (response) {
+                        console.log(response);
+                        if(response === 'error') {
+                            alert ('error');
+                        }
+                    },
+                });
+            }
+        </script>
+    {% endblock javascripts %}

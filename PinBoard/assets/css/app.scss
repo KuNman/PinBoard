@@ -55,7 +55,7 @@ body .page .content-content .welcome {
   text-align: end;
 }
 
-body .page .content-content .form {
+body .page .content-content .index-form {
   font: $font-normal;
   flex: 0 0 55%;
   max-width: 55%;
@@ -72,8 +72,8 @@ body .page .results-content .text {
   margin: 0 auto;
 }
 
-body .page .content-content .form .name,
-body .page .content-content .form .place {
+body .page .content-content .index-form .name,
+body .page .content-content .index-form .place {
   flex: 0 0 50%;
   max-width: 185px;
 }
@@ -99,4 +99,15 @@ body .footer {
 
 #autocomplete {
   width: 160px;
+}
+
+body .page .content .content-content .register-form {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+body .page .content .content-content .register-form .username,
+body .page .content .content-content .register-form .password {
+  display: flex;
+  justify-content: center;
 }

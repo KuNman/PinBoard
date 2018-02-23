@@ -8,7 +8,6 @@
 
 namespace App\Service;
 
-
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Forms;
@@ -18,9 +17,9 @@ class Service
 {
     public function form() {
 
-        $formfactory = Forms::createFormFactory();
+        $formFactory = Forms::createFormFactory();
 
-        $form = $formfactory->createBuilder()
+        $form = $formFactory->createBuilder()
             ->setAction('/results')
             ->setMethod('POST')
             ->add('name', TextType::class)
