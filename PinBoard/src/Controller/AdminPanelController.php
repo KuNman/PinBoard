@@ -11,5 +11,6 @@ class AdminPanelController extends Controller
     public function indexAction()
     {
 
+
     }
 }

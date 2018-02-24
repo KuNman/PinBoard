@@ -33,8 +33,6 @@ class Register
         $formFactory = Forms::createFormFactory();
 
         $form = $formFactory->createBuilder()
-            ->setAction('/')
-            ->setMethod('POST')
             ->add('username', EmailType::class)
             ->add('password', PasswordType::class)
             ->add('submit', ButtonType::class, array(

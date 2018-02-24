@@ -7,10 +7,10 @@
             {{ form_start(form) }}
             <div class="content-content">
                 <div class="register-form">
-                    <div class="username" onfocusout="checkUsernameAvaibility()">
+                    <div class="username" onfocusout="activateButton()" onkeyup="checkUsernameAvaibility()">
                         Username : {{ form_widget(form.username) }}
                     </div>
-                    <div class="password">
+                    <div class="password" onkeyup="activateButton()">
                         Password : {{ form_widget(form.password) }}
                     </div>
                 </div>
@@ -27,6 +27,8 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
         <script>
 
+            let username = false;
+
             const checkUsernameAvaibility = () => {
 
                  if(validateUsername()) {
@@ -36,21 +38,22 @@
                          type: "post",
                          data: { username : usernameValid },
                          success: function() {
-                             const message = '<div class="emailError">This email is registered. <a href="google.pl">May you reset password?</a></div>';
+                             const message = '<div class="emailError">This email is registered. <a href="#">May you reset password?</a></div>';
                              if($('.username .emailError').length == 0) {
                                  $('.username').append(message);
-                                 $('#form_submit').attr('disabled', true);
+                                 username = false;
                              }
                          },
                          error: function(){
                              if($('.username .emailError')) {
                                  $('.username .emailError').remove();
-                                 $('#form_submit').attr('disabled', false);
+                                 username = true;
                              }
                          }
                      })
                  }
             };
+
 
             const validateUsername = () => {
                 let username = $('#form_username').val();
@@ -70,9 +73,19 @@
                     url: "/registerUser",
                     type: "post",
                     data : { username : username, password : password },
-                    success: window.location.href = "/",
                 });
             };
+
+
+            const activateButton = () => {
+                const passwordLength = $('#form_password').val().length;
+                if (passwordLength > 8 && username) {
+                    $('#form_submit').attr("disabled", false);
+                } else if (!username) {
+                    console.log('please check email');
+                }
+            }
+
 
         </script>
     {% endblock javascripts %}
