@@ -40,17 +40,13 @@ class Register
             ))
             ->getForm();
 
-        return $form->createView() ? $form->createView() : false;
+        return $form->createView();
     }
 
     public function checkUserNameAvaibility($username) {
 
         $check = $this->entityManager->getRepository('App:Users')->findOneBy(array('username' => $username));
-
-        //false = user exists
-        //true = method passed
-        return $check ? false : true;
-
+        return $check;
     }
 
     public function addNewUser($username, $password) {
@@ -65,6 +61,7 @@ class Register
 
             return true;
         }
+        return false;
     }
 
     static function validateUsername($username) {
@@ -72,7 +69,7 @@ class Register
     }
 
     static function validatePassword($password) {
-        return (strlen($password) >= 6) ? true : false;
+        return (strlen($password) >= 7) ? true : false;
     }
 
 

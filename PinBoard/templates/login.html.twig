@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+    {% block content %}
+        <div class="content">
+            <div class="content-header">
+                <div>Header</div>
+            </div>
+            {{ form_start(form) }}
+            <div class="content-content">
+                <div class="register-form">
+                    <div class="username" onkeyup="">
+                        Username : {{ form_widget(form.username) }}
+                    </div>
+                    <div class="password" onkeyup="">
+                        Password : {{ form_widget(form.password) }}
+                    </div>
+                </div>
+            </div>
+            <div class="content-button">
+                <div class="button">
+                    <span onClick="loginUser()"> {{ form_widget(form.submit)}} </span>
+                </div>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    {% endblock content%}
+    {% block javascripts %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+        <script>
+            const loginUser = () => {
+                const username = $('#form_username').val();
+                const password = $('#form_password').val();
+                $.ajax({
+                    url: "/login",
+                    type: "post",
+                    data : { username : username, password : password},
+                    success: function(response) {
+                        console.log('111');
+                    }
+                })
+            }
+            $('form').keydown(function (event) {
+                var keypressed = event.keyCode || event.which;
+                if (keypressed == 13) {
+                    loginUser();
+                }
+            });
+        </script>
+    {% endblock javascripts %}
+

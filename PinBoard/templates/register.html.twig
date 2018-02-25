@@ -7,10 +7,10 @@
             {{ form_start(form) }}
             <div class="content-content">
                 <div class="register-form">
-                    <div class="username" onfocusout="activateButton()" onkeyup="checkUsernameAvaibility()">
+                    <div class="username" onkeyup="checkEmail()">
                         Username : {{ form_widget(form.username) }}
                     </div>
-                    <div class="password" onkeyup="activateButton()">
+                    <div class="password" onkeyup="checkPassword()">
                         Password : {{ form_widget(form.password) }}
                     </div>
                 </div>
@@ -26,44 +26,55 @@
     {% block javascripts %}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
         <script>
+            let usernameValid = 0;
+            let passwordValid = 0;
 
-            let username = false;
-
-            const checkUsernameAvaibility = () => {
-
-                 if(validateUsername()) {
-                     const usernameValid = validateUsername();
-                     $.ajax({
-                         url: "/checkUsernameAvaibility",
-                         type: "post",
-                         data: { username : usernameValid },
-                         success: function() {
-                             const message = '<div class="emailError">This email is registered. <a href="#">May you reset password?</a></div>';
-                             if($('.username .emailError').length == 0) {
-                                 $('.username').append(message);
-                                 username = false;
-                             }
-                         },
-                         error: function(){
-                             if($('.username .emailError')) {
-                                 $('.username .emailError').remove();
-                                 username = true;
-                             }
-                         }
-                     })
-                 }
+            const checkEmail = () => {
+                const username = $('#form_username').val();
+                const regexEmail = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+                const checkRegexEmail = () => regexEmail.test(username);
+                if(checkRegexEmail(username)) {
+                    $.ajax({
+                        url: "/checkUsernameAvaibility",
+                        type: "post",
+                        data: { username : username },
+                        success: function(response) {
+                            if(response == 1) {
+                                usernameValid = 1;
+                                activateButton();
+                                if($('.username .emailError')) {
+                                    $('.username .emailError').remove();
+                                }
+                            } else if(response == 0) {
+                                usernameValid = 0;
+                                activateButton();
+                                const message = '<div class="emailError">This email is registered. <a href="#">May you reset password?</a></div>';
+                                if($('.username .emailError').length == 0) {
+                                    $('.username').append(message);
+                                }
+                            }
+                        }
+                    })
+                }
             };
 
-
-            const validateUsername = () => {
-                let username = $('#form_username').val();
-                const checkLength = (username) => username.length;
-                const regexEmail = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-                const checkRegexEmail = (username) => regexEmail.test(username);
-                if( checkLength(username) > 4 && checkRegexEmail(username)) {
-                    return username;
+            const checkPassword = () => {
+                const password = $('#form_password').val();
+                if(password.length > 7) {
+                    passwordValid = 1;
+                    activateButton();
+                } else if(password.length < 7){
+                    passwordValid = 0;
+                    activateButton();
                 }
-                return username = '';
+            };
+
+            const activateButton = () => {
+                if(usernameValid && passwordValid) {
+                    $("#form_submit").attr("disabled", false);
+                } else if (!usernameValid || !passwordValid){
+                    $("#form_submit").attr("disabled", true);
+                }
             };
 
             const registerUser = () => {
@@ -73,19 +84,14 @@
                     url: "/registerUser",
                     type: "post",
                     data : { username : username, password : password },
+                    success: function(response) {
+                        if(response == 1) {
+                            window.location.href = '/';
+                        } else if(response == 0) {
+                            alert('Error. Please contact us');
+                        }
+                    }
                 });
             };
-
-
-            const activateButton = () => {
-                const passwordLength = $('#form_password').val().length;
-                if (passwordLength > 8 && username) {
-                    $('#form_submit').attr("disabled", false);
-                } else if (!username) {
-                    console.log('please check email');
-                }
-            }
-
-
         </script>
     {% endblock javascripts %}

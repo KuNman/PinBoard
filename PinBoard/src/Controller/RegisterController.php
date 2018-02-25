@@ -13,7 +13,6 @@ class RegisterController extends Controller
     public function indexAction(Request $request, Register $register) {
 
         $form = $register->form($request);
-
         return $this->render('register.html.twig', array("form" => $form));
     }
 
@@ -21,7 +20,10 @@ class RegisterController extends Controller
 
         $username = $request->get('username');
         $check = $register->checkUserNameAvaibility($username);
-        return $check ? true : new Response();
+        if($check) {
+            return new Response(0);
+        }
+        return new Response(1);
     }
 
     public function registerUserAction(Request $request, Register $register) {
@@ -30,7 +32,10 @@ class RegisterController extends Controller
         $password = $request->get('password');
 
         $newUser = $register->addNewUser($username, $password);
-        return $newUser ? new Response() : false;
+        if($newUser) {
+            return new Response(1);
+        }
+        return new Response(0);
     }
 
 }

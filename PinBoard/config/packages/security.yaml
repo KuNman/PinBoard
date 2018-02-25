@@ -1,7 +1,7 @@
 security:
     encoders:
         App\Entity\Users:
-            algorithm: sha256
+            algorithm: bcrypt
 
     providers:
         our_db_provider:

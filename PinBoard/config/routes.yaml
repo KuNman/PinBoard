@@ -8,7 +8,7 @@ results:
 
 admin:
     path: /admin
-    controller: App\Controller\AdminPanelController::indexAction
+    controller: App\Controller\LoginController::indexAction
 
 checkUsernameAvaibility:
     path: /checkUsernameAvaibility
@@ -21,3 +21,7 @@ register:
 registerUser:
     path: /registerUser
     controller: App\Controller\RegisterController::registerUserAction
+
+login:
+    path: /login
+    controller: App\Controller\LoginController::loginAction
