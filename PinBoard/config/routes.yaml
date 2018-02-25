@@ -8,7 +8,7 @@ results:
 
 admin:
     path: /admin
-    controller: App\Controller\LoginController::indexAction
+    controller: App\Controller\AdminController::indexAction
 
 checkUsernameAvaibility:
     path: /checkUsernameAvaibility
@@ -18,10 +18,18 @@ register:
     path: /register
     controller: App\Controller\RegisterController::indexAction
 
-registerUser:
+addUserToDB:
     path: /registerUser
     controller: App\Controller\RegisterController::registerUserAction
 
 login:
     path: /login
     controller: App\Controller\LoginController::loginAction
+
+sendRegisterMail:
+    path: /sendRegisterMail
+    controller: App\Controller\RegisterController:sendRegisterMailAction
+
+activationLink:
+    path: /activateUser/{username}/{time}
+    controller: App\Controller\RegisterController:activateUserAction

@@ -68,4 +68,8 @@ class Login
         }
     }
 
+    static function isAdmin($username) {
+
+    }
+
 }
