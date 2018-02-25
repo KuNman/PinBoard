@@ -16,6 +16,7 @@ class AdminController extends Controller
         if($admin->isAdmin()) {
             return $this->render('panel.html.twig', array("admin" => "true"));
         }
+        return $this->redirect('/login');
 
     }
 }

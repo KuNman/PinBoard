@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Forms;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -54,22 +55,20 @@ class Login
             ->findOneBy(array('username' => $username));
 
         if(!$user){
-            return new Response(
-                'Username doesnt exists'
-            );
+            return false;
         }
 
         if(!$this->encoder->isPasswordValid($user, $password)) {
-            return new Response(
-                'Username or Password not valid.'
-            );
+            return false;
         } else {
-            return $this->encoder->isPasswordValid($user, $password);
+            $session = new Session();
+            $session->set('username', $user->getUsername());
+            if($user->getRole() == 'admin') {
+                return new Response('admin');
+            }
+            return new Response('user');
         }
     }
 
-    static function isAdmin($username) {
-
-    }
 
 }

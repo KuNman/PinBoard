@@ -75,8 +75,7 @@ class Register
 
     public function generateActivationLink($username) {
         $date = base64_encode(date('H:i:s'));
-        $link = 'http://localhost:8000/activateUser/'.$username.'/'.$date;
-        return $link;
+        return $link = 'http://localhost:8000/activateUser/'.$username.'/'.$date;
     }
 
     public function validateLink($time) {

@@ -22,9 +22,13 @@ addUserToDB:
     path: /registerUser
     controller: App\Controller\RegisterController::registerUserAction
 
-login:
+loginForm:
     path: /login
-    controller: App\Controller\LoginController::loginAction
+    controller: App\Controller\LoginController::indexAction
+
+loginUser:
+    path: /loginUser
+    controller: App\Controller\LoginController:loginAction
 
 sendRegisterMail:
     path: /sendRegisterMail

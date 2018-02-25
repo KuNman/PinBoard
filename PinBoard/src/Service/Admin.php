@@ -9,19 +9,24 @@
 namespace App\Service;
 
 
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class Admin
 {
     private $entityManager;
 
-    public function __construct() {
+    public function __construct(EntityManagerInterface $entityManager) {
+        $this->entityManager = $entityManager;
     }
 
     public function isAdmin() {
+
         $session = new Session();
-        $session->set('username', 'admin');
-        if($session->get('username')) {
+        $username = $session->get('username');
+        $admin = $this->entityManager->getRepository('App:Users')->findOneBy(array("username" => $username))->getRole();
+
+        if($admin == 'admin') {
             return true;
         }
         return false;
