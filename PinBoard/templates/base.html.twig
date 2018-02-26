@@ -6,24 +6,19 @@
         {% block stylesheets %}
             <link rel="stylesheet" href="{{ asset('build/app.css') }}">
             {#<link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">#}
-            {#<link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">#}
+            <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
         {% endblock %}
     </head>
 
     {% block body %}
-            {% block page %}<div class="page">
-            <div class="left">Left</div>
-            {% block content %}{% endblock content%}
-            <div class="right">Right</div>
-            </div>{% endblock page %}
-            {% block footer %}
-                <div class="footer">
-                    <div class="footer-header">
-                        <div>Footer</div>
-                    </div>
-                    <div class="footer-content"></div>
-                </div>
-            {% endblock footer %}
+        {% block page %}
+            <div class="page">
+                {% include 'service/left.html.twig' %}
+                {% block content %}{% endblock content%}
+                {% include 'service/right.html.twig' %}
+            </div>
+        {% endblock page %}
+        {% include '/service/footer.html.twig' %}
     {% endblock body%}
     {% block javascripts %}
         <script src="{{ asset('build/app.js') }}"></script>

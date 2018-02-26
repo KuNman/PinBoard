@@ -14,7 +14,7 @@ class AdminController extends Controller
 
     public function indexAction(Request $request, Admin $admin) {
         if($admin->isAdmin()) {
-            return $this->render('panel.html.twig', array("admin" => "true"));
+            return $this->render('/service/panel/panel.html.twig', array("admin" => "true"));
         }
         return $this->redirect('/login');
 

@@ -24,10 +24,13 @@ class Admin
 
         $session = new Session();
         $username = $session->get('username');
-        $admin = $this->entityManager->getRepository('App:Users')->findOneBy(array("username" => $username))->getRole();
 
-        if($admin == 'admin') {
-            return true;
+        if($username) {
+            $admin = $this->entityManager->getRepository('App:Users')->findOneBy(array("username" => $username))->getRole();
+
+            if($admin == 'admin') {
+                return true;
+            }
         }
         return false;
     }

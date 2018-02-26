@@ -20,10 +20,7 @@ class ServiceController extends Controller
     {
         $form = $service->form();
 
-        $session = new Session();
-        echo $session->get('username');
-
-        return $this->render('index.html.twig', array("form" => $form));
+        return $this->render('/service/index.html.twig', array("form" => $form));
     }
 
     /**
@@ -32,7 +29,7 @@ class ServiceController extends Controller
 
         $results = $service->results($request);
 
-        return $this->render('results.html.twig', array("results" => $results));
+        return $this->render('/service/results.html.twig', array("results" => $results));
     }
 
 }

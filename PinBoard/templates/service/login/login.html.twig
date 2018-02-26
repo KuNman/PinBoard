@@ -1,9 +1,7 @@
-{% extends 'base.html.twig' %}
+{% extends '/base.html.twig' %}
     {% block content %}
         <div class="content">
-            <div class="content-header">
-                <div>Header</div>
-            </div>
+            {% include '/service/header.html.twig' %}
             {{ form_start(form) }}
             <div class="content-content">
                 <div class="register-form">

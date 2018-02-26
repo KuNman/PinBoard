@@ -16,7 +16,7 @@ class RegisterController extends Controller
     public function indexAction(Request $request, Register $register) {
 
         $form = $register->form($request);
-        return $this->render('register.html.twig', array("form" => $form));
+        return $this->render('/service/login/register.html.twig', array("form" => $form));
     }
 
     public function checkUsernameAvaibility(Request $request, Register $register) {
@@ -58,7 +58,7 @@ class RegisterController extends Controller
         if(!$register->checkUserNameAvaibility($username)) {
             if($register->validateLink($time)) {
                 $form = $register->form($request, $username);
-                return $this->render('register.html.twig', array("form" => $form, "username" => $username));
+                return $this->render('/service/login/register.html.twig', array("form" => $form, "username" => $username));
             }
             return new Response('error');
         }

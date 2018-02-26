@@ -12,7 +12,7 @@ class LoginController extends Controller
 {
     public function indexAction(Request $request, Login $login) {
         $form = $login->form($request);
-        return $this->render('login.html.twig', array("form" => $form));
+        return $this->render('/service/login/login.html.twig', array("form" => $form));
     }
 
     public function loginAction(Request $request, Login $login) {
@@ -27,7 +27,6 @@ class LoginController extends Controller
                 return new Response(1);
             }
         }
-
 
         return new Response(0);
     }
