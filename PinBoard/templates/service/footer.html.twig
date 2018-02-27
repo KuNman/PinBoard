@@ -2,7 +2,23 @@
     <div class="footer">
         <div class="footer-header">
             <div>Footer</div>
+            <button onclick="logoutUser()">Logout</button>
         </div>
         <div class="footer-content"></div>
     </div>
 {% endblock footer %}
+<script>
+    const logoutUser = () => {
+        $.ajax({
+            url: "/logoutUser",
+            type: "post",
+            success: function(response) {
+                if(response == 1) {
+                    window.location.href = '/';
+                } else if(response == 0) {
+                    alert('Error.');
+                }
+            }
+        })
+    }
+</script>

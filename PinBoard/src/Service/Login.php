@@ -70,5 +70,23 @@ class Login
         }
     }
 
+    public function logout() {
+        if($this->isLogged()) {
+            $session = new Session();
+            $session->remove('username');
+            return true;
+        }
+        return false;
+    }
+
+    public function isLogged() {
+
+        $session = new Session();
+        if($session->get('username')) {
+            return $session->get('username');
+        }
+        return false;
+    }
+
 
 }

@@ -15,19 +15,17 @@ use Symfony\Component\HttpFoundation\Session\Session;
 class Admin
 {
     private $entityManager;
+    private $login;
 
-    public function __construct(EntityManagerInterface $entityManager) {
+    public function __construct(EntityManagerInterface $entityManager, Login $login) {
         $this->entityManager = $entityManager;
+        $this->login = $login;
     }
 
-    public function isAdmin() {
+    public function isAdmin($username) {
 
-        $session = new Session();
-        $username = $session->get('username');
-
-        if($username) {
+        if($this->login->isLogged()) {
             $admin = $this->entityManager->getRepository('App:Users')->findOneBy(array("username" => $username))->getRole();
-
             if($admin == 'admin') {
                 return true;
             }

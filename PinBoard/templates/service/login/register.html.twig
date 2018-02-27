@@ -60,7 +60,7 @@
                             } else if(response == 0) {
                                 usernameValid = 0;
                                 activateButtonEmail();
-                                const message = '<div class="emailError">This email is registered. <a href="#">May you reset password?</a></div>';
+                                const message = '<div class="emailError">This email is registered. <a href="/resetPassword">May you reset password?</a></div>';
                                 if($('.username .emailError').length == 0) {
                                     $('.username').append(message);
                                 }
@@ -69,6 +69,13 @@
                     })
                 }
             };
+
+            $('form').keydown(function (event) {
+                var keypressed = event.keyCode || event.which;
+                if (keypressed == 13) {
+                    loginUser();
+                }
+            });
 
             const checkPassword = () => {
                 const password = $('#form_password').val();

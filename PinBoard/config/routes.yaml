@@ -30,6 +30,10 @@ loginUser:
     path: /loginUser
     controller: App\Controller\LoginController:loginAction
 
+logoutUser:
+    path: /logoutUser
+    controller: App\Controller\LoginController:logoutAction
+
 sendRegisterMail:
     path: /sendRegisterMail
     controller: App\Controller\RegisterController:sendRegisterMailAction
@@ -37,3 +41,7 @@ sendRegisterMail:
 activationLink:
     path: /activateUser/{username}/{time}
     controller: App\Controller\RegisterController:activateUserAction
+
+resetPassword:
+    path: /resetPassword
+    controller: App\Controller\LoginController:resetPasswordAction

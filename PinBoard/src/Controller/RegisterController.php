@@ -2,19 +2,24 @@
 
 namespace App\Controller;
 
+use App\Service\Login;
 use App\Service\Mail;
 use App\Service\Register;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 
 
 
 class RegisterController extends Controller
 {
-    public function indexAction(Request $request, Register $register) {
+    public function indexAction(Request $request, Register $register, Login $login) {
 
+        if ($login->isLogged()) {
+            return $this->redirect('/');
+        }
         $form = $register->form($request);
         return $this->render('/service/login/register.html.twig', array("form" => $form));
     }
