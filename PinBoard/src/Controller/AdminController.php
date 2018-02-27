@@ -13,10 +13,18 @@ use Symfony\Component\HttpFoundation\Session\Session;
 class AdminController extends Controller
 {
 
-    public function indexAction(Request $request, Admin $admin, Login $login) {
-        if($login->isLogged()) {
-            $username = $login->isLogged();
-            if($admin->isAdmin($username)) {
+    private $admin;
+    private $login;
+
+    public function __construct(Admin $admin, Login $login) {
+        $this->admin = $admin;
+        $this->login = $login;
+    }
+
+    public function indexAction(Request $request) {
+        if($this->login->isLogged()) {
+            $username = $this->login->isLogged();
+            if($this->admin->isAdmin($this->login->isLogged())) {
                 return $this->render('/service/panel/panel.html.twig', array("admin" => "true"));
             }
         }

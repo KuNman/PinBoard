@@ -12,23 +12,21 @@ use Symfony\Component\HttpFoundation\Session\Session;
 class ServiceController extends Controller
 {
 
-    /**
-     * @param Request $request
-     * @return Response
-     */
-    public function indexAction(Service $service)
-    {
-        $form = $service->form();
+    private $service;
 
+    public function __construct(Service $service) {
+        $this->service = $service;
+    }
+
+    public function indexAction() {
+
+        $form = $this->service->form();
         return $this->render('/service/index.html.twig', array("form" => $form));
     }
 
-    /**
-     */
-    public function resultsAction(Request $request, Service $service) {
+    public function resultsAction(Request $request) {
 
-        $results = $service->results($request);
-
+        $results = $this->service->results($request);
         return $this->render('/service/results.html.twig', array("results" => $results));
     }
 

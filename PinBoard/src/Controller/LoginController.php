@@ -11,27 +11,34 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 class LoginController extends Controller
 {
-    public function indexAction(Request $request, Login $login) {
-        if(!$login->isLogged()) {
-            $form = $login->form($request);
+
+    private $login;
+
+    public function __construct(Login $login) {
+        $this->login = $login;
+    }
+
+    public function indexAction(Request $request) {
+        if(!$this->login->isLogged()) {
+            $form = $this->login->form($request);
             return $this->render('/service/login/login.html.twig', array("form" => $form));
         }
         return $this->redirect('/');
     }
 
-    public function loginAction(Request $request, Login $login) {
+    public function loginAction(Request $request) {
         $username = $request->get('username');
         $password = $request->get('password');
 
-        if ($login->isLogged()) {
+        if ($this->login->isLogged()) {
             return $this->redirect('/');
         }
 
-        if($login->login($username, $password)) {
-            if($login->login($username, $password)->getBody() == 'admin') {
+        if($this->login->login($username, $password)) {
+            if($this->login->login($username, $password)->getBody() == 'admin') {
                 return new Response(2);
             }
-            if($login->login($username, $password)->getBody() == 'user') {
+            if($this->login->login($username, $password)->getBody() == 'user') {
                 return new Response(1);
             }
         }
@@ -39,16 +46,16 @@ class LoginController extends Controller
         return new Response(0);
     }
 
-    public function logoutAction(Login $login) {
-        if($login->logout()) {
+    public function logoutAction() {
+        if($this->login->logout()) {
             return new Response(1);
         }
         return new Response(0);
     }
 
-    public function resetPasswordAction(Request $request, Login $login) {
+    public function resetPasswordAction(Request $request) {
 
-        if($login->isLogged()) {
+        if($this->login->isLogged()) {
             return $this->redirect('/');
         }
 

@@ -15,30 +15,36 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class RegisterController extends Controller
 {
-    public function indexAction(Request $request, Register $register, Login $login) {
+    private $register;
+    private $login;
 
-        if ($login->isLogged()) {
+    public function __construct(Register $register, Login $login) {
+        $this->register = $register;
+        $this->login = $login;
+    }
+
+    public function indexAction(Request $request) {
+
+        if ($this->login->isLogged()) {
             return $this->redirect('/');
         }
-        $form = $register->form($request);
+        $form = $this->register->form($request);
         return $this->render('/service/login/register.html.twig', array("form" => $form));
     }
 
-    public function checkUsernameAvaibility(Request $request, Register $register) {
+    public function checkUsernameAvaibility(Request $request) {
 
         $username = $request->get('username');
 
-        $check = $register->checkUserNameAvaibility($username);
-
-        if($check) {
+        if($this->register->checkUserNameAvaibility($username)) {
             return new Response(0);
         }
         return new Response(1);
     }
 
-    public function sendRegisterMailAction(Request $request, Mail $mail, Register $register) {
+    public function sendRegisterMailAction(Request $request, Mail $mail) {
         $username = $request->get('username');
-        $body = $register->generateActivationLink($username);
+        $body = $this->register->generateActivationLink($username);
 
         if($mail->sendMail('Hello', $username, $body)) {
             return new Response(1);
@@ -46,23 +52,21 @@ class RegisterController extends Controller
         return new Response(0);
     }
 
-    public function registerUserAction(Request $request, Register $register) {
+    public function registerUserAction(Request $request) {
 
         $username = $request->get('username');
         $password = $request->get('password');
 
-        $newUser = $register->addNewUser($username, $password);
-
-        if($newUser) {
+        if($this->register->addNewUser($username, $password)) {
             return new Response(1);
         }
         return new Response(0);
     }
 
-    public function activateUserAction(Request $request, $username, $time, Register $register) {
-        if(!$register->checkUserNameAvaibility($username)) {
-            if($register->validateLink($time)) {
-                $form = $register->form($request, $username);
+    public function activateUserAction(Request $request, $username, $time) {
+        if(!$this->register->checkUserNameAvaibility($username)) {
+            if($this->register->validateLink($time)) {
+                $form = $this->register->form($request, $username);
                 return $this->render('/service/login/register.html.twig', array("form" => $form, "username" => $username));
             }
             return new Response('error');
