@@ -23,7 +23,6 @@ class AdminController extends Controller
 
     public function indexAction(Request $request) {
         if($this->login->isLogged()) {
-            $username = $this->login->isLogged();
             if($this->admin->isAdmin($this->login->isLogged())) {
                 return $this->render('/service/panel/panel.html.twig', array("admin" => "true"));
             }
@@ -31,5 +30,12 @@ class AdminController extends Controller
 
         return $this->redirect('/login');
 
+    }
+
+    public function addTaskAction(Request $request) {
+        if($this->admin->addTask($request)) {
+            return new Response(1);
+        }
+        return new Response(0);
     }
 }

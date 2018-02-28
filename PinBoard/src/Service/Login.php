@@ -71,6 +71,7 @@ class Login
     }
 
     public function logout() {
+
         if($this->isLogged()) {
             $session = new Session();
             $session->remove('username');

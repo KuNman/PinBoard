@@ -208,11 +208,14 @@ label {
 .tab-label-content {
   width: 100%;
   .tab-content {
+    width: 100%;
     position: absolute;
     top: 100px;
     left: 16px;
+    height: 20em;
     line-height: 130%;
     display: none;
+    border-style: solid;
   }
 }
 

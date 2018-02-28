@@ -12,7 +12,7 @@ admin:
 
 checkUsernameAvaibility:
     path: /checkUsernameAvaibility
-    controller: App\Controller\RegisterController::checkUsernameAvaibility
+    controller: App\Controller\RegisterController::checkUsernameAvaibilityAction
 
 register:
     path: /register
@@ -45,3 +45,7 @@ activationLink:
 resetPassword:
     path: /resetPassword
     controller: App\Controller\LoginController:resetPasswordAction
+
+addTask:
+    path: /addTask
+    controller: App\Controller\AdminController:addTaskAction

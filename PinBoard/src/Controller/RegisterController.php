@@ -32,7 +32,7 @@ class RegisterController extends Controller
         return $this->render('/service/login/register.html.twig', array("form" => $form));
     }
 
-    public function checkUsernameAvaibility(Request $request) {
+    public function checkUsernameAvaibilityAction(Request $request) {
 
         $username = $request->get('username');
 
