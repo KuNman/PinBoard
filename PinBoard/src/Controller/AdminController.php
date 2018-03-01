@@ -38,4 +38,12 @@ class AdminController extends Controller
         }
         return new Response(0);
     }
+
+    public function queryAction() {
+        $area = 'Poprad';
+        $country = 'Słowacja';
+        $this->admin->query($area, $country);
+    }
+
+
 }

@@ -49,3 +49,7 @@ resetPassword:
 addTask:
     path: /addTask
     controller: App\Controller\AdminController:addTaskAction
+
+query:
+    path: /query
+    controller: App\Controller\AdminController:queryAction

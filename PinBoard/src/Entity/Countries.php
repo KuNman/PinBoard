@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -9,6 +11,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Countries
 {
+
+    public function __construct() {
+        $this->areas = new ArrayCollection();
+    }
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -52,4 +59,17 @@ class Countries
     {
         $this->country = $country;
     }
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Areas", mappedBy="country")
+     */
+    private $areas;
+
+    /**
+     * @return Collection\Area[]
+     */
+    public function getAreas() {
+        return $this->areas;
+    }
+
 }
