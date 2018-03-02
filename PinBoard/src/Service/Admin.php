@@ -10,6 +10,7 @@ namespace App\Service;
 
 
 use App\Entity\Areas;
+use App\Entity\Cities;
 use App\Entity\Countries;
 use App\Entity\Jobs;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -42,6 +43,7 @@ class Admin
         $job = $request->get('job');
         $country = $request->get('country');
         $area = $request->get('area');
+        $city = $request->get('city');
 
         if($job) {
             $this->addJob($job);
@@ -51,6 +53,9 @@ class Admin
         }
         if($area) {
             $this->addArea($area, $country);
+        }
+        if($city) {
+            $this->addCity($city, $area, $country);
         }
 
         return true;
@@ -84,22 +89,43 @@ class Admin
     }
 
     private function addArea($area, $country) {
-//        if(!$this->isAreaSaved($area)) {
-
-            $countryId = $this->entityManager->getRepository(Countries::class)
+        if(!$this->isAreaInCountrySaved($area, $country)) {
+            $country = $this->entityManager->getRepository(Countries::class)
                 ->findOneBy(array('country' => $country));
 
             $addArea = new Areas();
             $addArea->setArea($area);
-            $addArea->setCountry($countryId);
+            $addArea->setCountry($country);
 
             $this->entityManager->persist($addArea);
             $this->entityManager->flush();
 
             return true;
 
-//        }
-        return false;
+        }
+
+    }
+
+    private function addCity($city, $area, $country) {
+        if(!$this->isCityInAreaSaved($city, $area,$country)) {
+            $area = $this->entityManager->getRepository('App:Areas')
+                ->findOneBy(array('area' => $area));
+
+            $country = $this->entityManager->getRepository('App:Countries')
+                ->findOneBy(array('country' => $country));
+
+            $addCity = new Cities();
+            $addCity->setCity($city);
+            $addCity->setArea($area);
+            $addCity->setCountry($country);
+
+            $this->entityManager->persist($addCity);
+            $this->entityManager->flush();
+
+            return true;
+        }
+
+
     }
 
     private function isJobSaved($job) {
@@ -112,17 +138,39 @@ class Admin
             findOneBy(array('country' => $country));
     }
 
-    private function isAreaSaved($area) {
-        return $areaExisting = $this->entityManager->getRepository('App:Areas')->
-            findOneBy(array('area' => $area));
-    }
+    private function isAreaInCountrySaved($area, $country) {
 
-    public function query($area, $country) {
-        $product = $this->entityManager->getRepository('App:Areas')->findBy(['country' => 12, 'area' => 'Poprad']);
-        if($product) {
-            echo 'jest';
+        $country = $this->entityManager->getRepository('App:Countries')
+            ->findOneBy(array('country' => $country));
+
+        $areaInCountry = $this->entityManager->getRepository('App:Areas')
+            ->findOneBy(array('area' => $area, 'country' => $country));
+
+        if($areaInCountry) {
+            return true;
         }
 
+        return false;
     }
+
+    private function isCityInAreaSaved($city, $area, $country) {
+
+        $area = $this->entityManager->getRepository('App:Areas')
+            ->findOneBy(array('area' => $area));
+
+        $country = $this->entityManager->getRepository('App:Countries')
+            ->findOneBy(array('country' => $country));
+
+        $cityInArea = $this->entityManager->getRepository('App:Cities')
+            ->findOneBy(array('city' => $city, 'area' => $area, 'country' => $country));
+
+        if($cityInArea) {
+            return true;
+        }
+
+        return false;
+    }
+
+
 
 }

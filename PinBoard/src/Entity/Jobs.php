@@ -53,5 +53,16 @@ class Jobs
         $this->name = $name;
     }
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Tasks", mappedBy="job")
+     */
+    private $tasks;
+
+    /**
+     * @return Collection\Jobs[]
+     */
+    public function getTasks() {
+        return $this->tasks;
+    }
 
 }

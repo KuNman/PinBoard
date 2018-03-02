@@ -7,7 +7,7 @@
                     Działalność<input id="new_job" type="text">
                     Kraj<input id="new_country"type="text">
                     Obszar<input id="new_area" type="text">
-                    Miasto<input type="text">
+                    Miasto<input id="new_city" type="text">
                     Cena jednostkowa<input type="number">
                     <button onclick="addTask()" type="submit">Dodaj</button>
                 </div>
@@ -21,10 +21,11 @@
             const job = $("#new_job").val();
             const country = $("#new_country").val();
             const area = $("#new_area").val();
+            const city = $("#new_city").val();
             $.ajax({
                 url: "/addTask",
                 type: "post",
-                data : { job : job, country : country, area : area },
+                data : { job : job, country : country, area : area, city : city },
                 success: function(response) {
                     if(response == 1) {
                         console.log('success');

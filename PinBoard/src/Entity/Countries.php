@@ -66,10 +66,22 @@ class Countries
     private $areas;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Cities", mappedBy="country")
+     */
+    private $cities;
+
+    /**
      * @return Collection\Area[]
      */
     public function getAreas() {
         return $this->areas;
+    }
+
+    /**
+     * @return Collection\Cities[]
+     */
+    public function getCities() {
+        return $this->cities;
     }
 
 }

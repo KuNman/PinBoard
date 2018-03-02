@@ -2,19 +2,14 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\Count;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\AreasRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\CitiesRepository")
  */
-class Areas
+class Cities
 {
-
-    public function __construct() {
-        $this->city = new ArrayCollection();
-    }
-
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -25,10 +20,16 @@ class Areas
     /**
      * @ORM\Column(type="string", length=100, nullable=false, unique=false)
      */
+    private $city;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Areas", inversedBy="area")
+     * @ORM\JoinColumn(nullable=true)
+     */
     private $area;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Countries", inversedBy="area")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Countries", inversedBy="country")
      * @ORM\JoinColumn(nullable=true)
      */
     private $country;
@@ -52,17 +53,25 @@ class Areas
     /**
      * @return mixed
      */
-    public function getArea()
+    public function getCity()
     {
-        return $this->area;
+        return $this->city;
     }
 
     /**
-     * @param mixed $area
+     * @param mixed $city
      */
-    public function setArea($area)
+    public function setCity($city)
     {
-        $this->area = $area;
+        $this->city = $city;
+    }
+
+    public function getArea() : Areas {
+        return $this->area;
+    }
+
+    public function setArea(Areas $areas) {
+        $this->area = $areas;
     }
 
     public function getCountry() : Countries {
@@ -73,16 +82,5 @@ class Areas
         $this->country = $countries;
     }
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Cities", mappedBy="area")
-     */
-    private $city;
-
-    /**
-     * @return Collection\City[]
-     */
-    public function getCity() {
-        return $this->city;
-    }
 
 }
