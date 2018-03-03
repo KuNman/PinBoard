@@ -18,7 +18,7 @@ class Cities
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=100, nullable=false, unique=false)
+     * @ORM\Column(type="json_array", length=100, nullable=false, unique=false)
      */
     private $city;
 
@@ -33,6 +33,11 @@ class Cities
      * @ORM\JoinColumn(nullable=true)
      */
     private $country;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Tasks", mappedBy="city")
+     */
+    private $tasks;
 
     /**
      * @return mixed
@@ -80,6 +85,13 @@ class Cities
 
     public function setCountry(Countries $countries) {
         $this->country = $countries;
+    }
+
+    /**
+     * @return Collection\Tasks[]
+     */
+    public function getTasks() {
+        return $this->tasks;
     }
 
 

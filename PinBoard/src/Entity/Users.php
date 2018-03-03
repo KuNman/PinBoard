@@ -32,6 +32,12 @@ class Users implements UserInterface
      */
     private $role;
 
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Tasks", mappedBy="user")
+     */
+    private $tasks;
+
     /**
      * @return mixed
      */
@@ -108,6 +114,13 @@ class Users implements UserInterface
 
     public function eraseCredentials()
     {
+    }
+    
+    /**
+     * @return Collection\Tasks[]
+     */
+    public function getTasks() {
+        return $this->tasks;
     }
 
 }

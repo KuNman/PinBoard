@@ -34,6 +34,12 @@ class Areas
     private $country;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Tasks", mappedBy="area")
+     */
+
+    private $tasks;
+
+    /**
      * @return mixed
      */
     public function getId()
@@ -83,6 +89,13 @@ class Areas
      */
     public function getCity() {
         return $this->city;
+    }
+
+    /**
+     * @return Collection\Tasks[]
+     */
+    public function getTasks() {
+        return $this->tasks;
     }
 
 }

@@ -124,8 +124,7 @@ class Admin
 
             return true;
         }
-
-
+        
     }
 
     private function isJobSaved($job) {
