@@ -28,11 +28,11 @@ class UserController extends Controller
         return $this->redirect('/login');
     }
 
-    public function searchJobsAction() {
-        return new JsonResponse($this->normalUser->searchJobs());
+    public function searchJobsAction($lang) {
+        return new JsonResponse($this->normalUser->searchJobs($lang));
     }
 
-    public function searchCountriesAction() {
-        return new JsonResponse($this->normalUser->searchCountries());
+    public function searchCountriesAction($lang) {
+        return new JsonResponse($this->normalUser->searchCountries($lang));
     }
 }

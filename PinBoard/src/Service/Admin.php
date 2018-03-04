@@ -62,13 +62,14 @@ class Admin
     }
 
     public function addNewJobName(Request $request) {
-        $name = $request->get('new_job');
+        $name_en = $request->get('new_job_en');
         $name_pl = $request->get('new_job_pl');
         $name_fr = $request->get('new_job_fr');
-//        echo $request->getDefaultLocale();
-        if(!$this->isJobSaved($name)) {
+//        echo $request->getLocale();
+
+        if(!$this->isJobSaved($name_en) && $name_fr && $name_pl) {
             $addJob = new Jobs();
-            $addJob->setName($name);
+            $addJob->setNameEn($name_en);
             $addJob->setNamePl($name_pl);
             $addJob->setNameFr($name_fr);
 
@@ -81,10 +82,15 @@ class Admin
         return false;
     }
 
-    private function addCountry($country) {
-        if(!$this->isCountrySaved($country)) {
+    public function addNewCountryName(Request $request) {
+        $name_en = $request->get('new_country_en');
+        $name_pl = $request->get('new_country_pl');
+        $name_fr = $request->get('new_country_fr');
+        if(!$this->isCountrySaved($name_en) && $name_fr && $name_pl) {
             $addCountry = new Countries();
-            $addCountry->setCountry($country);
+            $addCountry->setCountryEn($name_en);
+            $addCountry->setCountryPl($name_pl);
+            $addCountry->setCountryFr($name_fr);
 
             $this->entityManager->persist($addCountry);
             $this->entityManager->flush();
@@ -132,14 +138,14 @@ class Admin
         
     }
 
-    private function isJobSaved($job) {
+    private function isJobSaved($name_en) {
         return $jobExisting = $this->entityManager->getRepository('App:Jobs')->
-            findOneBy(array('name' => $job));
+            findOneBy(array('name_en' => $name_en));
     }
 
-    private function isCountrySaved($country) {
+    private function isCountrySaved($name_en) {
         return $countryExisting = $this->entityManager->getRepository('App:Countries')->
-            findOneBy(array('country' => $country));
+            findOneBy(array('country_en' => $name_en));
     }
 
     private function isAreaInCountrySaved($area, $country) {

@@ -41,6 +41,15 @@ class AdminController extends Controller
         return new Response(0);
     }
 
+    public function addNewCountryNameAction(Request $request) {
+        if($this->admin->isAdmin($this->login->isLogged())) {
+            if($this->admin->addNewCountryName($request)) {
+                return new Response(1);
+            }
+        }
+        return new Response(0);
+    }
+
     public function addTaskAction(Request $request) {
         if($this->admin->addTask($request)) {
             return new Response(1);

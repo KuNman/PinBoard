@@ -8,10 +8,17 @@
         {% if admin is defined %}
             <div>
                 <div class="">Nowa nazwa pracy:
-                    EN<input onkeyup="searchJobs()" id="new_job" type="text">
-                    PL<input onkeyup="searchJobs()" id="new_job_pl" type="text">
-                    FR<input onkeyup="searchJobs()" id="new_job_fr" type="text">
+                    EN<input onkeyup="searchJobsEn()" id="new_job_en" type="text">
+                    PL<input onkeyup="searchJobsPl()" id="new_job_pl" type="text">
+                    FR<input onkeyup="searchJobsFr()" id="new_job_fr" type="text">
                     <button onclick="addNewJobName()" type="submit">Dodaj nazwę pracy</button>
+                </div>
+                <div class="">
+                    Nowa nazwa kraju:
+                    EN<input onkeyup="searchCountriesEn()" id="new_country_en" type="text">
+                    PL<input onkeyup="searchCountriesPl()" id="new_country_pl" type="text">
+                    FR<input onkeyup="searchCountriesFr()" id="new_country_fr" type="text">
+                    <button onclick="addNewCountryName()" type="submit">Dodaj nazwę kraju</button>
                 </div>
             </div>
         {% endif %}
@@ -41,59 +48,157 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/horsey/4.2.2/horsey.min.js"></script>
         <script>
 
-            let searchJobsCounter = 0;
-            let searchCountriesCounter = 0;
+            let searchJobsEnCounter = 0;
+            let searchJobsPlCounter = 0;
+            let searchJobsFrCounter = 0;
+            let searchCountriesEnCounter = 0;
+            let searchCountriesPlCounter = 0;
+            let searchCountriesFrCounter = 0;
 
             const addNewJobName = () => {
-                const new_job = $("#new_job").val();
+                const new_job_en = $("#new_job_en").val();
                 const new_job_pl = $("#new_job_pl").val();
                 const new_job_fr = $("#new_job_fr").val();
                 $.ajax({
                     url: "/addNewJobName",
                     type: "post",
-                    data: { new_job : new_job, new_job_pl : new_job_pl, new_job_fr : new_job_fr },
+                    data: { new_job_en : new_job_en, new_job_pl : new_job_pl, new_job_fr : new_job_fr },
                     success: function(response) {
                         console.log('ok');
                     }
                 })
             };
 
-            const searchJobs = () => {
-                let jobLength = $("#new_job").val().length;
-                if(jobLength > 1 && searchJobsCounter == 0) {
-                    searchJobsAjax();
-                }
-            };
-
-            const searchCountries = () => {
-                let countryLength = $("#new_country").val().length;
-                if(countryLength > 1 && searchCountriesCounter == 0) {
-                    searchCountriesAjax();
-                }
-            };
-
-            function searchJobsAjax() {
+            const addNewCountryName = () => {
+                const new_country_en = $("#new_country_en").val();
+                const new_country_pl = $("#new_country_pl").val();
+                const new_country_fr = $("#new_country_fr").val();
                 $.ajax({
-                    url: "/searchJobs",
+                    url: "/addNewCountryName",
+                    type: "post",
+                    data: { new_country_en : new_country_en, new_country_pl : new_country_pl, new_country_fr : new_country_fr },
+                    success: function(response) {
+                        console.log('ok');
+                    }
+                })
+            };
+
+            const searchJobsEn = () => {
+                let jobLength = $("#new_job_en").val().length;
+                if(jobLength > 1 && searchJobsEnCounter == 0) {
+                    searchJobsEnAjax();
+                }
+            };
+
+            const searchJobsPl = () => {
+                let jobLength = $("#new_job_pl").val().length;
+                if(jobLength > 1 && searchJobsPlCounter == 0) {
+                    searchJobsPlAjax();
+                }
+            };
+
+            const searchJobsFr = () => {
+                let jobLength = $("#new_job_fr").val().length;
+                if(jobLength > 1 && searchJobsFrCounter == 0) {
+                    searchJobsFrAjax();
+                }
+            };
+
+            const searchCountriesEn = () => {
+                let countryLength = $("#new_country_en").val().length;
+                if(countryLength > 1 && searchCountriesEnCounter == 0) {
+                    searchCountriesEnAjax();
+                }
+            };
+
+            const searchCountriesPl = () => {
+                let countryLength = $("#new_country_pl").val().length;
+                if(countryLength > 1 && searchCountriesPlCounter == 0) {
+                    searchCountriesPlAjax();
+                }
+            };
+
+            const searchCountriesFr = () => {
+                let countryLength = $("#new_country_fr").val().length;
+                if(countryLength > 1 && searchCountriesFrCounter == 0) {
+                    searchCountriesFrAjax();
+                }
+            };
+
+            function searchJobsEnAjax() {
+                $.ajax({
+                    url: "/searchJobs/en",
                     type: "post",
                     success: function(response) {
-                        horsey(document.getElementById('new_job'), {
+                        horsey(document.getElementById('new_job_en'), {
                             source: [{ list: response }]
                         });
-                        searchJobsCounter += 1;
+                        searchJobsEnCounter += 1;
                     }
                 });
             }
 
-            function searchCountriesAjax() {
+            function searchJobsPlAjax() {
                 $.ajax({
-                    url: "/searchCountries",
+                    url: "/searchJobs/pl",
                     type: "post",
                     success: function(response) {
-                        horsey(document.getElementById('new_country'), {
+                        horsey(document.getElementById('new_job_pl'), {
+                            source: [{ list: response }]
+                        });
+                        searchJobsPlCounter += 1;
+                    }
+                });
+            }
+
+            function searchJobsFrAjax() {
+                $.ajax({
+                    url: "/searchJobs/fr",
+                    type: "post",
+                    success: function(response) {
+                        horsey(document.getElementById('new_job_fr'), {
+                            source: [{ list: response }]
+                        });
+                        searchJobsFrCounter += 1;
+                    }
+                });
+            }
+
+            function searchCountriesEnAjax() {
+                $.ajax({
+                    url: "/searchCountries/en",
+                    type: "post",
+                    success: function(response) {
+                        horsey(document.getElementById('new_country_en'), {
                            source: [{ list : response }]
                         });
-                        searchCountriesCounter += 1;
+                        searchCountriesEnCounter += 1;
+                    }
+                });
+            }
+
+            function searchCountriesPlAjax() {
+                $.ajax({
+                    url: "/searchCountries/pl",
+                    type: "post",
+                    success: function(response) {
+                        horsey(document.getElementById('new_country_pl'), {
+                            source: [{ list : response }]
+                        });
+                        searchCountriesPlCounter += 1;
+                    }
+                });
+            }
+
+            function searchCountriesFrAjax() {
+                $.ajax({
+                    url: "/searchCountries/fr",
+                    type: "post",
+                    success: function(response) {
+                        horsey(document.getElementById('new_country_fr'), {
+                            source: [{ list : response }]
+                        });
+                        searchCountriesFrCounter += 1;
                     }
                 });
             }

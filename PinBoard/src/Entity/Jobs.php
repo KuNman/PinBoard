@@ -19,7 +19,7 @@ class Jobs
     /**
      * @ORM\Column(type="string", length=100, nullable=false, unique=true)
      */
-    private $name;
+    private $name_en;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=false, unique=false)
@@ -82,17 +82,17 @@ class Jobs
     /**
      * @return mixed
      */
-    public function getName()
+    public function getNameEn()
     {
-        return $this->name;
+        return $this->name_en;
     }
 
     /**
      * @param mixed $name
      */
-    public function setName($name)
+    public function setNameEn($name_en)
     {
-        $this->name = $name;
+        $this->name_en = $name_en;
     }
 
     /**

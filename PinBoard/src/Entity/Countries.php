@@ -26,7 +26,7 @@ class Countries
     /**
      * @ORM\Column(type="string", length=100, nullable=false, unique=true)
      */
-    private $country;
+    private $country_en;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=false, unique=false)
@@ -89,17 +89,17 @@ class Countries
     /**
      * @return mixed
      */
-    public function getCountry()
+    public function getCountryEn()
     {
-        return $this->country;
+        return $this->country_en;
     }
 
     /**
      * @param mixed $country
      */
-    public function setCountry($country)
+    public function setCountryEn($country_en)
     {
-        $this->country = $country;
+        $this->country_en = $country_en;
     }
 
     /**

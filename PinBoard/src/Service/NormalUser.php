@@ -20,27 +20,27 @@ class NormalUser
         $this->entityManager = $entityManager;
     }
 
-    public function searchJobs() {
+    public function searchJobs($lang) {
         $query = $this->entityManager->getRepository('App:Jobs')
             ->createQueryBuilder('jobs')
             ->distinct(true)
-            ->select('jobs.name_pl')
+            ->select('jobs.name_'.$lang)
             ->getQuery();
 
         $array = $query->getScalarResult();
-        $array = array_column($array, "name_pl");
+        $array = array_column($array, "name_".$lang);
         return $array;
     }
 
-    public function searchCountries() {
+    public function searchCountries($lang) {
         $query = $this->entityManager->getRepository('App:Countries')
             ->createQueryBuilder('countries')
             ->distinct(true)
-            ->select('countries.country_pl')
+            ->select('countries.country_'.$lang)
             ->getQuery();
 
         $array = $query->getScalarResult();
-        $array = array_column($array, "country_pl");
+        $array = array_column($array, "country_".$lang);
         return $array;
     }
 

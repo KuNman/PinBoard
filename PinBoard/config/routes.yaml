@@ -55,13 +55,17 @@ addTask:
     controller: App\Controller\AdminController::addTaskAction
 
 searchJobs:
-    path: /searchJobs
+    path: /searchJobs/{lang}
     controller: App\Controller\UserController::searchJobsAction
 
 searchCountries:
-    path: /searchCountries
+    path: /searchCountries/{lang}
     controller: App\Controller\UserController::searchCountriesAction
 
 addNewJobName:
     path: /addNewJobName
     controller: App\Controller\AdminController::addNewJobNameAction
+
+addNewCountryName:
+    path: /addNewCountryName
+    controller: App\Controller\AdminController::addNewCountryNameAction
