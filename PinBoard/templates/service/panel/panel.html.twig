@@ -1,9 +1,24 @@
 {% extends '/base.html.twig' %}
 {% block content %}
     <div class="content">
-            {% include '/service/header.html.twig' %}
+        {% include '/service/header.html.twig' %}
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/horsey/4.2.2/horsey.min.css">
-        <div>
+
+
+        {% if admin is defined %}
+            <div>
+                <div class="">Nowa nazwa pracy:
+                    EN<input onkeyup="searchJobs()" id="new_job" type="text">
+                    PL<input onkeyup="searchJobs()" id="new_job_pl" type="text">
+                    FR<input onkeyup="searchJobs()" id="new_job_fr" type="text">
+                    <button onclick="addNewJobName()" type="submit">Dodaj nazwę pracy</button>
+                </div>
+            </div>
+        {% endif %}
+
+
+        {% if normaluser is defined %}
+            <div>
                 <div class=""> Nowa praca </br>
                     Działalność<input onkeyup="searchJobs()" id="new_job" type="text">
                     Kraj<input onkeyup="searchCountries()" id="new_country"type="text">
@@ -16,7 +31,10 @@
                     <button onclick="addTask()" type="submit">Dodaj</button>
                 </div>
             </div>
-        </div>
+        {% endif %}
+
+
+    </div>
     {% endblock content%}
     {% block javascripts %}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -25,6 +43,20 @@
 
             let searchJobsCounter = 0;
             let searchCountriesCounter = 0;
+
+            const addNewJobName = () => {
+                const new_job = $("#new_job").val();
+                const new_job_pl = $("#new_job_pl").val();
+                const new_job_fr = $("#new_job_fr").val();
+                $.ajax({
+                    url: "/addNewJobName",
+                    type: "post",
+                    data: { new_job : new_job, new_job_pl : new_job_pl, new_job_fr : new_job_fr },
+                    success: function(response) {
+                        console.log('ok');
+                    }
+                })
+            };
 
             const searchJobs = () => {
                 let jobLength = $("#new_job").val().length;

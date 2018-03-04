@@ -29,6 +29,48 @@ class Countries
     private $country;
 
     /**
+     * @ORM\Column(type="string", length=100, nullable=false, unique=false)
+     */
+    private $country_pl;
+
+    /**
+     * @ORM\Column(type="string", length=100, nullable=false, unique=false)
+     */
+    private $country_fr;
+
+    /**
+     * @return mixed
+     */
+    public function getCountryPl()
+    {
+        return $this->country_pl;
+    }
+
+    /**
+     * @param mixed $country_pl
+     */
+    public function setCountryPl($country_pl)
+    {
+        $this->country_pl = $country_pl;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCountryFr()
+    {
+        return $this->country_fr;
+    }
+
+    /**
+     * @param mixed $country_fr
+     */
+    public function setCountryFr($country_fr)
+    {
+        $this->country_fr = $country_fr;
+    }
+
+    /**
      * @return mixed
      */
     public function getId()

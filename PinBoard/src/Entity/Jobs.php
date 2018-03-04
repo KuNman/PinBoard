@@ -22,6 +22,48 @@ class Jobs
     private $name;
 
     /**
+     * @ORM\Column(type="string", length=100, nullable=false, unique=false)
+     */
+    private $name_pl;
+
+    /**
+     * @ORM\Column(type="string", length=100, nullable=false, unique=false)
+     */
+    private $name_fr;
+
+    /**
+     * @return mixed
+     */
+    public function getNamePl()
+    {
+        return $this->name_pl;
+    }
+
+    /**
+     * @param mixed $name_pl
+     */
+    public function setNamePl($name_pl)
+    {
+        $this->name_pl = $name_pl;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNameFr()
+    {
+        return $this->name_fr;
+    }
+
+    /**
+     * @param mixed $name_fr
+     */
+    public function setNameFr($name_fr)
+    {
+        $this->name_fr = $name_fr;
+    }
+
+    /**
      * @return mixed
      */
     public function getId()

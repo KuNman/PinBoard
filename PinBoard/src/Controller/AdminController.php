@@ -32,12 +32,22 @@ class AdminController extends Controller
 
     }
 
+    public function addNewJobNameAction(Request $request) {
+        if($this->admin->isAdmin($this->login->isLogged())) {
+            if($this->admin->addNewJobName($request)) {
+                return new Response(1);
+            }
+        }
+        return new Response(0);
+    }
+
     public function addTaskAction(Request $request) {
         if($this->admin->addTask($request)) {
             return new Response(1);
         }
         return new Response(0);
     }
+
 
 
 

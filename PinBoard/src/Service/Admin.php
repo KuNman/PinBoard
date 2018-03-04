@@ -61,10 +61,16 @@ class Admin
         return true;
     }
 
-    private function addJob($job) {
-        if(!$this->isJobSaved($job)) {
+    public function addNewJobName(Request $request) {
+        $name = $request->get('new_job');
+        $name_pl = $request->get('new_job_pl');
+        $name_fr = $request->get('new_job_fr');
+//        echo $request->getDefaultLocale();
+        if(!$this->isJobSaved($name)) {
             $addJob = new Jobs();
-            $addJob->setName($job);
+            $addJob->setName($name);
+            $addJob->setNamePl($name_pl);
+            $addJob->setNameFr($name_fr);
 
             $this->entityManager->persist($addJob);
             $this->entityManager->flush();
@@ -103,7 +109,6 @@ class Admin
             return true;
 
         }
-
     }
 
     private function addCity($city, $area, $country) {

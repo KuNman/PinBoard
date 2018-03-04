@@ -61,3 +61,7 @@ searchJobs:
 searchCountries:
     path: /searchCountries
     controller: App\Controller\UserController::searchCountriesAction
+
+addNewJobName:
+    path: /addNewJobName
+    controller: App\Controller\AdminController::addNewJobNameAction

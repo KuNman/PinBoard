@@ -24,11 +24,11 @@ class NormalUser
         $query = $this->entityManager->getRepository('App:Jobs')
             ->createQueryBuilder('jobs')
             ->distinct(true)
-            ->select('jobs.name')
+            ->select('jobs.name_pl')
             ->getQuery();
 
         $array = $query->getScalarResult();
-        $array = array_column($array, "name");
+        $array = array_column($array, "name_pl");
         return $array;
     }
 
@@ -36,11 +36,11 @@ class NormalUser
         $query = $this->entityManager->getRepository('App:Countries')
             ->createQueryBuilder('countries')
             ->distinct(true)
-            ->select('countries.country')
+            ->select('countries.country_pl')
             ->getQuery();
 
         $array = $query->getScalarResult();
-        $array = array_column($array, "country");
+        $array = array_column($array, "country_pl");
         return $array;
     }
 
