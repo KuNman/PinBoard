@@ -52,14 +52,13 @@
         country: 'long_name',
         postal_code: 'short_name'
     };
-    var options = {
-        types: ['(regions)'],
-        componentRestrictions: {country: "fr"}
-    };
+//    var options = {
+//        componentRestrictions: {country: "fr", postalcode: "69001"}
+//    };
 
     function initAutocomplete() {
         autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'), {
-            types: ['(regions)']
+//            types: ['(cities)'],
         });
 
         autocomplete.addListener('place_changed', function () {

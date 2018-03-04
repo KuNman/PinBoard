@@ -115,7 +115,7 @@ class Users implements UserInterface
     public function eraseCredentials()
     {
     }
-    
+
     /**
      * @return Collection\Tasks[]
      */

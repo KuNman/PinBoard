@@ -1,40 +1,89 @@
 {% extends '/base.html.twig' %}
 {% block content %}
-        <div class="content">
+    <div class="content">
             {% include '/service/header.html.twig' %}
-            <div>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/horsey/4.2.2/horsey.min.css">
+        <div>
                 <div class=""> Nowa praca </br>
-                    Działalność<input id="new_job" type="text">
-                    Kraj<input id="new_country"type="text">
+                    Działalność<input onkeyup="searchJobs()" id="new_job" type="text">
+                    Kraj<input onkeyup="searchCountries()" id="new_country"type="text">
                     Obszar<input id="new_area" type="text">
                     Miasto<input id="new_city" type="text">
                     Cena jednostkowa<input type="number">
+                    Dostępność od<input type="date">
+
+
                     <button onclick="addTask()" type="submit">Dodaj</button>
                 </div>
             </div>
         </div>
     {% endblock content%}
     {% block javascripts %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
-    <script>
-        const addTask = () => {
-            const job = $("#new_job").val();
-            const country = $("#new_country").val();
-            const area = $("#new_area").val();
-            const city = $("#new_city").val();
-            $.ajax({
-                url: "/addTask",
-                type: "post",
-                data : { job : job, country : country, area : area, city : city },
-                success: function(response) {
-                    if(response == 1) {
-                        console.log('success');
-                    }
-                    if(response == 0) {
-                        console.log('error');
-                    }
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/horsey/4.2.2/horsey.min.js"></script>
+        <script>
+
+            let searchJobsCounter = 0;
+            let searchCountriesCounter = 0;
+
+            const searchJobs = () => {
+                let jobLength = $("#new_job").val().length;
+                if(jobLength > 1 && searchJobsCounter == 0) {
+                    searchJobsAjax();
                 }
-            })
-        }
+            };
+
+            const searchCountries = () => {
+                let countryLength = $("#new_country").val().length;
+                if(countryLength > 1 && searchCountriesCounter == 0) {
+                    searchCountriesAjax();
+                }
+            };
+
+            function searchJobsAjax() {
+                $.ajax({
+                    url: "/searchJobs",
+                    type: "post",
+                    success: function(response) {
+                        horsey(document.getElementById('new_job'), {
+                            source: [{ list: response }]
+                        });
+                        searchJobsCounter += 1;
+                    }
+                });
+            }
+
+            function searchCountriesAjax() {
+                $.ajax({
+                    url: "/searchCountries",
+                    type: "post",
+                    success: function(response) {
+                        horsey(document.getElementById('new_country'), {
+                           source: [{ list : response }]
+                        });
+                        searchCountriesCounter += 1;
+                    }
+                });
+            }
+
+//        const addTask = () => {
+//            const job = $("#new_job").val();
+//            const country = $("#new_country").val();
+//            const area = $("#new_area").val();
+//            const city = $("#new_city").val();
+//            $.ajax({
+//                url: "/addTask",
+//                type: "post",
+//                data : { job : job, country : country, area : area, city : city },
+//                success: function(response) {
+//                    if(response == 1) {
+//                        console.log('success');
+//                    }
+//                    if(response == 0) {
+//                        console.log('error');
+//                    }
+//                }
+//            })
+//        }
     </script>
     {% endblock javascripts %}

@@ -10,6 +10,10 @@ admin:
     path: /admin
     controller: App\Controller\AdminController::indexAction
 
+panel:
+    path: /panel
+    controller: App\Controller\UserController::indexAction
+
 checkUsernameAvaibility:
     path: /checkUsernameAvaibility
     controller: App\Controller\RegisterController::checkUsernameAvaibilityAction
@@ -28,24 +32,32 @@ loginForm:
 
 loginUser:
     path: /loginUser
-    controller: App\Controller\LoginController:loginAction
+    controller: App\Controller\LoginController::loginAction
 
 logoutUser:
     path: /logoutUser
-    controller: App\Controller\LoginController:logoutAction
+    controller: App\Controller\LoginController::logoutAction
 
 sendRegisterMail:
     path: /sendRegisterMail
-    controller: App\Controller\RegisterController:sendRegisterMailAction
+    controller: App\Controller\RegisterController::sendRegisterMailAction
 
 activationLink:
     path: /activateUser/{username}/{time}
-    controller: App\Controller\RegisterController:activateUserAction
+    controller: App\Controller\RegisterController::activateUserAction
 
 resetPassword:
     path: /resetPassword
-    controller: App\Controller\LoginController:resetPasswordAction
+    controller: App\Controller\LoginController::resetPasswordAction
 
 addTask:
     path: /addTask
-    controller: App\Controller\AdminController:addTaskAction
+    controller: App\Controller\AdminController::addTaskAction
+
+searchJobs:
+    path: /searchJobs
+    controller: App\Controller\UserController::searchJobsAction
+
+searchCountries:
+    path: /searchCountries
+    controller: App\Controller\UserController::searchCountriesAction

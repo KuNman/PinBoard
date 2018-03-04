@@ -46,10 +46,52 @@ class Tasks
     private $price;
 
     /**
+     * @ORM\Column(type="date", nullable=false, unique=false)
+     */
+    private $avaibility;
+
+    /**
+     * @return mixed
+     */
+    public function getAvaibility()
+    {
+        return $this->avaibility;
+    }
+
+    /**
+     * @param mixed $avaibility
+     */
+    public function setAvaibility($avaibility)
+    {
+        $this->avaibility = $avaibility;
+    }
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Users", inversedBy="username")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
+
+    /**
+     * @ORM\Column(type="boolean",nullable=false, unique=false)
+     */
+    private $active;
+
+    /**
+     * @return mixed
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * @param mixed $active
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+    }
 
     /**
      * @return mixed
