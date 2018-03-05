@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Service\Admin;
 use App\Service\Login;
+use App\Service\NormalUser;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,16 +16,21 @@ class AdminController extends Controller
 
     private $admin;
     private $login;
+    private $normalUser;
 
-    public function __construct(Admin $admin, Login $login) {
+    public function __construct(Admin $admin, Login $login, NormalUser $normalUser) {
         $this->admin = $admin;
         $this->login = $login;
+        $this->normalUser = $normalUser;
     }
 
     public function indexAction(Request $request) {
         if($this->login->isLogged()) {
             if($this->admin->isAdmin($this->login->isLogged())) {
-                return $this->render('/service/panel/panel.html.twig', array("admin" => "true"));
+                return $this->render('/service/panel/panel.html.twig', array(
+                    "admin" => "true",
+                    "countries" => $this->normalUser->searchCountries()
+                ));
             }
         }
 

@@ -8,6 +8,7 @@ use function MongoDB\BSON\toJSON;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
@@ -34,5 +35,10 @@ class UserController extends Controller
 
     public function searchCountriesAction($lang) {
         return new JsonResponse($this->normalUser->searchCountries($lang));
+    }
+
+    public function searchAreaInCountryAction(Request $request) {
+        $country = $request->get('country');
+        return new JsonResponse($this->normalUser->searchAreaInCountry($country));
     }
 }

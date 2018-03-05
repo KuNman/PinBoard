@@ -1,5 +1,6 @@
 index:
     path: /
+    host:     "localhost"
     controller: App\Controller\ServiceController::indexAction
 
 results:
@@ -8,6 +9,7 @@ results:
 
 admin:
     path: /admin
+    host:     "localhost"
     controller: App\Controller\AdminController::indexAction
 
 panel:
@@ -20,6 +22,7 @@ checkUsernameAvaibility:
 
 register:
     path: /register
+    host:     "localhost"
     controller: App\Controller\RegisterController::indexAction
 
 addUserToDB:
@@ -69,3 +72,7 @@ addNewJobName:
 addNewCountryName:
     path: /addNewCountryName
     controller: App\Controller\AdminController::addNewCountryNameAction
+
+searchAreaInCountry:
+    path: /searchAreaInCountry
+    controller: App\Controller\UserController::searchAreaInCountryAction

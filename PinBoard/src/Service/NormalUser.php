@@ -9,6 +9,7 @@
 namespace App\Service;
 
 
+use App\Entity\Countries;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Flex\Response;
 
@@ -32,7 +33,7 @@ class NormalUser
         return $array;
     }
 
-    public function searchCountries($lang) {
+    public function searchCountries($lang = 'en') {
         $query = $this->entityManager->getRepository('App:Countries')
             ->createQueryBuilder('countries')
             ->distinct(true)
@@ -42,6 +43,34 @@ class NormalUser
         $array = $query->getScalarResult();
         $array = array_column($array, "country_".$lang);
         return $array;
+    }
+
+    public function searchAreaInCountry($country) {
+
+        $query = $this->entityManager->getRepository('App:Areas')
+            ->createQueryBuilder('areas')
+            ->distinct(true)
+            ->where('areas.country = :country')
+            ->setParameter('country', $this->getCountryIdByName($country))
+            ->select('areas.area')
+            ->getQuery();
+
+        $array = $query->getScalarResult();
+        $array = array_column($array, 'area');
+        return $array;
+    }
+
+    private function getCountryIdByName($country) {
+        $query = $this->entityManager->getRepository('App:Countries')
+            ->createQueryBuilder('countries')
+            ->where('countries.country_en = :country')
+            ->setParameter('country', $country)
+            ->select('countries.id')
+            ->getQuery();
+
+        $array = $query->getSingleResult();
+        return $array["id"];
+
     }
 
 }

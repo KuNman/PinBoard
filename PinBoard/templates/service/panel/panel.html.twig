@@ -20,6 +20,17 @@
                     FR<input onkeyup="searchCountriesFr()" id="new_country_fr" type="text">
                     <button onclick="addNewCountryName()" type="submit">Dodaj nazwę kraju</button>
                 </div>
+                <div class="">
+                    Nowa nazwa regionu:
+                    <select onchange="resetSearchAreaInCountryCounter()" id="select_country">
+                            <option value=""></option>
+                        {% for country in countries %}
+                            <option value="{{ country }}">{{ country }}</option>
+                        {% endfor %}
+                    </select>
+                    Origin lang<input onkeyup="searchAreaInCountry()" id="new_area" type="text">
+                    <button onclick="addNewAreaName()" type="submit">Dodaj nazwę kraju</button>
+                </div>
             </div>
         {% endif %}
 
@@ -54,6 +65,7 @@
             let searchCountriesEnCounter = 0;
             let searchCountriesPlCounter = 0;
             let searchCountriesFrCounter = 0;
+            let searchAreaInCountryCounter = 0;
 
             const addNewJobName = () => {
                 const new_job_en = $("#new_job_en").val();
@@ -124,6 +136,13 @@
                     searchCountriesFrAjax();
                 }
             };
+
+            const searchAreaInCountry = () => {
+                let areaLength = $("#new_area").val().length;
+                if(areaLength > 1 && searchAreaInCountryCounter == 0) {
+                    searchAreaInCountryAjax();
+                }
+            }
 
             function searchJobsEnAjax() {
                 $.ajax({
@@ -201,6 +220,25 @@
                         searchCountriesFrCounter += 1;
                     }
                 });
+            }
+
+            const searchAreaInCountryAjax = () => {
+                const country = $("#select_country option:selected").text();
+                $.ajax({
+                    url: "/searchAreaInCountry",
+                    type: "post",
+                    data: { country : country },
+                    success: function (response)  {
+                        horsey(document.getElementById('new_area'), {
+                            source: [{ list : response }]
+                        });
+                        searchAreaInCountryCounter += 1;
+                    }
+                })
+            }
+
+            const resetSearchAreaInCountryCounter = () => {
+                return searchAreaInCountryCounter = 0;
             }
 
 //        const addTask = () => {
