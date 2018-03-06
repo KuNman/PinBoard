@@ -76,3 +76,7 @@ addNewCountryName:
 searchAreaInCountry:
     path: /searchAreaInCountry
     controller: App\Controller\UserController::searchAreaInCountryAction
+
+addNewAreaName:
+    path: /addNewAreaName
+    controller: App\Controller\AdminController::addNewAreaNameAction

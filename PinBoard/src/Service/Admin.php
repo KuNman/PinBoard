@@ -17,6 +17,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Flex\Response;
 
 class Admin
 {
@@ -100,10 +101,13 @@ class Admin
         return false;
     }
 
-    private function addArea($area, $country) {
+    public function addNewAreaName(Request $request) {
+        $area = $request->get('area');
+        $country = $request->get('country');
+
         if(!$this->isAreaInCountrySaved($area, $country)) {
             $country = $this->entityManager->getRepository(Countries::class)
-                ->findOneBy(array('country' => $country));
+                ->findOneBy(array('country_en' => $country));
 
             $addArea = new Areas();
             $addArea->setArea($area);
@@ -151,7 +155,7 @@ class Admin
     private function isAreaInCountrySaved($area, $country) {
 
         $country = $this->entityManager->getRepository('App:Countries')
-            ->findOneBy(array('country' => $country));
+            ->findOneBy(array('country_en' => $country));
 
         $areaInCountry = $this->entityManager->getRepository('App:Areas')
             ->findOneBy(array('area' => $area, 'country' => $country));

@@ -1,5 +1,3 @@
-var $ = require('jquery');
-
 let searchJobsEnCounter = 0;
 let searchJobsPlCounter = 0;
 let searchJobsFrCounter = 0;

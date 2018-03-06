@@ -10,6 +10,7 @@ Encore
 
     // will create public/build/app.js and public/build/app.css
     .addEntry('app', './assets/js/app.js')
+    .addEntry('admin_panel', './assets/js/admin_panel.js')
 
     // allow sass/scss files to be processed
     .enableSassLoader()
