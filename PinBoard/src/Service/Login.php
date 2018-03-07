@@ -80,11 +80,17 @@ class Login
         return false;
     }
 
-    public function isLogged() {
+    public function isLogged($id = false) {
 
         $session = new Session();
         if($session->get('username')) {
-            return $session->get('username');
+            $username = $session->get('username');
+            if($id) {
+                $id = $this->entityManager->getRepository('App:Users')
+                    ->findOneBy(array('username' => $username))->getId();
+                return $id;
+            }
+            return $username;
         }
         return false;
     }

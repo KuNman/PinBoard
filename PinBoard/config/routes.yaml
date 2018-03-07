@@ -55,7 +55,7 @@ resetPassword:
 
 addTask:
     path: /addTask
-    controller: App\Controller\AdminController::addTaskAction
+    controller: App\Controller\UserController::addTaskAction
 
 searchJobs:
     path: /searchJobs/{lang}

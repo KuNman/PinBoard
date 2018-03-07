@@ -44,4 +44,11 @@ class UserController extends Controller
         $country = $request->get('country');
         return new JsonResponse($this->normalUser->searchAreaInCountry($country));
     }
+
+    public function addTaskAction(Request $request) {
+        if($this->normalUser->addTask($request, $this->login->isLogged(1))) {
+            return new Response(1);
+        }
+        return new Response(0);
+    }
 }

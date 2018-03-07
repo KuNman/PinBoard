@@ -87,12 +87,4 @@ class Cities
         $this->country = $countries;
     }
 
-    /**
-     * @return Collection\Tasks[]
-     */
-    public function getTasks() {
-        return $this->tasks;
-    }
-
-
 }

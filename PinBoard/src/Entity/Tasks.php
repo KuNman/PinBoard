@@ -35,10 +35,25 @@ class Tasks
     private $area;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Cities", inversedBy="city")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\Column(type="json_array", nullable=false, unique=false)
      */
     private $city;
+
+    /**
+     * @return mixed
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param mixed $city
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+    }
 
     /**
      * @ORM\Column(type="date", nullable=false, unique=false)
@@ -126,14 +141,6 @@ class Tasks
 
     public function setArea(Areas $areas) {
         $this->area = $areas;
-    }
-
-    public function getCity() : Cities {
-        return $this->city;
-    }
-
-    public function setCity(Cities $cities) {
-        $this->city = $cities;
     }
 
     public function getUser() : Users {

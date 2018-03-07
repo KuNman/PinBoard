@@ -10,7 +10,10 @@ namespace App\Service;
 
 
 use App\Entity\Countries;
+use App\Entity\Tasks;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Flex\Response;
 
 class NormalUser
@@ -71,6 +74,44 @@ class NormalUser
         $array = $query->getSingleResult();
         return $array["id"];
 
+    }
+
+    public function addTask(Request $request, $user_id) {
+
+        $task = new Tasks();
+        $task->setJob($this->getJobObject(trim($request->get('job'))));
+        $task->setCountry($this->getCountryObject(trim($request->get('country'))));
+        $task->setArea($this->getAreaObject(trim($request->get('area'))));
+        $task->setCity($request->get('city'));
+        $task->setAvaibility(new \DateTime(trim($request->get('date'))));
+        $task->setUser($this->getUserObject($user_id));
+        $task->setActive(0);
+
+        $this->entityManager->persist($task);
+        $this->entityManager->flush();
+
+        return true;
+
+    }
+
+    private function getJobObject($job) {
+        return $this->entityManager->getRepository('App:Jobs')
+            ->findOneBy(array("name_pl" => $job));
+    }
+
+    private function getCountryObject($country) {
+        return $this->entityManager->getRepository('App:Countries')
+            ->findOneBy(array('country_en' => $country));
+    }
+
+    private function getAreaObject($area) {
+        return $this->entityManager->getRepository('App:Areas')
+            ->findOneBy(array('area' => $area));
+    }
+
+    private function getUserObject($user_id) {
+        return $this->entityManager->getRepository('App:Users')
+            ->findOneBy(array('id' => $user_id));
     }
 
 }
