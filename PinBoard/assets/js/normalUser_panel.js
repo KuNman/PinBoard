@@ -124,14 +124,15 @@ function addTask() {
    const job = $("#new_job_pl").val();
    const country = $("#select_country").val();
    const area = $("#new_area").val();
-   let city = [];
+   let city = ['wholeArea'];
    const date = $("#select_date").val();
     //
     // $(".input_city").each(function(index, value) {
     //     if ($(".input_city").val().length > 1) {
     //         console.log('aa');
     //     } else {
-            city.push('wholeArea');
+    //         city.push('wholeArea');
+    //         city.push('aa');
         // }
 
    console.log(job, country, area, city, date);

@@ -78,20 +78,22 @@ class NormalUser
 
     public function addTask(Request $request, $user_id) {
 
-        $task = new Tasks();
-        $task->setJob($this->getJobObject(trim($request->get('job'))));
-        $task->setCountry($this->getCountryObject(trim($request->get('country'))));
-        $task->setArea($this->getAreaObject(trim($request->get('area'))));
-        $task->setCity($request->get('city'));
-        $task->setAvaibility(new \DateTime(trim($request->get('date'))));
-        $task->setUser($this->getUserObject($user_id));
-        $task->setActive(0);
+        if(!$this->isTaskSaved($request, $user_id)) {
+            $task = new Tasks();
+            $task->setJob($this->getJobObject(trim($request->get('job'))));
+            $task->setCountry($this->getCountryObject(trim($request->get('country'))));
+            $task->setArea($this->getAreaObject(trim($request->get('area'))));
+            $task->setCity($request->get('city'));
+            $task->setAvailability(new \DateTime(trim($request->get('date'))));
+            $task->setUser($this->getUserObject($user_id));
+            $task->setActive(0);
 
-        $this->entityManager->persist($task);
-        $this->entityManager->flush();
+            $this->entityManager->persist($task);
+            $this->entityManager->flush();
 
-        return true;
-
+            return true;
+        }
+        return false;
     }
 
     private function getJobObject($job) {
@@ -112,6 +114,23 @@ class NormalUser
     private function getUserObject($user_id) {
         return $this->entityManager->getRepository('App:Users')
             ->findOneBy(array('id' => $user_id));
+    }
+
+    private function isTaskSaved(Request $request, $user_id) {
+        $task = $this->entityManager->getRepository('App:Tasks')
+            ->findOneBy(array(
+                'job' => $this->getJobObject(trim($request->get('job'))),
+                'country' => $this->getCountryObject(trim($request->get('country'))),
+                'area' => $this->getAreaObject(trim($request->get('area'))),
+                'availability' => new \DateTime(trim($request->get('date'))),
+                'active' => 0,
+                'user' => $this->getUserObject($user_id)
+            ));
+
+        if($task && $task->getCity() == $request->get('city')) {
+            return true;
+        }
+        return false;
     }
 
 }

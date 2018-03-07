@@ -58,22 +58,22 @@ class Tasks
     /**
      * @ORM\Column(type="date", nullable=false, unique=false)
      */
-    private $avaibility;
+    private $availability;
 
     /**
      * @return mixed
      */
-    public function getAvaibility()
+    public function getAvailability()
     {
-        return $this->avaibility;
+        return $this->availability;
     }
 
     /**
-     * @param mixed $avaibility
+     * @param mixed $availability
      */
-    public function setAvaibility($avaibility)
+    public function setAvailability($availability)
     {
-        $this->avaibility = $avaibility;
+        $this->availability = $availability;
     }
 
     /**
