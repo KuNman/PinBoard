@@ -10,6 +10,7 @@ namespace App\Service;
 
 
 use App\Entity\Countries;
+use App\Entity\Jobs;
 use App\Entity\Tasks;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -78,9 +79,15 @@ class NormalUser
 
     public function addTask(Request $request, $user_id) {
 
+        $task = new Tasks();
         if(!$this->isTaskSaved($request, $user_id)) {
-            $task = new Tasks();
-            $task->setJob($this->getJobObject(trim($request->get('job'))));
+            if(!$this->getJobObject(trim($request->get('job')))) {
+                $this->addJobAsUser(trim($request->get('job')));
+                $task->setJob($this->getJobObject(trim($request->get('job'))));
+            } else {
+                $task->setJob($this->getJobObject(trim($request->get('job'))));
+            }
+
             $task->setCountry($this->getCountryObject(trim($request->get('country'))));
             $task->setArea($this->getAreaObject(trim($request->get('area'))));
             $task->setCity($request->get('city'));
@@ -117,6 +124,7 @@ class NormalUser
     }
 
     private function isTaskSaved(Request $request, $user_id) {
+
         $task = $this->entityManager->getRepository('App:Tasks')
             ->findOneBy(array(
                 'job' => $this->getJobObject(trim($request->get('job'))),
@@ -131,6 +139,14 @@ class NormalUser
             return true;
         }
         return false;
+    }
+
+    private function addJobAsUser($name) {
+        $job = new Jobs();
+        $job->setNamePl($name);
+        $this->entityManager->persist($job);
+        $this->entityManager->flush();
+        return true;
     }
 
 }

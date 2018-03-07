@@ -17,17 +17,17 @@ class Jobs
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=100, nullable=false, unique=true)
+     * @ORM\Column(type="string", length=100, nullable=true, unique=true)
      */
     private $name_en;
 
     /**
-     * @ORM\Column(type="string", length=100, nullable=false, unique=false)
+     * @ORM\Column(type="string", length=100, nullable=true, unique=false)
      */
     private $name_pl;
 
     /**
-     * @ORM\Column(type="string", length=100, nullable=false, unique=false)
+     * @ORM\Column(type="string", length=100, nullable=true, unique=false)
      */
     private $name_fr;
 

@@ -66,7 +66,6 @@ class Admin
         $name_en = $request->get('new_job_en');
         $name_pl = $request->get('new_job_pl');
         $name_fr = $request->get('new_job_fr');
-//        echo $request->getLocale();
 
         if(!$this->isJobSaved($name_en) && $name_fr && $name_pl) {
             $addJob = new Jobs();

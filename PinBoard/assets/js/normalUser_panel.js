@@ -134,9 +134,6 @@ function addTask() {
     //         city.push('wholeArea');
     //         city.push('aa');
         // }
-
-   console.log(job, country, area, city, date);
-
    $.ajax({
        url: "/addTask",
        type: "post",
