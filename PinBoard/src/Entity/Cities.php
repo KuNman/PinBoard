@@ -18,7 +18,7 @@ class Cities
     private $id;
 
     /**
-     * @ORM\Column(type="json_array", length=100, nullable=false, unique=false)
+     * @ORM\Column(type="string", length=100, nullable=false, unique=true)
      */
     private $city;
 

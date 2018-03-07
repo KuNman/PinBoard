@@ -2,9 +2,10 @@
 {% block content %}
     <div class="content">
         {% include '/service/header.html.twig' %}
-        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/horsey/4.2.2/horsey.min.css">
-        <script src="{{ asset('build/admin_panel.js') }}"></script>
         {% if admin is defined %}
+            <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/horsey/4.2.2/horsey.min.css">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/horsey/4.2.2/horsey.min.js"></script>
+            <script src="{{ asset('build/admin_panel.js') }}"></script>
             <div>
                 <div class="">Nowa nazwa pracy:
                     EN<input onkeyup="searchJobsEn()" id="new_job_en" type="text">
@@ -35,16 +36,37 @@
 
 
         {% if normaluser is defined %}
+            <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/horsey/4.2.2/horsey.min.css">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/horsey/4.2.2/horsey.min.js"></script>
+            <script src="{{ asset('build/normalUser_panel.js') }}"></script>
             <div>
                 <div class=""> Nowa praca </br>
-                    Działalność<input onkeyup="searchJobs()" id="new_job" type="text">
-                    Kraj<input onkeyup="searchCountries()" id="new_country"type="text">
-                    Obszar<input id="new_area" type="text">
-                    Miasto<input id="new_city" type="text">
-                    Cena jednostkowa<input type="number">
+                    <div>Działalność<input onkeyup="searchJobsPl()" id="new_job_pl" type="text"></div>
+                    <div>Kraj<select onchange="resetSearchAreaInCountryCounter()" id="select_country">
+                        <option value=""></option>
+                        {% for country in countries %}
+                            <option value="{{ country }}">{{ country }}</option>
+                        {% endfor %}
+                    </select>
+                    Obszar<input onkeyup="searchAreaInCountry()" id="new_area" type="text">
+                        <div class="wholeArea">
+                            <input id="wholeArea" type="checkbox"
+                                   onchange="if(this.checked){disableChooseCities()}if(!this.checked){enableChooseCities()}"
+                                   value="wholeArea">Cały obszar</input>
+                        </div>
+                        <div class="chooseCities">
+                            <input id="chooseCities" type="checkbox"
+                                   onchange="if(this.checked){disableWholeArea();chooseCity()}if(!this.checked){enableWholeArea();hideChooseCity()}"
+                                   value="chooseCities">Wybierz miasta</input>
+                            <div class="maps" style="display: none;">
+                                <div class="city">
+                                    <input type="text" value="" class="input_city">
+                                    <button onclick="nextCity()">Kolejne miasto</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     Dostępność od<input type="date">
-
-
                     <button onclick="addTask()" type="submit">Dodaj</button>
                 </div>
             </div>
@@ -53,6 +75,3 @@
 
     </div>
     {% endblock content%}
-    {% block javascripts %}
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/horsey/4.2.2/horsey.min.js"></script>
-    {% endblock javascripts %}

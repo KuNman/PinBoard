@@ -119,6 +119,8 @@ class Admin
             return true;
 
         }
+        $cities = $this->entityManager->getRepository('App:Cities')
+            ->findOneBy(array('country' => 1));
     }
 
     private function addCity($city, $area, $country) {

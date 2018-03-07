@@ -24,7 +24,10 @@ class UserController extends Controller
 
     public function indexAction() {
         if($this->login->isLogged()) {
-            return $this->render('/service/panel/panel.html.twig', array("normaluser" => true));
+            return $this->render('/service/panel/panel.html.twig', array(
+                "normaluser" => true,
+                "countries" => $this->normalUser->searchCountries()
+            ));
         }
         return $this->redirect('/login');
     }

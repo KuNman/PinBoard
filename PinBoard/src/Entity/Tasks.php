@@ -41,11 +41,6 @@ class Tasks
     private $city;
 
     /**
-     * @ORM\Column(type="integer", length=10, nullable=false, unique=false)
-     */
-    private $price;
-
-    /**
      * @ORM\Column(type="date", nullable=false, unique=false)
      */
     private $avaibility;
@@ -107,22 +102,6 @@ class Tasks
     public function setId($id)
     {
         $this->id = $id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPrice()
-    {
-        return $this->price;
-    }
-
-    /**
-     * @param mixed $price
-     */
-    public function setPrice($price)
-    {
-        $this->price = $price;
     }
 
     public function getJob() : Jobs {
