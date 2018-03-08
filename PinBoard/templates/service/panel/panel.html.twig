@@ -58,9 +58,14 @@
             <div class="admin_tab_2">
                 <div class="not_active_tasks">
                     {% if notActiveTasks|length > 0 %}
-                        {% for task in notActiveTasks['id'] %}
-                            {{ task }}
-                        {% endfor %}
+                                {% for value in notActiveTasks %}
+                                    <div>
+                                        {{ value.id }}
+                                        {{  value.job.getNamePl() }}
+                                        {{ value.area.getArea() }}
+                                        {{ value.user.getId() }}
+                                    </div>
+                                    {% endfor %}
                     {% endif %}
                 </div>
             </div>

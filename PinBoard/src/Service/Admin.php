@@ -238,16 +238,13 @@ class Admin
     public function checkNotActiveTasks() {
         $arr = [];
         $ids = [];
+        $job = [];
         $notActiveTasks = $this->entityManager->getRepository('App:Tasks')
             ->findBy(array("active" => false));
 
-        foreach($notActiveTasks as $task) {
-            $ids[] = $task->getId();
-        }
 
-        $arr['id'] = $ids;
-        if($arr) {
-            return $arr;
+        if($notActiveTasks) {
+            return $notActiveTasks;
         }
         return false;
     }
