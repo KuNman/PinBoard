@@ -60,10 +60,14 @@
                     {% if notActiveTasks|length > 0 %}
                                 {% for value in notActiveTasks %}
                                     <div>
-                                        {{ value.id }}
-                                        {{  value.job.getNamePl() }}
-                                        {{ value.area.getArea() }}
-                                        {{ value.user.getId() }}
+                                        {{ value.id }} |
+                                        {{ value.job.getNamePl() }} |
+                                        {{ value.country.getCountryPl() }} |
+                                        {{ value.area.getArea() }} |
+                                        {#{{ value.city.getCity() | json_encode }}#}
+                                        {{ value.availability|date('Y-m-d') }} |
+                                        {{ value.user.getId() }} |
+                                        <button>Activate</button>
                                     </div>
                                     {% endfor %}
                     {% endif %}
