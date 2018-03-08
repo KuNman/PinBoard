@@ -4,7 +4,7 @@
         {% include '/service/header.html.twig' %}
         {% if admin is defined %}
             <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/horsey/4.2.2/horsey.min.css">
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/horsey/4.2.2/horsey.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/horsey/4.2.2/horsey.js"></script>
             <script src="{{ asset('build/admin_panel.js') }}"></script>
             <div class="admin_tabs">
             <div class="admin_tab_1">
@@ -15,7 +15,7 @@
                     <button onclick="addNewJobName()" type="submit">Dodaj nazwę pracy</button>
                 </div>
 
-                {% if missingJobNameEn|length > 1 %}
+                {% if missingJobNameEn|length > 0 %}
                     <div class="">Zaktualizuj nazwę pracy EN:
                         {% for name in missingJobNameEn %}
                             <div class="{{ name }}">{{ name }}<input class="{{ name }}.name_en" type="text">
@@ -25,7 +25,7 @@
                     </div>
                 {% endif %}
 
-                {% if missingJobNameFr|length > 1 %}
+                {% if missingJobNameFr|length > 0 %}
                     <div class="">Zaktualizuj nazwę pracy FR:
                         {% for name in missingJobNameFr %}
                             <div class={{ name }}">{{ name }}<input class="{{ name }}.name_fr" type="text">
@@ -56,7 +56,13 @@
             </div>
 
             <div class="admin_tab_2">
-
+                <div class="not_active_tasks">
+                    {% if notActiveTasks|length > 0 %}
+                        {% for task in notActiveTasks['id'] %}
+                            {{ task }}
+                        {% endfor %}
+                    {% endif %}
+                </div>
             </div>
             </div>
         {% endif %}

@@ -34,7 +34,7 @@ class NormalUser
 
         $array = $query->getScalarResult();
         $array = array_column($array, "name_".$lang);
-        return $array;
+        return array_filter($array);
     }
 
     public function searchCountries($lang = 'en') {
@@ -46,7 +46,7 @@ class NormalUser
 
         $array = $query->getScalarResult();
         $array = array_column($array, "country_".$lang);
-        return $array;
+        return array_filter($array);
     }
 
     public function searchAreaInCountry($country) {
@@ -61,7 +61,7 @@ class NormalUser
 
         $array = $query->getScalarResult();
         $array = array_column($array, 'area');
-        return $array;
+        return array_filter($array);
     }
 
     private function getCountryIdByName($country) {

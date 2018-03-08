@@ -187,7 +187,7 @@ class Admin
     }
 
     public function checkMissingJobNameEn() {
-
+        $arr = [];
         $missingNames = $this->entityManager->getRepository('App:Jobs')
             ->findBy(array('name_en' => null));
 
@@ -195,12 +195,14 @@ class Admin
             $arr[] = $name->getNamePl();
 
         }
-        return $arr;
-
+        if($arr) {
+            return $arr;
+        }
+        return false;
     }
 
     public function checkMissingJobNameFr() {
-
+        $arr = [];
         $missingNames = $this->entityManager->getRepository('App:Jobs')
             ->findBy(array('name_fr' => null));
 
@@ -208,7 +210,10 @@ class Admin
             $arr[] = $name->getNamePl();
 
         }
-        return $arr;
+        if($arr) {
+            return $arr;
+        }
+        return false;
 
     }
 
@@ -228,6 +233,23 @@ class Admin
 
         $this->entityManager->flush();
         return true;
+    }
+
+    public function checkNotActiveTasks() {
+        $arr = [];
+        $ids = [];
+        $notActiveTasks = $this->entityManager->getRepository('App:Tasks')
+            ->findBy(array("active" => false));
+
+        foreach($notActiveTasks as $task) {
+            $ids[] = $task->getId();
+        }
+
+        $arr['id'] = $ids;
+        if($arr) {
+            return $arr;
+        }
+        return false;
     }
 
 
