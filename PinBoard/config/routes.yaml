@@ -88,3 +88,7 @@ addJobEnName:
 addJobFrName:
     path: /addJobFrName
     controller: App\Controller\AdminController:addJobFrNameAction
+
+activateTask:
+    path: /activateTask/{id}
+    controller: App\Controller\AdminController::activateTaskAction

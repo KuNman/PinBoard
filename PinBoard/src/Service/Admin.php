@@ -218,7 +218,7 @@ class Admin
     }
 
     public function addJobEnName(Request $request) {
-        $name_en = $this->entityManager->getRepository('App:Jobs')
+        $this->entityManager->getRepository('App:Jobs')
             ->findOneBy(array("name_pl" => trim($request->get('name_pl'))))
             ->setNameEn(trim($request->get('name_en')));
 
@@ -227,7 +227,7 @@ class Admin
     }
 
     public function addJobFrName(Request $request) {
-        $name_fr = $this->entityManager->getRepository('App:Jobs')
+        $this->entityManager->getRepository('App:Jobs')
             ->findOneBy(array("name_pl" => trim($request->get('name_pl'))))
             ->setNameFr(trim($request->get('name_fr')));
 
@@ -236,9 +236,6 @@ class Admin
     }
 
     public function checkNotActiveTasks() {
-        $arr = [];
-        $ids = [];
-        $job = [];
         $notActiveTasks = $this->entityManager->getRepository('App:Tasks')
             ->findBy(array("active" => false));
 
@@ -248,6 +245,15 @@ class Admin
         }
         return false;
     }
+
+    public function activateTask($id) {
+        $this->entityManager->getRepository('App:Tasks')
+            ->findOneBy(array('id' => $id))->setActive(1);
+
+        $this->entityManager->flush();
+        return true;
+    }
+
 
 
 }

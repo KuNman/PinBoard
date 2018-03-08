@@ -67,7 +67,7 @@
                                         {#{{ value.city.getCity() | json_encode }}#}
                                         {{ value.availability|date('Y-m-d') }} |
                                         {{ value.user.getId() }} |
-                                        <button>Activate</button>
+                                        <button onclick="activateTask('{{ value.id }}')">Activate</button>
                                     </div>
                                     {% endfor %}
                     {% endif %}

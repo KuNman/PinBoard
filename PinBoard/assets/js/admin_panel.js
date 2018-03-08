@@ -222,7 +222,19 @@ function addJobFrName(name_pl, name_fr) {
     $.ajax({
         url: "/addJobFrName",
         type: "post",
-        data: { name_pl: name_pl, name_fr: name_fr},
+        data: { name_pl: name_pl, name_fr: name_fr },
+        success: function(response) {
+            console.log('ok');
+        }
+    });
+}
+
+window.activateTask = activateTask;
+function activateTask(id) {
+    $.ajax({
+        url: "/activateTask/"+id,
+        type: "post",
+        data: { id: id },
         success: function(response) {
             console.log('ok');
         }
