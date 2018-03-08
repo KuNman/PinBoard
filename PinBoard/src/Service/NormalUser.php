@@ -81,6 +81,7 @@ class NormalUser
 
         $task = new Tasks();
         if(!$this->isTaskSaved($request, $user_id)) {
+
             if(!$this->getJobObject(trim($request->get('job')))) {
                 $this->addJobAsUser(trim($request->get('job')));
                 $task->setJob($this->getJobObject(trim($request->get('job'))));

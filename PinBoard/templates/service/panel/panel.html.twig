@@ -6,6 +6,7 @@
             <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/horsey/4.2.2/horsey.min.css">
             <script src="https://cdnjs.cloudflare.com/ajax/libs/horsey/4.2.2/horsey.min.js"></script>
             <script src="{{ asset('build/admin_panel.js') }}"></script>
+            <div class="admin_tabs">
             <div class="admin_tab_1">
                 <div class="">Nowa nazwa pracy:
                     EN<input onkeyup="searchJobsEn()" id="new_job_en" type="text">
@@ -13,6 +14,27 @@
                     FR<input onkeyup="searchJobsFr()" id="new_job_fr" type="text">
                     <button onclick="addNewJobName()" type="submit">Dodaj nazwę pracy</button>
                 </div>
+
+                {% if missingJobNameEn|length > 1 %}
+                    <div class="">Zaktualizuj nazwę pracy EN:
+                        {% for name in missingJobNameEn %}
+                            <div class="{{ name }}">{{ name }}<input class="{{ name }}.name_en" type="text">
+                            <button type="submit" onclick="addJobEnName('{{ name }}',document.getElementsByClassName('{{ name }}.name_en')[0].value)">
+                                Dodaj tłumaczenie w EN</button></div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                {% if missingJobNameFr|length > 1 %}
+                    <div class="">Zaktualizuj nazwę pracy FR:
+                        {% for name in missingJobNameFr %}
+                            <div class={{ name }}">{{ name }}<input class="{{ name }}.name_fr" type="text">
+                            <button type="submit" onclick="addJobFrName('{{ name }}',document.getElementsByClassName('{{ name }}.name_fr')[0].value)">
+                            Dodaj tłumaczenie w FR</button></div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
                 <div class="">
                     Nowa nazwa kraju:
                     EN<input onkeyup="searchCountriesEn()" id="new_country_en" type="text">
@@ -31,6 +53,11 @@
                     Origin lang<input onkeyup="searchAreaInCountry()" id="new_area" type="text">
                     <button onclick="addNewAreaName()" type="submit">Dodaj nazwę kraju</button>
                 </div>
+            </div>
+
+            <div class="admin_tab_2">
+
+            </div>
             </div>
         {% endif %}
 

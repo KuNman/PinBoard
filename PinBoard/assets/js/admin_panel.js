@@ -205,6 +205,30 @@ function resetSearchAreaInCountryCounter() {
     return searchAreaInCountryCounter = 0;
 }
 
+window.addJobEnName = addJobEnName;
+function addJobEnName(name_pl, name_en) {
+    $.ajax({
+        url: "/addJobEnName",
+        type: "post",
+        data: { name_pl: name_pl, name_en: name_en},
+        success: function(response) {
+            console.log('ok');
+        }
+    });
+}
+
+window.addJobFrName = addJobFrName;
+function addJobFrName(name_pl, name_fr) {
+    $.ajax({
+        url: "/addJobFrName",
+        type: "post",
+        data: { name_pl: name_pl, name_fr: name_fr},
+        success: function(response) {
+            console.log('ok');
+        }
+    });
+}
+
 
 //        const addTask = () => {
 //            const job = $("#new_job").val();

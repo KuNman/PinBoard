@@ -118,6 +118,12 @@ body .page .content .inputDisabled {
   opacity: $input-disabled-opacity;
 }
 
+body .page .content .admin_tabs {
+  border-style: solid;
+  border-width: medium;
+}
+
 body .page .content .admin_tab_1 {
   background: pink;
 }
+

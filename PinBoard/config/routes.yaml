@@ -80,3 +80,11 @@ searchAreaInCountry:
 addNewAreaName:
     path: /addNewAreaName
     controller: App\Controller\AdminController::addNewAreaNameAction
+
+addJobEnName:
+    path: /addJobEnName
+    controller: App\Controller\AdminController:addJobEnNameAction
+
+addJobFrName:
+    path: /addJobFrName
+    controller: App\Controller\AdminController:addJobFrNameAction

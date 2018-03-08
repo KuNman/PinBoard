@@ -29,7 +29,9 @@ class AdminController extends Controller
             if($this->admin->isAdmin($this->login->isLogged())) {
                 return $this->render('/service/panel/panel.html.twig', array(
                     "admin" => "true",
-                    "countries" => $this->normalUser->searchCountries()
+                    "countries" => $this->normalUser->searchCountries(),
+                    "missingJobNameEn" => $this->admin->checkMissingJobNameEn(),
+                    "missingJobNameFr" => $this->admin->checkMissingJobNameFr(),
                 ));
             }
         }
@@ -72,7 +74,22 @@ class AdminController extends Controller
         return new Response(0);
     }
 
+    public function addJobEnNameAction(Request $request) {
+        if($this->admin->isAdmin($this->login->isLogged())) {
+            if($this->admin->addJobEnName($request)) {
+                return new Response(1);
+            }
+        }
+        return new Response(0);
+    }
 
-
+    public function addJobFrNameAction(Request $request) {
+        if($this->admin->isAdmin($this->login->isLogged())) {
+            if($this->admin->addJobFrName($request)) {
+                return new Response(1);
+            }
+        }
+        return new Response(0);
+    }
 
 }

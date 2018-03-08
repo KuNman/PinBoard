@@ -186,6 +186,49 @@ class Admin
         return false;
     }
 
+    public function checkMissingJobNameEn() {
+
+        $missingNames = $this->entityManager->getRepository('App:Jobs')
+            ->findBy(array('name_en' => null));
+
+        foreach ($missingNames as $name) {
+            $arr[] = $name->getNamePl();
+
+        }
+        return $arr;
+
+    }
+
+    public function checkMissingJobNameFr() {
+
+        $missingNames = $this->entityManager->getRepository('App:Jobs')
+            ->findBy(array('name_fr' => null));
+
+        foreach ($missingNames as $name) {
+            $arr[] = $name->getNamePl();
+
+        }
+        return $arr;
+
+    }
+
+    public function addJobEnName(Request $request) {
+        $name_en = $this->entityManager->getRepository('App:Jobs')
+            ->findOneBy(array("name_pl" => trim($request->get('name_pl'))))
+            ->setNameEn(trim($request->get('name_en')));
+
+        $this->entityManager->flush();
+        return true;
+    }
+
+    public function addJobFrName(Request $request) {
+        $name_fr = $this->entityManager->getRepository('App:Jobs')
+            ->findOneBy(array("name_pl" => trim($request->get('name_pl'))))
+            ->setNameFr(trim($request->get('name_fr')));
+
+        $this->entityManager->flush();
+        return true;
+    }
 
 
 }
