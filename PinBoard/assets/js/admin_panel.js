@@ -230,9 +230,9 @@ function addJobFrName(name_pl, name_fr) {
 }
 
 window.activateTask = activateTask;
-function activateTask(id) {
+function activateTask(id, userId) {
     $.ajax({
-        url: "/activateTask/"+id,
+        url: "/activateTask/"+id+'/'+userId,
         type: "post",
         data: { id: id },
         success: function(response) {

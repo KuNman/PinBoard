@@ -7,72 +7,72 @@
             <script src="https://cdnjs.cloudflare.com/ajax/libs/horsey/4.2.2/horsey.js"></script>
             <script src="{{ asset('build/admin_panel.js') }}"></script>
             <div class="admin_tabs">
-            <div class="admin_tab_1">
-                <div class="">Nowa nazwa pracy:
-                    EN<input onkeyup="searchJobsEn()" id="new_job_en" type="text">
-                    PL<input onkeyup="searchJobsPl()" id="new_job_pl" type="text">
-                    FR<input onkeyup="searchJobsFr()" id="new_job_fr" type="text">
-                    <button onclick="addNewJobName()" type="submit">Dodaj nazwę pracy</button>
-                </div>
-
-                {% if missingJobNameEn|length > 0 %}
-                    <div class="">Zaktualizuj nazwę pracy EN:
-                        {% for name in missingJobNameEn %}
-                            <div class="{{ name }}">{{ name }}<input class="{{ name }}.name_en" type="text">
-                            <button type="submit" onclick="addJobEnName('{{ name }}',document.getElementsByClassName('{{ name }}.name_en')[0].value)">
-                                Dodaj tłumaczenie w EN</button></div>
-                        {% endfor %}
+                <div class="admin_tab_1">
+                    <div class="">Nowa nazwa pracy:
+                        EN<input onkeyup="searchJobsEn()" id="new_job_en" type="text">
+                        PL<input onkeyup="searchJobsPl()" id="new_job_pl" type="text">
+                        FR<input onkeyup="searchJobsFr()" id="new_job_fr" type="text">
+                        <button onclick="addNewJobName()" type="submit">Dodaj nazwę pracy</button>
                     </div>
-                {% endif %}
 
-                {% if missingJobNameFr|length > 0 %}
-                    <div class="">Zaktualizuj nazwę pracy FR:
-                        {% for name in missingJobNameFr %}
-                            <div class={{ name }}">{{ name }}<input class="{{ name }}.name_fr" type="text">
-                            <button type="submit" onclick="addJobFrName('{{ name }}',document.getElementsByClassName('{{ name }}.name_fr')[0].value)">
-                            Dodaj tłumaczenie w FR</button></div>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-
-                <div class="">
-                    Nowa nazwa kraju:
-                    EN<input onkeyup="searchCountriesEn()" id="new_country_en" type="text">
-                    PL<input onkeyup="searchCountriesPl()" id="new_country_pl" type="text">
-                    FR<input onkeyup="searchCountriesFr()" id="new_country_fr" type="text">
-                    <button onclick="addNewCountryName()" type="submit">Dodaj nazwę kraju</button>
-                </div>
-                <div class="">
-                    Nowa nazwa regionu:
-                    <select onchange="resetSearchAreaInCountryCounter()" id="select_country">
-                            <option value=""></option>
-                        {% for country in countries %}
-                            <option value="{{ country }}">{{ country }}</option>
-                        {% endfor %}
-                    </select>
-                    Origin lang<input onkeyup="searchAreaInCountry()" id="new_area" type="text">
-                    <button onclick="addNewAreaName()" type="submit">Dodaj nazwę kraju</button>
-                </div>
-            </div>
-
-            <div class="admin_tab_2">
-                <div class="not_active_tasks">
-                    {% if notActiveTasks|length > 0 %}
-                                {% for value in notActiveTasks %}
-                                    <div>
-                                        {{ value.id }} |
-                                        {{ value.job.getNamePl() }} |
-                                        {{ value.country.getCountryPl() }} |
-                                        {{ value.area.getArea() }} |
-                                        {{ value.city }} |
-                                        {{ value.availability|date('Y-m-d') }} |
-                                        {{ value.user.getId() }} |
-                                        <button onclick="activateTask('{{ value.id }}')">Activate</button>
-                                    </div>
-                                    {% endfor %}
+                    {% if missingJobNameEn|length > 0 %}
+                        <div class="">Zaktualizuj nazwę pracy EN:
+                            {% for name in missingJobNameEn %}
+                                <div class="{{ name }}">{{ name }}<input class="{{ name }}.name_en" type="text">
+                                <button type="submit" onclick="addJobEnName('{{ name }}',document.getElementsByClassName('{{ name }}.name_en')[0].value)">
+                                    Dodaj tłumaczenie w EN</button></div>
+                            {% endfor %}
+                        </div>
                     {% endif %}
+
+                    {% if missingJobNameFr|length > 0 %}
+                        <div class="">Zaktualizuj nazwę pracy FR:
+                            {% for name in missingJobNameFr %}
+                                <div class={{ name }}">{{ name }}<input class="{{ name }}.name_fr" type="text">
+                                <button type="submit" onclick="addJobFrName('{{ name }}',document.getElementsByClassName('{{ name }}.name_fr')[0].value)">
+                                Dodaj tłumaczenie w FR</button></div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <div class="">
+                        Nowa nazwa kraju:
+                        EN<input onkeyup="searchCountriesEn()" id="new_country_en" type="text">
+                        PL<input onkeyup="searchCountriesPl()" id="new_country_pl" type="text">
+                        FR<input onkeyup="searchCountriesFr()" id="new_country_fr" type="text">
+                        <button onclick="addNewCountryName()" type="submit">Dodaj nazwę kraju</button>
+                    </div>
+                    <div class="">
+                        Nowa nazwa regionu:
+                        <select onchange="resetSearchAreaInCountryCounter()" id="select_country">
+                                <option value=""></option>
+                            {% for country in countries %}
+                                <option value="{{ country }}">{{ country }}</option>
+                            {% endfor %}
+                        </select>
+                        Origin lang<input onkeyup="searchAreaInCountry()" id="new_area" type="text">
+                        <button onclick="addNewAreaName()" type="submit">Dodaj nazwę kraju</button>
+                    </div>
                 </div>
-            </div>
+
+                <div class="admin_tab_2">
+                    <div class="not_active_tasks">
+                        {% if notActiveTasks|length > 0 %}
+                                    {% for value in notActiveTasks %}
+                                        <div>
+                                            {{ value.id }} |
+                                            {{ value.job.getNamePl() }} |
+                                            {{ value.country.getCountryPl() }} |
+                                            {{ value.area.getArea() }} |
+                                            {{ value.city }} |
+                                            {{ value.availability|date('Y-m-d') }} |
+                                            {{ value.user.getId() }} |
+                                            <button onclick="activateTask('{{ value.id }}','{{ value.user.getId() }}')">Activate</button>
+                                        </div>
+                                        {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
             </div>
         {% endif %}
 
@@ -81,35 +81,50 @@
             <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/horsey/4.2.2/horsey.min.css">
             <script src="https://cdnjs.cloudflare.com/ajax/libs/horsey/4.2.2/horsey.min.js"></script>
             <script src="{{ asset('build/normalUser_panel.js') }}"></script>
-            <div>
-                <div class=""> Nowa praca </br>
-                    <div>Działalność<input onkeyup="searchJobsPl()" id="new_job_pl" type="text"></div>
-                    <div>Kraj<select onchange="resetSearchAreaInCountryCounter()" id="select_country">
-                        <option value=""></option>
-                        {% for country in countries %}
-                            <option value="{{ country }}">{{ country }}</option>
-                        {% endfor %}
-                    </select>
-                    Obszar<input onkeyup="searchAreaInCountry()" id="new_area" type="text">
-                        <div class="wholeArea">
-                            <input id="wholeArea" type="checkbox"
-                                   onchange="if(this.checked){disableChooseCities()}if(!this.checked){enableChooseCities()}"
-                                   value="wholeArea">Cały obszar</input>
-                        </div>
-                        <div class="chooseCities">
-                            <input id="chooseCities" type="checkbox"
-                                   onchange="if(this.checked){disableWholeArea();chooseCity()}if(!this.checked){enableWholeArea();hideChooseCity()}"
-                                   value="chooseCities">Wybierz miasta</input>
-                            <div class="maps" style="display: none;">
-                                <div class="city">
-                                    <input type="text" value="" class="input_city">
-                                    <button onclick="nextCity()">Kolejne miasto</button>
+            <div class="admin_tabs">
+
+                <div class="admin_tab_1">
+                    <div class=""> Nowa praca
+                        <div>Działalność<input onkeyup="searchJobsPl()" id="new_job_pl" type="text"></div>
+                        <div>Kraj<select onchange="resetSearchAreaInCountryCounter()" id="select_country">
+                            <option value=""></option>
+                            {% for country in countries %}
+                                <option value="{{ country }}">{{ country }}</option>
+                            {% endfor %}
+                        </select>
+                        Obszar<input onkeyup="searchAreaInCountry()" id="new_area" type="text">
+                            <div class="wholeArea">
+                                <input id="wholeArea" type="checkbox"
+                                       onchange="if(this.checked){disableChooseCities()}if(!this.checked){enableChooseCities()}"
+                                       value="wholeArea">Cały obszar</input>
+                            </div>
+                            <div class="chooseCities">
+                                <input id="chooseCities" type="checkbox"
+                                       onchange="if(this.checked){disableWholeArea();chooseCity()}if(!this.checked){enableWholeArea();hideChooseCity()}"
+                                       value="chooseCities">Wybierz miasta</input>
+                                <div class="maps" style="display: none;">
+                                    <div class="city">
+                                        <input type="text" value="" class="input_city">
+                                        <button onclick="nextCity()">Kolejne miasto</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        Dostępność od<input id="select_date" type="date">
+                        <button onclick="addTask()" type="submit">Dodaj</button>
                     </div>
-                    Dostępność od<input id="select_date" type="date">
-                    <button onclick="addTask()" type="submit">Dodaj</button>
+                </div>
+
+                <div class="admin_tab_2">
+                    <div class=""> Wybierz języki jakimi się posługujesz
+                        <div>
+                            <input type="checkbox" value="En">Angielski
+                            <input type="checkbox" value="Pl">Polski
+                            <input type="checkbox" value="Fr">Francuski
+                            <input type="checkbox" value="De">Niemiecki
+                            <button type="submit" onclick="addUserLangs()">Zapisz</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         {% endif %}

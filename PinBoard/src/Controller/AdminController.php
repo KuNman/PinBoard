@@ -93,9 +93,9 @@ class AdminController extends Controller
         return new Response(0);
     }
 
-    public function activateTaskAction($id) {
+    public function activateTaskAction($id, $userId) {
         if($this->admin->isAdmin($this->login->isLogged())) {
-            if($this->admin->activateTask($id)) {
+            if($this->admin->activateTask($id, $userId)) {
                 return new Response(1);
             }
         }

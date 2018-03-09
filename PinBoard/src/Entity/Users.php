@@ -32,6 +32,26 @@ class Users implements UserInterface
      */
     private $role;
 
+    /**
+     * @ORM\Column(type="string", length=15, nullable=false, options={"default":"user"})
+     */
+    private $langs;
+
+    /**
+     * @return mixed
+     */
+    public function getLangs()
+    {
+        return $this->langs;
+    }
+
+    /**
+     * @param mixed $langs
+     */
+    public function setLangs($langs)
+    {
+        $this->langs = $langs;
+    }
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Tasks", mappedBy="user")

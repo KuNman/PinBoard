@@ -23,10 +23,12 @@ class Admin
 {
     private $entityManager;
     private $login;
+    private $mailer;
 
-    public function __construct(EntityManagerInterface $entityManager, Login $login) {
+    public function __construct(EntityManagerInterface $entityManager, Login $login, Mail $mailer) {
         $this->entityManager = $entityManager;
         $this->login = $login;
+        $this->mailer = $mailer;
     }
 
     public function isAdmin($username) {
@@ -246,12 +248,31 @@ class Admin
         return false;
     }
 
-    public function activateTask($id) {
+    public function activateTask($id, $userId) {
         $this->entityManager->getRepository('App:Tasks')
-            ->findOneBy(array('id' => $id))->setActive(1);
-
+            ->findOneBy(array('id' => $id, 'user' => $userId))->setActive(1);
         $this->entityManager->flush();
+
+        $this->sendNotificationMailToUser($userId, 'notifyTaskActive');
+
         return true;
+    }
+
+    private function sendNotificationMailToUser($id, $action) {
+        $mail = $this->entityManager->getRepository('App:Users')
+            ->findOneBy(array('id' => $id))->getUsername();
+
+        if($mail) {
+            switch($action) {
+                case 'notifyTaskActive':
+                    $this->mailer->sendMail('Task active', $mail, 'Your task is active!');
+                    break;
+                case 'notifyOrderFound':
+                    echo 'aaa';
+                    break;
+            }
+        }
+
     }
 
 
