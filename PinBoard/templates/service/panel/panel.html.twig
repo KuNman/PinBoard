@@ -67,6 +67,7 @@
                                             {{ value.city }} |
                                             {{ value.availability|date('Y-m-d') }} |
                                             {{ value.user.getId() }} |
+                                            {{ value.user.getLangs() }}
                                             <button onclick="activateTask('{{ value.id }}','{{ value.user.getId() }}')">Activate</button>
                                         </div>
                                         {% endfor %}
@@ -138,6 +139,10 @@
                             {% endif %}
                         </div>
                     </div>
+                </div>
+
+                <div class="admin_tab_3">
+                    Lista tasków
                 </div>
             </div>
         {% endif %}
