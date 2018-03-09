@@ -32,7 +32,7 @@ class AdminController extends Controller
                     "countries" => $this->normalUser->searchCountries(),
                     "missingJobNameEn" => $this->admin->checkMissingJobNameEn(),
                     "missingJobNameFr" => $this->admin->checkMissingJobNameFr(),
-                    "notActiveTasks" => $this->admin->checkNotActiveTasks()
+                    "notActiveTasks" => $this->admin->checkNotActiveTasks(),
                 ));
             }
         }

@@ -183,3 +183,8 @@ function addUserLangs() {
         }
     })
 }
+
+window.editTask = editTask;
+function editTask(id) {
+    alert('Edycja taska'+id);
+}

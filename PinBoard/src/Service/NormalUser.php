@@ -171,4 +171,14 @@ class NormalUser
         return false;
     }
 
+    public function getUserTasks($id) {
+        $tasks = $this->entityManager->getRepository('App:Tasks')
+            ->findBy(array('user' => $id));
+
+        if($tasks) {
+            return $tasks;
+        }
+        return false;
+    }
+
 }

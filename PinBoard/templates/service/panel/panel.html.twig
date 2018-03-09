@@ -142,7 +142,40 @@
                 </div>
 
                 <div class="admin_tab_3">
-                    Lista tasków
+                    <div class=""> Lista tasków
+                        <div>
+                            {% if userTasks|length > 0 %}
+                                {% for value in userTasks %}
+                                    {% if value.active == 1 %}
+                                        <div class="userTask_active">
+                                            {{ value.active }} |
+                                            {{ value.job.getNamePl() }} |
+                                            {{ value.country.getCountryPl() }} |
+                                            {{ value.area.getArea() }} |
+                                            {{ value.city }} |
+                                            {{ value.availability|date('Y-m-d') }} |
+                                            {{ value.user.getId() }} |
+                                            {{ value.user.getLangs() }}
+                                            <button type="submit" onclick="editTask('{{ value.id }}')">Edytuj</button>
+                                        </div>
+                                    {% endif %}
+                                    {% if value.active == 0 %}
+                                        <div class="userTask_not_active">
+                                            0 |
+                                            {{ value.job.getNamePl() }} |
+                                            {{ value.country.getCountryPl() }} |
+                                            {{ value.area.getArea() }} |
+                                            {{ value.city }} |
+                                            {{ value.availability|date('Y-m-d') }} |
+                                            {{ value.user.getId() }} |
+                                            {{ value.user.getLangs() }}
+                                            <button type="submit" onclick="editTask('{{ value.id }}')">Edytuj</button>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
                 </div>
             </div>
         {% endif %}

@@ -134,3 +134,17 @@ body .page .content .admin_tab_2 {
 body .page .content .admin_tab_3 {
   background: darksalmon;
 }
+
+body .page .content .userTask_active {
+  border-style: solid;
+  border-width: medium;
+  border-color: darksalmon;
+  background: darkseagreen;
+}
+
+body .page .content .userTask_not_active {
+  border-style: solid;
+  border-width: medium;
+  border-color: darksalmon;
+  background: red;
+}

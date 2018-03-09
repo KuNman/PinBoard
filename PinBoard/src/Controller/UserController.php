@@ -27,7 +27,8 @@ class UserController extends Controller
             return $this->render('/service/panel/panel.html.twig', array(
                 "normaluser" => true,
                 "countries" => $this->normalUser->searchCountries(),
-                "userLangs" => $this->normalUser->getUserLangs($this->login->isLogged(1))
+                "userLangs" => $this->normalUser->getUserLangs($this->login->isLogged(1)),
+                "userTasks" => $this->normalUser->getUserTasks($this->login->isLogged(1))
             ));
         }
         return $this->redirect('/login');

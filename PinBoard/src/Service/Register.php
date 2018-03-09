@@ -57,6 +57,7 @@ class Register
             $hashed = $this->encoder->encodePassword($user, $password);
             $user->setPassword($hashed);
             $user->setRole('user');
+            $user->setLangs('Polski');
             $this->entityManager->persist($user);
             $this->entityManager->flush();
 
