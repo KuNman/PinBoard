@@ -33,7 +33,7 @@ class Users implements UserInterface
     private $role;
 
     /**
-     * @ORM\Column(type="string", length=15, nullable=false, options={"default":"user"})
+     * @ORM\Column(type="string", length=100, nullable=false, options={"default":"user"})
      */
     private $langs;
 

@@ -22,7 +22,6 @@ checkUsernameAvaibility:
 
 register:
     path: /register
-    host:     "localhost"
     controller: App\Controller\RegisterController::indexAction
 
 addUserToDB:
@@ -92,3 +91,7 @@ addJobFrName:
 activateTask:
     path: /activateTask/{id}/{userId}
     controller: App\Controller\AdminController::activateTaskAction
+
+addUserLangs:
+    path: /addUserLangs
+    controller: App\Controller\UserController::addUserLangsAction

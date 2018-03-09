@@ -116,13 +116,26 @@
                 </div>
 
                 <div class="admin_tab_2">
-                    <div class=""> Wybierz języki jakimi się posługujesz
+                    <div class=""> Języki jakimi się posługujesz
                         <div>
-                            <input type="checkbox" value="En">Angielski
-                            <input type="checkbox" value="Pl">Polski
-                            <input type="checkbox" value="Fr">Francuski
-                            <input type="checkbox" value="De">Niemiecki
+                            {% if userLangs|length > 0 %}
+                                {% for lang in userLangs %}
+                                    <input class="lang_{{ lang }}" checked type="checkbox" value="{{ lang }}">{{ lang }}
+                                {% endfor %}
+                                {% if 'Angielski' not in userLangs %}
+                                <input class="lang_Angielski" type="checkbox" value="Angielski">Angielski
+                                {% endif %}
+                                {% if 'Polski' not in userLangs %}
+                                <input class="lang_Polski" type="checkbox" value="Polski">Polski
+                                {% endif %}
+                                {% if 'Francuski' not in userLangs %}
+                                <input class="lang_Francuski" type="checkbox" value="Francuski">Francuski
+                                {% endif %}
+                                {% if 'Niemiecki' not in userLangs %}
+                                <input class="lang_Niemiecki" type="checkbox" value="Niemiecki">Niemiecki
+                                {% endif %}
                             <button type="submit" onclick="addUserLangs()">Zapisz</button>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

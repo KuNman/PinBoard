@@ -151,4 +151,24 @@ class NormalUser
         return true;
     }
 
+    public function addUserLangs(Request $request, $user_id) {
+        echo $request->get('langs');
+       $user = $this->entityManager->getRepository('App:Users')
+           ->findOneBy(array('id' => $user_id))->setLangs($request->get('langs'));
+
+       $this->entityManager->flush();
+       return true;
+
+    }
+
+    public function getUserlangs($id) {
+        $userLangs = $this->entityManager->getRepository('App:Users')
+            ->findOneBy(array('id' => $id))->getLangs();
+
+        if($userLangs) {
+            return explode(",", $userLangs);
+        }
+        return false;
+    }
+
 }

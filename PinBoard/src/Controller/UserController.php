@@ -26,7 +26,8 @@ class UserController extends Controller
         if($this->login->isLogged()) {
             return $this->render('/service/panel/panel.html.twig', array(
                 "normaluser" => true,
-                "countries" => $this->normalUser->searchCountries()
+                "countries" => $this->normalUser->searchCountries(),
+                "userLangs" => $this->normalUser->getUserLangs($this->login->isLogged(1))
             ));
         }
         return $this->redirect('/login');
@@ -47,6 +48,13 @@ class UserController extends Controller
 
     public function addTaskAction(Request $request) {
         if($this->normalUser->addTask($request, $this->login->isLogged(1))) {
+            return new Response(1);
+        }
+        return new Response(0);
+    }
+
+    public function addUserLangsAction(Request $request) {
+        if($this->normalUser->addUserLangs($request, $this->login->isLogged(1))) {
             return new Response(1);
         }
         return new Response(0);

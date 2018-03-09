@@ -125,16 +125,16 @@ function addTask() {
    const country = $("#select_country").val();
    const area = $("#new_area").val();
    const date = $("#select_date").val();
-    const cities = [];
+   const cities = [];
+   const citiesAmount = $('.input_city').val().length;
 
-    const citiesAmount = $('.input_city').val().length;
-    if(citiesAmount >= 1) {
-        $(".input_city").each(function(index){
-            cities.push(($(this).val()));
+   if(citiesAmount >= 1) {
+       $(".input_city").each(function(index){
+           cities.push(($(this).val()));
         });
-    } else {
-        cities.push('wholeArea');
-    }
+   } else {
+       cities.push('wholeArea');
+   }
 
    $.ajax({
        url: "/addTask",
@@ -152,3 +152,34 @@ function addTask() {
 }
 
 });
+
+window.addUserLangs = addUserLangs;
+function addUserLangs() {
+    let langs = [];
+    if($('.lang_Angielski').is(':checked')) {
+        langs.push('Angielski');
+    }
+    if($('.lang_Polski').is(':checked')) {
+        langs.push('Polski');
+    }
+    if($('.lang_Francuski').is(':checked')) {
+        langs.push('Francuski');
+    }
+    if($('.lang_Niemiecki').is(':checked')) {
+        langs.push('Niemiecki');
+    }
+
+    $.ajax({
+        url: "/addUserLangs",
+        type: "post",
+        data: { langs: langs.toString() },
+        success: function(response) {
+            if(response == 1) {
+                console.log('success');
+            }
+            if(response == 0) {
+                console.log('error');
+            }
+        }
+    })
+}
