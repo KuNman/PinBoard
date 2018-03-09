@@ -132,11 +132,12 @@ class NormalUser
                 'country' => $this->getCountryObject(trim($request->get('country'))),
                 'area' => $this->getAreaObject(trim($request->get('area'))),
                 'availability' => new \DateTime(trim($request->get('date'))),
+                'city' => trim($request->get('city')),
                 'active' => 0,
                 'user' => $this->getUserObject($user_id)
             ));
 
-        if($task && $task->getCity() == $request->get('city')) {
+        if($task) {
             return true;
         }
         return false;

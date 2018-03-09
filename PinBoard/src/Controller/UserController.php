@@ -33,7 +33,7 @@ class UserController extends Controller
     }
 
     public function searchJobsAction($lang) {
-        return new JsonResponse($this->normalUser->secarchJobs($lang));
+        return new JsonResponse($this->normalUser->searchJobs($lang));
     }
 
     public function searchCountriesAction($lang) {

@@ -17,7 +17,7 @@ class Service
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=100, nullable=false)
+     * @ORM\Column(type="string", length=30, nullable=false)
      */
     private $name;
 

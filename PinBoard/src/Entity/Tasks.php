@@ -35,7 +35,7 @@ class Tasks
     private $area;
 
     /**
-     * @ORM\Column(type="json_array", nullable=false, unique=false)
+     * @ORM\Column(type="string", nullable=false, unique=false)
      */
     private $city;
 

@@ -64,7 +64,7 @@
                                         {{ value.job.getNamePl() }} |
                                         {{ value.country.getCountryPl() }} |
                                         {{ value.area.getArea() }} |
-                                        {#{{ value.city.getCity() | json_encode }}#}
+                                        {{ value.city }} |
                                         {{ value.availability|date('Y-m-d') }} |
                                         {{ value.user.getId() }} |
                                         <button onclick="activateTask('{{ value.id }}')">Activate</button>

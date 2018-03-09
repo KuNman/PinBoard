@@ -124,20 +124,22 @@ function addTask() {
    const job = $("#new_job_pl").val();
    const country = $("#select_country").val();
    const area = $("#new_area").val();
-   let city = ['wholeArea'];
    const date = $("#select_date").val();
-    //
-    // $(".input_city").each(function(index, value) {
-    //     if ($(".input_city").val().length > 1) {
-    //         console.log('aa');
-    //     } else {
-    //         city.push('wholeArea');
-    //         city.push('aa');
-        // }
+    const cities = [];
+
+    const citiesAmount = $('.input_city').val().length;
+    if(citiesAmount >= 1) {
+        $(".input_city").each(function(index){
+            cities.push(($(this).val()));
+        });
+    } else {
+        cities.push('wholeArea');
+    }
+
    $.ajax({
        url: "/addTask",
        type: "post",
-       data : { job : job, country : country, area : area, city : city, date : date },
+       data : { job : job, country : country, area : area, city : cities.toString(), date : date },
        success: function(response) {
            if(response == 1) {
                console.log('success');
