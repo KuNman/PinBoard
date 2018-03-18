@@ -133,7 +133,6 @@ class NormalUser
                 'area' => $this->getAreaObject(trim($request->get('area'))),
                 'availability' => new \DateTime(trim($request->get('date'))),
                 'city' => trim($request->get('city')),
-                'active' => 0,
                 'user' => $this->getUserObject($user_id)
             ));
 
@@ -164,9 +163,16 @@ class NormalUser
         return $userLangs ? explode(",", $userLangs) : false;
     }
 
-    public function getUserTasks($id) {
+    public function getTaskInfo($taskId) {
+        $task = $this->entityManager->getRepository('App:Tasks')
+            ->findOneBy(array('id' => $taskId));
+
+        return $task ? $task : false;
+    }
+
+    public function getUserTasks($userId) {
         $tasks = $this->entityManager->getRepository('App:Tasks')
-            ->findBy(array('user' => $id));
+            ->findBy(array('user' => $userId));
 
         return $tasks ? $tasks : false;
     }
@@ -176,6 +182,16 @@ class NormalUser
             ->findOneBy(array('id' => $id))->getUsername();
 
         return $email ? $email : false;
+    }
+
+    public function removeTask($taskId, $userId) {
+        $task = $this->entityManager->getRepository('App:Tasks')
+            ->findOneBy(array('id' => $taskId, 'user' => $userId));
+
+        $this->entityManager->remove($task);
+        $this->entityManager->flush();
+
+        return true;
     }
 
 }

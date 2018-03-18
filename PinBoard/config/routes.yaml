@@ -56,6 +56,14 @@ addTask:
     path: /addTask
     controller: App\Controller\UserController::addTaskAction
 
+editTask:
+    path: /edit/task/{id}
+    controller: App\Controller\UserController::editTaskAction
+
+removeTask:
+    path: /remove/task/{id}
+    controller: App\Controller\UserController:removeTaskAction
+
 searchJobs:
     path: /searchJobs/{lang}
     controller: App\Controller\UserController::searchJobsAction

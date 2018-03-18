@@ -24,10 +24,7 @@ class Mail
             ->setTo($to)
             ->setBody($body);
 
-        if($this->mailer->send($message)) {
-            return true;
-        }
-        return false;
+        return $this->mailer->send($message) ? true : false;
     }
 
 }

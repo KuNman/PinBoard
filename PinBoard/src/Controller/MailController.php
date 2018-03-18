@@ -14,9 +14,9 @@ class MailController extends Controller
 
     public function sendMailAction(Mail $mail, Request $request) {
         if($mail->sendMail($subject, $to, $body)) {
-            return new Response('aaa');
+            return new Response(1);
         }
-        return new Response('error');
+        return new Response(0);
 
     }
 

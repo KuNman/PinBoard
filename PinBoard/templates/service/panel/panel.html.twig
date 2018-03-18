@@ -2,6 +2,7 @@
 {% block content %}
     <div class="content">
         {% include '/service/header.html.twig' %}
+
         {% if admin is defined %}
             <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/horsey/4.2.2/horsey.min.css">
             <script src="https://cdnjs.cloudflare.com/ajax/libs/horsey/4.2.2/horsey.js"></script>
@@ -128,45 +129,113 @@
             </div>
         {% endif %}
 
-
-        {% if normaluser is defined %}
+        {% if normalUser is defined %}
             <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/horsey/4.2.2/horsey.min.css">
             <script src="https://cdnjs.cloudflare.com/ajax/libs/horsey/4.2.2/horsey.min.js"></script>
             <script src="{{ asset('build/normalUser_panel.js') }}"></script>
+
             <div class="admin_tabs">
 
                 <div class="admin_tab_1">
-                    <div class=""> Nowa praca
-                        <div>Działalność<input onkeyup="searchJobsPl()" id="new_job_pl" type="text"></div>
-                        <div>Kraj<select onchange="resetSearchAreaInCountryCounter()" id="select_country">
-                            <option value=""></option>
-                            {% for country in countries %}
-                                <option value="{{ country }}">{{ country }}</option>
-                            {% endfor %}
-                        </select>
-                        Obszar<input onkeyup="searchAreaInCountry()" id="new_area" type="text">
-                            <div class="wholeArea">
-                                <input id="wholeArea" type="checkbox"
-                                       onchange="if(this.checked){disableChooseCities()}if(!this.checked){enableChooseCities()}"
-                                       value="wholeArea">Cały obszar</input>
-                            </div>
-                            <div class="chooseCities">
-                                <input id="chooseCities" type="checkbox"
-                                       onchange="if(this.checked){disableWholeArea();chooseCity()}if(!this.checked){enableWholeArea();hideChooseCity()}"
-                                       value="chooseCities">Wybierz miasta</input>
-                                <div class="maps" style="display: none;">
-                                    <div class="city">
-                                        <input type="text" value="" class="input_city">
-                                        <button onclick="nextCity()">Kolejne miasto</button>
+                    <div class="">
+
+                        {% if task is defined %}
+                            Edytuj pracę o id {{ task.getId() }}
+                        {% else %}
+                            Nowa praca
+                        {% endif %}
+
+                        <div>Działalność<input onkeyup="searchJobsPl()" id="new_job_pl" type="text"
+                            {% if task is defined %}value="{{ task.job.getNamePl() }}"{% endif %}>
+                        </div>
+
+                        <div>
+                            Kraj
+                            <select onchange="resetSearchAreaInCountryCounter()" id="select_country">
+                                {% if task is defined %}
+                                    <option value="{{ task.country.getCountryEn() }}" selected>{{ task.country.getCountryEn() }}</option>
+                                {% endif %}
+                                    <option value=""></option>
+                                    {% for country in countries %}
+                                        <option value="{{ country }}">{{ country }}</option>
+                                    {% endfor %}
+                            </select>
+
+                        Obszar
+                            <input onkeyup="searchAreaInCountry()" id="new_area" type="text" {% if task is defined %} value="{{ task.area.getArea() }}"{% endif %}>
+
+                            {% if task is defined and task.city == 'wholeArea' %}
+                                <div class="wholeArea">
+                                    <input id="wholeArea"
+                                           type="checkbox" checked
+                                           onchange="if(this.checked){disableChooseCities()}if(!this.checked){enableChooseCities()}"
+                                           value="wholeArea">Cały obszar</input>
+                                </div>
+                                <div class="chooseCities inputDisabled">
+                                    <input id="chooseCities" type="checkbox"
+                                           onchange="if(this.checked){disableWholeArea();chooseCity()}if(!this.checked){enableWholeArea();hideChooseCity()}"
+                                           value="chooseCities">Wybierz miasta</input>
+                                    <div class="maps" style="display: none;">
+                                        <div class="city">
+                                            <input type="text" value="" class="input_city">
+                                            <button onclick="nextCity()">Kolejne miasto</button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+
+                            {% elseif task is defined and task.city != 'wholeArea' %}
+                                <div class="wholeArea inputDisabled" >
+                                    <input id="wholeArea"
+                                           type="checkbox"
+                                           onchange="if(this.checked){disableChooseCities()}if(!this.checked){enableChooseCities()}"
+                                           value="wholeArea">Cały obszar</input>
+                                </div>
+                                <div class="chooseCities">
+                                    <input id="chooseCities" type="checkbox" checked
+                                           onchange="if(this.checked){disableWholeArea();chooseCity()}if(!this.checked){enableWholeArea();hideChooseCity()}"
+                                           value="chooseCities">Wybierz miasta</input>
+                                    {% for city in task.city|split(',') %}
+                                    <div class="maps" style="display: block;">
+                                        <div class="city">
+                                                <input type="text" value="{{ city }}" class="input_city">
+                                                <button onclick="nextCity()">Kolejne miasto</button>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+
+                            {% elseif task is not defined %}
+                                <div class="wholeArea">
+                                    <input id="wholeArea"
+                                           type="checkbox"
+                                           onchange="if(this.checked){disableChooseCities()}if(!this.checked){enableChooseCities()}"
+                                           value="wholeArea">Cały obszar</input>
+                                </div>
+                                <div class="chooseCities">
+                                    <input id="chooseCities" type="checkbox"
+                                           onchange="if(this.checked){disableWholeArea();chooseCity()}if(!this.checked){enableWholeArea();hideChooseCity()}"
+                                           value="chooseCities">Wybierz miasta</input>
+                                    <div class="maps" style="display: none;">
+                                        <div class="city">
+                                            <input type="text" value="" class="input_city">
+                                            <button onclick="nextCity()">Kolejne miasto</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+
                         </div>
-                        Dostępność od<input id="select_date" type="date">
-                        <button onclick="addTask()" type="submit">Dodaj</button>
+                        Dostępność od<input id="select_date" {% if task is defined %}value="{{ task.availability|date('Y-m-d') }}"{% endif %} type="date">
+                        {% if task is defined %}
+                            <button onclick="addTask()" type="submit">Zmień</button>
+                            <button onclick="removeTask('{{ task.id }}')" type="submit">Usuń</button>
+                        {% else %}
+                            <button onclick="addTask()" type="submit">Dodaj</button>
+                        {% endif %}
                     </div>
                 </div>
 
+                {% if userLangs is defined %}
                 <div class="admin_tab_2">
                     <div class=""> Języki jakimi się posługujesz
                         <div>
@@ -191,8 +260,11 @@
                         </div>
                     </div>
                 </div>
+                {% endif %}
 
-                <div class="admin_tab_3">
+
+                {% if userTasks is defined %}
+                    <div class="admin_tab_3">
                     <div class=""> Lista tasków
                         <div>
                             {% if userTasks|length > 0 %}
@@ -207,7 +279,7 @@
                                             {{ value.availability|date('Y-m-d') }} |
                                             {{ value.user.getId() }} |
                                             {{ value.user.getLangs() }}
-                                            <button type="submit" onclick="editTask('{{ value.id }}')">Edytuj</button>
+                                            <a href="/edit/task/{{ value.id }}" target="_blank"><button type="submit">Edytuj</button></a>
                                         </div>
                                     {% endif %}
                                     {% if value.active == 0 %}
@@ -220,7 +292,7 @@
                                             {{ value.availability|date('Y-m-d') }} |
                                             {{ value.user.getId() }} |
                                             {{ value.user.getLangs() }}
-                                            <button type="submit" onclick="editTask('{{ value.id }}')">Edytuj</button>
+                                            <a href="/edit/task/{{ value.id }}" target="_blank"><button type="submit">Edytuj</button></a>
                                         </div>
                                     {% endif %}
                                 {% endfor %}
@@ -228,9 +300,9 @@
                         </div>
                     </div>
                 </div>
+                {% endif %}
             </div>
         {% endif %}
 
-
     </div>
-    {% endblock content%}
+{% endblock content%}

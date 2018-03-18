@@ -76,6 +76,8 @@ function resetSearchAreaInCountryCounter() {
 
 window.disableChooseCities = disableChooseCities;
 function disableChooseCities() {
+    $(".city").not(':first').remove();
+    $(".input_city").val("");
     $(".chooseCities").addClass("inputDisabled");
 }
 
@@ -125,8 +127,10 @@ function addTask() {
    const country = $("#select_country").val();
    const area = $("#new_area").val();
    const date = $("#select_date").val();
-   const cities = [];
-   const citiesAmount = $('.input_city').val().length;
+   let cities = [];
+   let citiesAmount = 0;
+
+   citiesAmount = $(".input_city").val().length;
 
    if(citiesAmount >= 1) {
        $(".input_city").each(function(index){
@@ -152,6 +156,23 @@ function addTask() {
 }
 
 });
+
+window.removeTask = removeTask;
+function removeTask(id) {
+    $.ajax({
+        url: "/remove/task/"+id,
+        type: "post",
+        data : { id: id },
+        success: function(response) {
+            if(response == 1) {
+                console.log('success');
+            }
+            if(response == 0) {
+                console.log('error');
+            }
+        }
+    })
+}
 
 window.addUserLangs = addUserLangs;
 function addUserLangs() {
@@ -182,9 +203,4 @@ function addUserLangs() {
             }
         }
     })
-}
-
-window.editTask = editTask;
-function editTask(id) {
-    alert('Edycja taska'+id);
 }
