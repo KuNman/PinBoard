@@ -66,12 +66,63 @@
                                             {{ value.area.getArea() }} |
                                             {{ value.city }} |
                                             {{ value.availability|date('Y-m-d') }} |
-                                            {{ value.user.getId() }} |
+                                            <a target="_blank" href="/admin/user/{{ value.user.getId() }}">{{ value.user.getId() }}</a> |
                                             {{ value.user.getLangs() }}
                                             <button onclick="activateTask('{{ value.id }}','{{ value.user.getId() }}')">Activate</button>
                                         </div>
                                         {% endfor %}
                         {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if userDetails is defined %}
+            <script src="{{ asset('build/admin_panel.js') }}"></script>
+            <div class="admin_tabs">
+                <div class="admin_tab_1">
+                    <div class="">Szczegóły użytkownika o id {{ user }}
+                        <div>Kontakt:
+                            <div>Email: {{ email }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="admin_tab_2">
+                        <div>Języki użytkownika:
+                            {% for lang in userLangs %}
+                                <div>{{ lang }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                <div class="admin_tab_3">
+                        <div> Taski użytkownika:
+                            {% for value in userTasks %}
+                                {% if value.active == 1 %}
+                                    <div class="userTask_active">
+                                        {{ value.active }} |
+                                        {{ value.job.getNamePl() }} |
+                                        {{ value.country.getCountryPl() }} |
+                                        {{ value.area.getArea() }} |
+                                        {{ value.city }} |
+                                        {{ value.availability|date('Y-m-d') }} |
+                                        {{ value.user.getLangs() }}
+                                        <button onclick="deactivateTask('{{ value.id }}','{{ value.user.getId() }}')">Deactivate</button>
+                                    </div>
+                                {% endif %}
+                                {% if value.active == 0 %}
+                                    <div class="userTask_not_active">
+                                        0 |
+                                        {{ value.job.getNamePl() }} |
+                                        {{ value.country.getCountryPl() }} |
+                                        {{ value.area.getArea() }} |
+                                        {{ value.city }} |
+                                        {{ value.availability|date('Y-m-d') }} |
+                                        {{ value.user.getLangs() }}
+                                        <button onclick="activateTask('{{ value.id }}','{{ value.user.getId() }}')">Activate</button>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
             </div>

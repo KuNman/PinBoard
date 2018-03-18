@@ -137,10 +137,7 @@ class NormalUser
                 'user' => $this->getUserObject($user_id)
             ));
 
-        if($task) {
-            return true;
-        }
-        return false;
+        return $task ? $task : false;
     }
 
     private function addJobAsUser($name) {
@@ -152,7 +149,6 @@ class NormalUser
     }
 
     public function addUserLangs(Request $request, $user_id) {
-        echo $request->get('langs');
        $user = $this->entityManager->getRepository('App:Users')
            ->findOneBy(array('id' => $user_id))->setLangs($request->get('langs'));
 
@@ -165,20 +161,21 @@ class NormalUser
         $userLangs = $this->entityManager->getRepository('App:Users')
             ->findOneBy(array('id' => $id))->getLangs();
 
-        if($userLangs) {
-            return explode(",", $userLangs);
-        }
-        return false;
+        return $userLangs ? explode(",", $userLangs) : false;
     }
 
     public function getUserTasks($id) {
         $tasks = $this->entityManager->getRepository('App:Tasks')
             ->findBy(array('user' => $id));
 
-        if($tasks) {
-            return $tasks;
-        }
-        return false;
+        return $tasks ? $tasks : false;
+    }
+
+    public function getUserEmail($id) {
+        $email = $this->entityManager->getRepository('App:Users')
+            ->findOneBy(array('id' => $id))->getUsername();
+
+        return $email ? $email : false;
     }
 
 }

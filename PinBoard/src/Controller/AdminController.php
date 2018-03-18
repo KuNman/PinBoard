@@ -102,4 +102,26 @@ class AdminController extends Controller
         return new Response(0);
     }
 
+    public function deactivateTaskAction($id, $userId) {
+        if ($this->admin->isAdmin($this->login->isLogged())) {
+            if ($this->admin->deactivateTask($id, $userId)) {
+                return new Response(1);
+            }
+        }
+        return new Response(0);
+    }
+
+    public function userDetailsAction($id) {
+        if($this->admin->isAdmin($this->login->isLogged())) {
+                return $this->render('/service/panel/panel.html.twig', array(
+                    "userDetails" => true,
+                    "user" => $id,
+                    "email" => $this->normalUser->getUserEmail($id),
+                    "userLangs" => $this->normalUser->getUserlangs($id),
+                    "userTasks" => $this->normalUser->getUserTasks($id),
+                ));
+            }
+        return new Response(0);
+    }
+
 }

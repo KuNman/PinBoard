@@ -236,28 +236,20 @@ function activateTask(id, userId) {
         type: "post",
         data: { id: id },
         success: function(response) {
-            console.log('ok');
+            console.log('activated');
         }
     });
 }
 
 
-//        const addTask = () => {
-//            const job = $("#new_job").val();
-//            const country = $("#new_country").val();
-//            const area = $("#new_area").val();
-//            const city = $("#new_city").val();
-//            $.ajax({
-//                url: "/addTask",
-//                type: "post",
-//                data : { job : job, country : country, area : area, city : city },
-//                success: function(response) {
-//                    if(response == 1) {
-//                        console.log('success');
-//                    }
-//                    if(response == 0) {
-//                        console.log('error');
-//                    }
-//                }
-//            })
-//        }
+window.deactivateTask = deactivateTask;
+function deactivateTask(id, userId) {
+    $.ajax({
+        url: "/deactivateTask/"+id+'/'+userId,
+        type: "post",
+        data: { id: id },
+        success: function(response) {
+            console.log('deactivated');
+        }
+    })
+}

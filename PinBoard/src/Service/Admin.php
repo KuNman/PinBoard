@@ -24,11 +24,14 @@ class Admin
     private $entityManager;
     private $login;
     private $mailer;
+    private $normalUser;
 
-    public function __construct(EntityManagerInterface $entityManager, Login $login, Mail $mailer) {
+    public function __construct(EntityManagerInterface $entityManager, Login $login,
+                                Mail $mailer, NormalUser $normalUser) {
         $this->entityManager = $entityManager;
         $this->login = $login;
         $this->mailer = $mailer;
+        $this->normalUser = $normalUser;
     }
 
     public function isAdmin($username) {
@@ -258,6 +261,15 @@ class Admin
         return true;
     }
 
+    public function deactivateTask($id, $userId) {
+        $this->entityManager->getRepository('App:Tasks')
+            ->findOneBy(array('id' => $id, 'user' => $userId))->setActive(0);
+        $this->entityManager->flush();
+
+        $this->sendNotificationMailToUser($userId, 'notifyTaskDeactive');
+        return true;
+    }
+
     private function sendNotificationMailToUser($id, $action) {
         $mail = $this->entityManager->getRepository('App:Users')
             ->findOneBy(array('id' => $id))->getUsername();
@@ -267,6 +279,9 @@ class Admin
                 case 'notifyTaskActive':
                     $this->mailer->sendMail('Task active', $mail, 'Your task is active!');
                     break;
+                case 'notifyTaskDeactive':
+                    $this->mailer->sendMail('Task deactivated', $mail, 'Your task is deactivated!');
+                    break;
                 case 'notifyOrderFound':
                     echo 'aaa';
                     break;
@@ -274,7 +289,6 @@ class Admin
         }
 
     }
-
 
 
 }

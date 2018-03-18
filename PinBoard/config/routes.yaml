@@ -92,6 +92,14 @@ activateTask:
     path: /activateTask/{id}/{userId}
     controller: App\Controller\AdminController::activateTaskAction
 
+deactivateTask:
+    path: /deactivateTask/{id}/{userId}
+    controller: App\Controller\AdminController:deactivateTaskAction
+
 addUserLangs:
     path: /addUserLangs
     controller: App\Controller\UserController::addUserLangsAction
+
+userDetails:
+    path: /admin/user/{id}
+    controller: App\Controller\AdminController:userDetailsAction
