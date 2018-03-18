@@ -79,9 +79,12 @@ class NormalUser
 
     public function addTask(Request $request, $user_id) {
 
-        $task = new Tasks();
-        if(!$this->isTaskSaved($request, $user_id)) {
+        if($taskId = $request->get('taskId')) {
+            $this->removeTask($taskId, $user_id);
+        }
 
+        if(!$this->isTaskSaved($request, $user_id)) {
+            $task = new Tasks();
             if(!$this->getJobObject(trim($request->get('job')))) {
                 $this->addJobAsUser(trim($request->get('job')));
                 $task->setJob($this->getJobObject(trim($request->get('job'))));

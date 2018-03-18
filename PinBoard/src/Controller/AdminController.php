@@ -33,6 +33,7 @@ class AdminController extends Controller
                     "missingJobNameEn" => $this->admin->checkMissingJobNameEn(),
                     "missingJobNameFr" => $this->admin->checkMissingJobNameFr(),
                     "notActiveTasks" => $this->admin->checkNotActiveTasks(),
+                    "allTasks" => $this->admin->allTasks(),
                 ));
             }
         }
@@ -124,4 +125,14 @@ class AdminController extends Controller
         return new Response(0);
     }
 
+    public function removeTaskAction($id, $userId) {
+        if ($this->admin->isAdmin($this->login->isLogged())) {
+            if ($this->admin->removeTask($id)) {
+                if ($this->admin->sendNotificationMailToUser($userId, 'notifyTaskRemoved')) {
+                    return new Response(1);
+                }
+            }
+            return new Response(0);
+        }
+    }
 }

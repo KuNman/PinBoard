@@ -122,7 +122,7 @@ function removeCity() {
 }
 
 window.addTask = addTask;
-function addTask() {
+function addTask(taskId) {
    const job = $("#new_job_pl").val();
    const country = $("#select_country").val();
    const area = $("#new_area").val();
@@ -143,7 +143,7 @@ function addTask() {
    $.ajax({
        url: "/addTask",
        type: "post",
-       data : { job : job, country : country, area : area, city : cities.toString(), date : date },
+       data : { job : job, country : country, area : area, city : cities.toString(), date : date, taskId : taskId },
        success: function(response) {
            if(response == 1) {
                console.log('success');

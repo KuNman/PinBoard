@@ -57,6 +57,7 @@
                 </div>
 
                 <div class="admin_tab_2">
+                    Taski do aktywacji
                     <div class="not_active_tasks">
                         {% if notActiveTasks|length > 0 %}
                                     {% for value in notActiveTasks %}
@@ -72,6 +73,26 @@
                                             <button onclick="activateTask('{{ value.id }}','{{ value.user.getId() }}')">Activate</button>
                                         </div>
                                         {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="admin_tab_3">
+                    Lista tasków
+                    <div class="all_tasks">
+                        {% if allTasks is defined %}
+                            {% for value in allTasks %}
+                                <div>
+                                    {{ value.id }} |
+                                    {{ value.job.getNamePl() }} |
+                                    {{ value.country.getCountryPl() }} |
+                                    {{ value.area.getArea() }} |
+                                    {{ value.city }} |
+                                    {{ value.availability|date('Y-m-d') }} |
+                                    <a target="_blank" href="/admin/user/{{ value.user.getId() }}">{{ value.user.getId() }}</a> |
+                                    {{ value.user.getLangs() }}
+                                    <button onclick="removeTask('{{ value.id }}', '{{ value.user.getId() }}')" type="submit">Usuń</button>
+                                </div>
+                            {% endfor %}
                         {% endif %}
                     </div>
                 </div>
@@ -108,6 +129,7 @@
                                         {{ value.availability|date('Y-m-d') }} |
                                         {{ value.user.getLangs() }}
                                         <button onclick="deactivateTask('{{ value.id }}','{{ value.user.getId() }}')">Deactivate</button>
+                                        <button onclick="removeTask('{{ value.id }}', '{{ value.user.getId() }}')" type="submit">Usuń</button>
                                     </div>
                                 {% endif %}
                                 {% if value.active == 0 %}
@@ -120,6 +142,7 @@
                                         {{ value.availability|date('Y-m-d') }} |
                                         {{ value.user.getLangs() }}
                                         <button onclick="activateTask('{{ value.id }}','{{ value.user.getId() }}')">Activate</button>
+                                        <button onclick="removeTask('{{ value.id }}', '{{ value.user.getId() }}')" type="submit">Usuń</button>
                                     </div>
                                 {% endif %}
                             {% endfor %}
@@ -227,7 +250,7 @@
                         </div>
                         Dostępność od<input id="select_date" {% if task is defined %}value="{{ task.availability|date('Y-m-d') }}"{% endif %} type="date">
                         {% if task is defined %}
-                            <button onclick="addTask()" type="submit">Zmień</button>
+                            <button onclick="addTask('{{ task.id }}')" type="submit">Zmień</button>
                             <button onclick="removeTask('{{ task.id }}')" type="submit">Usuń</button>
                         {% else %}
                             <button onclick="addTask()" type="submit">Dodaj</button>

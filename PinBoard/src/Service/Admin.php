@@ -295,5 +295,21 @@ class Admin
 
     }
 
+    public function allTasks() {
+        $tasks = $this->entityManager->getRepository('App:Tasks')
+            ->findAll();
+        return $tasks ? $tasks : false;
+    }
+
+    public function removeTask($id) {
+        $task = $this->entityManager->getRepository('App:Tasks')
+            ->findOneBy(array('id' => $id));
+
+        $this->entityManager->remove($task);
+        $this->entityManager->flush();
+
+        return true;
+    }
+
 
 }

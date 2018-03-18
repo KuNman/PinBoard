@@ -64,6 +64,10 @@ removeTask:
     path: /remove/task/{id}
     controller: App\Controller\UserController:removeTaskAction
 
+adminRemoveTask:
+    path: /admin/remove/task/{id}/{userId}
+    controller: App\Controller\AdminController:removeTaskAction
+
 searchJobs:
     path: /searchJobs/{lang}
     controller: App\Controller\UserController::searchJobsAction

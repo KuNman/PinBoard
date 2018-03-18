@@ -253,3 +253,20 @@ function deactivateTask(id, userId) {
         }
     })
 }
+
+window.removeTask = removeTask;
+function removeTask(id, userId) {
+    $.ajax({
+        url: "/admin/remove/task/"+id+'/'+userId,
+        type: "post",
+        data : { id: id },
+        success: function(response) {
+            if(response == 1) {
+                console.log('success');
+            }
+            if(response == 0) {
+                console.log('error');
+            }
+        }
+    })
+}
