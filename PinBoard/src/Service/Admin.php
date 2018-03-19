@@ -311,5 +311,40 @@ class Admin
         return true;
     }
 
+    public function getTaskIds(){
+        $ids = $this->entityManager->getRepository('App:Tasks')
+            ->createQueryBuilder('id')
+            ->distinct(true)
+            ->select('id.id')
+            ->getQuery();
+
+        $array = $ids->getScalarResult();
+        $array = array_column($array, "id");
+        return array_filter($array);
+    }
+
+    public function getJobsNames($lang = 'pl') {
+        $jobs = $this->entityManager->getRepository('App:Jobs')
+            ->createQueryBuilder('job')
+            ->distinct(true)
+            ->select('job.name_'.$lang)
+            ->getQuery();
+
+        $array = $jobs->getScalarResult();
+        $array = array_column($array, "name_".$lang);
+        return array_filter($array);
+    }
+
+    public function getCountries($lang = 'pl') {
+        $countries = $this->entityManager->getRepository('App:Countries')
+            ->createQueryBuilder('countries')
+            ->distinct(true)
+            ->select('countries.country_'.$lang)
+            ->getQuery();
+
+        $array = $countries->getScalarResult();
+        $array = array_column($array, "country_".$lang);
+        return array_filter($array);
+    }
 
 }

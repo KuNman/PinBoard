@@ -115,3 +115,15 @@ addUserLangs:
 userDetails:
     path: /admin/user/{id}
     controller: App\Controller\AdminController:userDetailsAction
+
+getTaskIds:
+    path: /getTaskIds
+    controller: App\Controller\AdminController:getTaskIdsAction
+
+getJobsNames:
+    path: /getJobsNames
+    controller: App\Controller\AdminController:getJobsNamesAction
+
+getCountries:
+    path: /getCountries
+    controller: App\Controller\AdminController:getCountriesAction

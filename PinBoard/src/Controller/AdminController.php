@@ -7,6 +7,7 @@ use App\Service\Login;
 use App\Service\NormalUser;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -134,5 +135,17 @@ class AdminController extends Controller
             }
             return new Response(0);
         }
+    }
+
+    public function getTaskIdsAction() {
+        return new JsonResponse($this->admin->getTaskIds());
+    }
+
+    public function getJobsNamesAction() {
+        return new JsonResponse($this->admin->getJobsNames());
+    }
+
+    public function getCountriesAction() {
+        return new JsonResponse($this->admin->getCountries());
     }
 }

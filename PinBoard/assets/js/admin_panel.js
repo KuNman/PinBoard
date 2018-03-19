@@ -5,6 +5,9 @@ let searchCountriesEnCounter = 0;
 let searchCountriesPlCounter = 0;
 let searchCountriesFrCounter = 0;
 let searchAreaInCountryCounter = 0;
+let getJobsNamesCounter = 0;
+let getTaskIdsCounter = 0;
+let getCountriesCounter = 0;
 
 window.addNewJobName = addNewJobName;
 function addNewJobName () {
@@ -269,4 +272,52 @@ function removeTask(id, userId) {
             }
         }
     })
+}
+
+window.getTaskIds = getTaskIds;
+function getTaskIds() {
+    if($("#search_id").val().length >= 2 && getTaskIdsCounter == 0) {
+        $.ajax({
+            url: "/getTaskIds",
+            type: "post",
+            success: function(response) {
+                horsey(document.getElementById('search_id'), {
+                    source: [{ list : response }],
+                });
+                getTaskIdsCounter += 1;
+            }
+        });
+    }
+}
+
+window.getJobsNames = getJobsNames;
+function getJobsNames() {
+    if($("#search_job").val().length >= 2 && getJobsNamesCounter == 0) {
+        $.ajax({
+            url: "/getJobsNames",
+            type: "post",
+            success: function(response) {
+                horsey(document.getElementById('search_job'), {
+                    source: [{ list : response }],
+                });
+                getJobsNamesCounter += 1;
+            }
+        });
+    }
+}
+
+window.getCountries = getCountries;
+function getCountries() {
+    if($("#search_country").val().length >= 2 && getCountriesCounter == 0) {
+        $.ajax({
+            url: "/getCountries",
+            type: "post",
+            success: function(response) {
+                horsey(document.getElementById('search_country'), {
+                    source: [{ list : response }],
+                });
+                getCountriesCounter += 1;
+            }
+        });
+    }
 }

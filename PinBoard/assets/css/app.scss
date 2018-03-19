@@ -124,27 +124,31 @@ body .page .content .admin_tabs {
 }
 
 body .page .content .admin_tab_1 {
-  background: pink;
+  background: #fad390;
 }
 
 body .page .content .admin_tab_2 {
-  background: darkgray;
+  background: #f8c291;
 }
 
 body .page .content .admin_tab_3 {
-  background: darksalmon;
+  background: #6a89cc;
+}
+
+body .page .content .admin_tab_4 {
+  background: #82ccdd;
 }
 
 body .page .content .userTask_active {
   border-style: solid;
   border-width: medium;
   border-color: darksalmon;
-  background: darkseagreen;
+  background: #78e08f;
 }
 
 body .page .content .userTask_not_active {
   border-style: solid;
   border-width: medium;
   border-color: darksalmon;
-  background: red;
+  background: #b71540;
 }

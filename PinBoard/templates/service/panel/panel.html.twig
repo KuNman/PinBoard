@@ -76,6 +76,7 @@
                         {% endif %}
                     </div>
                 </div>
+
                 <div class="admin_tab_3">
                     Lista tasków
                     <div class="all_tasks">
@@ -94,6 +95,16 @@
                                 </div>
                             {% endfor %}
                         {% endif %}
+                    </div>
+                </div>
+
+                <div class="admin_tab_4">
+                    Znajdź task
+                    <div>
+                        Id <input id="search_id" onkeyup="getTaskIds()" type="number">
+                        Praca <input id="search_job" onkeyup="getJobsNames()" type="text">
+                        Kraj <input id="search_country" onkeyup="getCountries()" type="text">
+                        <button>Search</button>
                     </div>
                 </div>
             </div>
