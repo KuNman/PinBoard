@@ -14,7 +14,6 @@ use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Forms;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder;
 use Symfony\Flex\Response;
 
@@ -29,7 +28,8 @@ class Register
         $this->encoder = $encoder;
     }
 
-    public function form(Request $request, $username = null) {
+//    public function form(Request $request, $username = null) {
+    public function form() {
 
         $formFactory = Forms::createFormFactory();
 

@@ -148,4 +148,20 @@ class AdminController extends Controller
     public function getCountriesAction() {
         return new JsonResponse($this->admin->getCountries());
     }
+
+    public function getAreasAction() {
+        return new JsonResponse($this->admin->getAreas());
+    }
+
+    public function getCitiesAction() {
+        return new JsonResponse($this->admin->getCities());
+    }
+
+    public function getUserIdsOrUsernamesAction($data) {
+        return new JsonResponse($this->admin->getUserIdsOrUsernames($data));
+    }
+
+    public function searchTaskAction(Request $request) {
+        return new Response(var_dump($request));
+    }
 }

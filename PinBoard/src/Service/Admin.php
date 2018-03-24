@@ -13,11 +13,14 @@ use App\Entity\Areas;
 use App\Entity\Cities;
 use App\Entity\Countries;
 use App\Entity\Jobs;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\ResetType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Forms;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Flex\Response;
 
 class Admin
 {
@@ -347,4 +350,62 @@ class Admin
         return array_filter($array);
     }
 
+    public function getAreas() {
+        $areas = $this->entityManager->getRepository('App:Areas')
+            ->createQueryBuilder('areas')
+            ->distinct(true)
+            ->select('areas.area')
+            ->getQuery();
+
+        $array = $areas->getScalarResult();
+        $array = array_column($array, 'area');
+        return array_filter($array);
+    }
+
+    public function getCities() {
+        $areas = $this->entityManager->getRepository('App:Cities')
+            ->createQueryBuilder('cities')
+            ->distinct(true)
+            ->select('cities.city')
+            ->getQuery();
+
+        $array = $areas->getScalarResult();
+        $array = array_column($array, 'city');
+        return array_filter($array);
+    }
+
+    public function getUserIdsOrUsernames($data) {
+        $areas = $this->entityManager->getRepository('App:Users')
+            ->createQueryBuilder('users')
+            ->distinct(true)
+            ->select('users.'.$data)
+            ->getQuery();
+
+        $array = $areas->getScalarResult();
+        $array = array_column($array, $data);
+        return array_filter($array);
+    }
+
+//    public function searchTaskForm(Request $request) {
+//
+//        $formFactory = Forms::createFormFactory();
+//
+//        $form = $formFactory->createBuilder()
+//            ->setMethod('post')
+//            ->add('id', NumberType::class)
+//            ->add('praca', TextType::class)
+//            ->add('kraj', TextType::class)
+//            ->add('region', TextType::class)
+//            ->add('miasto', TextType::class)
+//            ->add('userid', NumberType::class)
+//            ->add('useremail', TextType::class)
+//            ->add('active', ChoiceType::class)
+//            ->add('search', SubmitType::class)
+//            ->add('clear', ResetType::class)
+//            ->getForm();
+//
+//        $form = $form
+//        return $form;
+//
+//    }
 }

@@ -8,6 +8,9 @@ let searchAreaInCountryCounter = 0;
 let getJobsNamesCounter = 0;
 let getTaskIdsCounter = 0;
 let getCountriesCounter = 0;
+let getAreasCounter = 0;
+let getCitiesCounter = 0;
+let getUserIdsOrUsernamesCounter = 0;
 
 window.addNewJobName = addNewJobName;
 function addNewJobName () {
@@ -321,3 +324,59 @@ function getCountries() {
         });
     }
 }
+
+window.getAreas = getAreas;
+function getAreas() {
+    if($("#search_area").val().length >= 2 && getAreasCounter == 0) {
+        $.ajax({
+            url: "/getAreas",
+            type: "post",
+            success: function(response) {
+                horsey(document.getElementById('search_area'), {
+                    source: [{ list : response }],
+                    limit: 7,
+                });
+                getAreasCounter += 1;
+            }
+        });
+    }
+}
+
+window.getCities = getCities;
+function getCities() {
+    if($("#search_city").val().length >= 2 && getCitiesCounter == 0) {
+        $.ajax({
+            url: "/getCities",
+            type: "post",
+            success: function(response) {
+                horsey(document.getElementById('search_city'), {
+                    source: [{ list : response }],
+                    limit: 7,
+                });
+                getCitiesCounter += 1;
+            }
+        });
+    }
+}
+
+window.getUserIdsOrUsernames = getUserIdsOrUsernames;
+function getUserIdsOrUsernames(data) {
+    if($("#search_user"+data).val().length >= 1 && getUserIdsOrUsernamesCounter <= 7) {
+        $.ajax({
+            url: "/getUserIdsOrUsernames/"+data,
+            type: "post",
+            success: function(response) {
+                horsey(document.getElementById('search_user'+data), {
+                    source: [{ list : response }],
+                    limit: 5,
+                });
+                getUserIdsOrUsernamesCounter += 1;
+            }
+        });
+    }
+}
+
+// window.searchTask = searchTask;
+// function searchTask() {
+//     var win = window.open('admin/searchTask', '_blank');
+// }

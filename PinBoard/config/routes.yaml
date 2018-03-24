@@ -127,3 +127,19 @@ getJobsNames:
 getCountries:
     path: /getCountries
     controller: App\Controller\AdminController:getCountriesAction
+
+getAreas:
+    path: /getAreas
+    controller: App\Controller\AdminController:getAreasAction
+
+getCities:
+    path: /getCities
+    controller: App\Controller\AdminController:getCitiesAction
+
+getUserIdsOrUsernames:
+    path: /getUserIdsOrUsernames/{data}
+    controller: App\Controller\AdminController:getUserIdsOrUsernamesAction
+
+searchTask:
+    path: /admin/searchTask
+    controller: App\Controller\AdminController:searchTaskAction

@@ -14,4 +14,4 @@ framework:
     php_errors:
         log: true
     session:
-          cookie_lifetime: 600
+          cookie_lifetime: 1200

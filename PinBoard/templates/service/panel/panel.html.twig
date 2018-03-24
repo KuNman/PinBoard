@@ -52,7 +52,7 @@
                             {% endfor %}
                         </select>
                         Origin lang<input onkeyup="searchAreaInCountry()" id="new_area" type="text">
-                        <button onclick="addNewAreaName()" type="submit">Dodaj nazwę kraju</button>
+                        <button onclick="addNewAreaName()" type="submit">Dodaj nazwę regionu</button>
                     </div>
                 </div>
 
@@ -60,19 +60,19 @@
                     Taski do aktywacji
                     <div class="not_active_tasks">
                         {% if notActiveTasks|length > 0 %}
-                                    {% for value in notActiveTasks %}
-                                        <div>
-                                            {{ value.id }} |
-                                            {{ value.job.getNamePl() }} |
-                                            {{ value.country.getCountryPl() }} |
-                                            {{ value.area.getArea() }} |
-                                            {{ value.city }} |
-                                            {{ value.availability|date('Y-m-d') }} |
-                                            <a target="_blank" href="/admin/user/{{ value.user.getId() }}">{{ value.user.getId() }}</a> |
-                                            {{ value.user.getLangs() }}
-                                            <button onclick="activateTask('{{ value.id }}','{{ value.user.getId() }}')">Activate</button>
-                                        </div>
-                                        {% endfor %}
+                            {% for value in notActiveTasks %}
+                                <div>
+                                    {{ value.id }} |
+                                    {{ value.job.getNamePl() }} |
+                                    {{ value.country.getCountryPl() }} |
+                                    {{ value.area.getArea() }} |
+                                    {{ value.city }} |
+                                    {{ value.availability|date('Y-m-d') }} |
+                                    <a target="_blank" href="/admin/user/{{ value.user.getId() }}">{{ value.user.getId() }}</a> |
+                                    {{ value.user.getLangs() }}
+                                    <button onclick="activateTask('{{ value.id }}','{{ value.user.getId() }}')">Activate</button>
+                                </div>
+                                {% endfor %}
                         {% endif %}
                     </div>
                 </div>
@@ -101,10 +101,22 @@
                 <div class="admin_tab_4">
                     Znajdź task
                     <div>
-                        Id <input id="search_id" onkeyup="getTaskIds()" type="number">
+                        <form action="/admin/searchTask" method="get" target="_blank">
+                        Id <input name="id" value="65" id="search_id" onkeyup="getTaskIds()" type="number">
                         Praca <input id="search_job" onkeyup="getJobsNames()" type="text">
-                        Kraj <input id="search_country" onkeyup="getCountries()" type="text">
-                        <button>Search</button>
+                        Kraj <input name="country" value="Polska" id="search_country" onkeyup="getCountries()" type="text">
+                        Region <input id="search_area" onkeyup="getAreas()" type="text">
+                        Miasto <input id="search_city" onkeyup="getCities()" type="text">
+                        UserId <input id="search_userid" onkeyup="getUserIdsOrUsernames('id')" type="number">
+                        UserEmail <input id="search_userusername" onkeyup="getUserIdsOrUsernames('username')" type="text">
+                        Active <select>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                            <option value="all">All</option>
+                        </select>
+                        <input type="submit">
+                        <button type="reset">Clear</button>
+                        </form>
                     </div>
                 </div>
             </div>

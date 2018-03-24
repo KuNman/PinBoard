@@ -2,13 +2,18 @@ $font-normal: Helvetica, sans-serif;
 //$font-fancy: Indie Flower, cursive;
 $font-fancy: Amatic SC, cursive;
 $font-big-size: 60px;
-$background: azure;
-$background-side: ivory;
+$background: #b8e994;
+$background-side: #b8e994;
 $input-disabled-opacity: 0.5;
+
+body {
+  margin: 0;
+}
 
 body .page {
   display: flex;
   flex-direction: row;
+  background-color: #82ccdd;
 }
 
 body .page .left {
