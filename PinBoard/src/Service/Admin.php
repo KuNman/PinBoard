@@ -273,7 +273,7 @@ class Admin
         return true;
     }
 
-    public function sendNotificationMailToUser($id, $action) {
+    public function sendNotificationMailToUser($id, $action, $message = null) {
         $mail = $this->entityManager->getRepository('App:Users')
             ->findOneBy(array('id' => $id))->getUsername();
 
@@ -288,8 +288,8 @@ class Admin
                 case 'notifyTaskRemoved':
                     $this->mailer->sendMail('Task removed', $mail, 'Your task is removed!');
                     break;
-                case 'notifyOrderFound':
-                    echo 'aaa';
+                case 'sendMessageToUser':
+                    $this->mailer->sendMail('Message', $mail, $message);
                     break;
             }
             return true;

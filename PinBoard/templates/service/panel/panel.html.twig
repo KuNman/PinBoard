@@ -170,6 +170,16 @@
                             {% endfor %}
                         </div>
                     </div>
+                <div class="admin_tab_4">
+                    Wyślij wiadomość
+                    <div class="">
+                        <form action="{{ path('sendMessageToUser') }}" method="post">
+                            <textarea name="message"></textarea>
+                            <input name="id" style="display: none;" value="{{ user }}">
+                            <button type="submit">Wyślij</button>
+                        </form>
+                    </div>
+                </div>
                 </div>
         {% endif %}
 

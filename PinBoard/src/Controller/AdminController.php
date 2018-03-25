@@ -170,4 +170,15 @@ class AdminController extends Controller
             ));
         }
     }
+
+    public function sendMessageToUserAction(Request $request) {
+        if ($this->admin->isAdmin($this->login->isLogged())) {
+            if($this->admin->sendNotificationMailToUser(
+                $request->get('id'),
+                'sendMessageToUser',
+                $request->get('message')) ){
+                    return $this->redirect('/admin/user/'.$request->get('id'));
+                }
+            }
+        }
 }

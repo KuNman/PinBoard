@@ -59,11 +59,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="AdminController.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="AdminController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Controller/AdminController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="496">
-              <caret line="166" column="0" lean-forward="false" selection-start-line="166" selection-start-column="0" selection-end-line="166" selection-end-column="0" />
+            <state relative-caret-position="526">
+              <caret line="179" column="77" lean-forward="false" selection-start-line="179" selection-start-column="77" selection-end-line="179" selection-end-column="77" />
               <folding>
                 <element signature="e#34#56#0#PHP" expanded="true" />
                 <element signature="e#5504#5535#0#PHP" expanded="true" />
@@ -75,28 +75,28 @@
       <file leaf-file-name="routes.yaml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/routes.yaml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="526">
-              <caret line="139" column="32" lean-forward="false" selection-start-line="139" selection-start-column="11" selection-end-line="139" selection-end-column="32" />
+            <state relative-caret-position="631">
+              <caret line="146" column="17" lean-forward="false" selection-start-line="146" selection-start-column="17" selection-end-line="146" selection-end-column="17" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Admin.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Admin.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Service/Admin.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="344">
-              <caret line="431" column="51" lean-forward="false" selection-start-line="431" selection-start-column="51" selection-end-line="431" selection-end-column="51" />
+            <state relative-caret-position="448">
+              <caret line="291" column="72" lean-forward="false" selection-start-line="291" selection-start-column="72" selection-end-line="291" selection-end-column="72" />
               <folding>
                 <element signature="e#111#132#0#PHP" expanded="true" />
-                <element signature="e#10775#10786#1#PHP" expanded="true" />
-                <element signature="e#11143#11155#1#PHP" expanded="true" />
-                <element signature="e#11531#11542#1#PHP" expanded="true" />
-                <element signature="e#11931#11942#1#PHP" expanded="true" />
-                <element signature="e#12191#12201#1#PHP" expanded="true" />
-                <element signature="e#12460#12475#1#PHP" expanded="true" />
-                <element signature="e#12743#12754#1#PHP" expanded="true" />
-                <element signature="e#13254#13265#1#PHP" expanded="true" />
+                <element signature="e#10834#10845#1#PHP" expanded="true" />
+                <element signature="e#11202#11214#1#PHP" expanded="true" />
+                <element signature="e#11590#11601#1#PHP" expanded="true" />
+                <element signature="e#11990#12001#1#PHP" expanded="true" />
+                <element signature="e#12250#12260#1#PHP" expanded="true" />
+                <element signature="e#12519#12534#1#PHP" expanded="true" />
+                <element signature="e#12802#12813#1#PHP" expanded="true" />
+                <element signature="e#13313#13324#1#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -105,11 +105,11 @@
       <file leaf-file-name="panel.html.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/service/panel/panel.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="188">
-              <caret line="113" column="48" lean-forward="false" selection-start-line="113" selection-start-column="48" selection-end-line="113" selection-end-column="48" />
+            <state relative-caret-position="406">
+              <caret line="177" column="65" lean-forward="false" selection-start-line="177" selection-start-column="61" selection-end-line="177" selection-end-column="65" />
               <folding>
-                <element signature="e#7249#10209#0#Twig" expanded="false" />
-                <element signature="e#10219#20911#0#Twig" expanded="false" />
+                <element signature="e#10720#21412#0#Twig" expanded="false" />
+                <element signature="e#21422#23839#0#Twig" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -153,6 +153,7 @@
       <find>addTas</find>
       <find>activa</find>
       <find>select</find>
+      <find>selectą</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -212,13 +213,13 @@
         <option value="$PROJECT_DIR$/assets/css/app.scss" />
         <option value="$PROJECT_DIR$/src/Service/Register.php" />
         <option value="$PROJECT_DIR$/assets/js/admin_panel.js" />
-        <option value="$PROJECT_DIR$/config/routes.yaml" />
         <option value="$PROJECT_DIR$/config/packages/framework.yaml" />
         <option value="$PROJECT_DIR$/webpack.config.js" />
         <option value="$PROJECT_DIR$/assets/js/searchTask_panel.js" />
+        <option value="$PROJECT_DIR$/config/routes.yaml" />
+        <option value="$PROJECT_DIR$/src/Service/Admin.php" />
         <option value="$PROJECT_DIR$/templates/service/panel/panel.html.twig" />
         <option value="$PROJECT_DIR$/src/Controller/AdminController.php" />
-        <option value="$PROJECT_DIR$/src/Service/Admin.php" />
       </list>
     </option>
   </component>
@@ -239,7 +240,7 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="y" value="22" />
     <option name="width" value="1440" />
     <option name="height" value="833" />
@@ -444,7 +445,7 @@
       <workItem from="1521384470518" duration="17428000" />
       <workItem from="1521488950805" duration="4244000" />
       <workItem from="1521501541611" duration="691000" />
-      <workItem from="1521923670429" duration="13708000" />
+      <workItem from="1521923670429" duration="14989000" />
     </task>
     <task id="LOCAL-00001" summary="Progress">
       <created>1519325117688</created>
@@ -457,10 +458,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="289221000" />
+    <option name="totallyTimeSpent" value="290502000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1440" height="833" extended-state="0" />
+    <frame x="0" y="22" width="1440" height="833" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19241774" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -875,50 +876,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/AdminController.php">
+    <entry file="file://$PROJECT_DIR$/src/Service/Admin.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="496">
-          <caret line="166" column="0" lean-forward="false" selection-start-line="166" selection-start-column="0" selection-end-line="166" selection-end-column="0" />
+        <state relative-caret-position="448">
+          <caret line="291" column="72" lean-forward="false" selection-start-line="291" selection-start-column="72" selection-end-line="291" selection-end-column="72" />
           <folding>
-            <element signature="e#34#56#0#PHP" expanded="true" />
-            <element signature="e#5504#5535#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/service/panel/panel.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="113" column="48" lean-forward="false" selection-start-line="113" selection-start-column="48" selection-end-line="113" selection-end-column="48" />
-          <folding>
-            <element signature="e#7249#10209#0#Twig" expanded="false" />
-            <element signature="e#10219#20911#0#Twig" expanded="false" />
+            <element signature="e#111#132#0#PHP" expanded="true" />
+            <element signature="e#10834#10845#1#PHP" expanded="true" />
+            <element signature="e#11202#11214#1#PHP" expanded="true" />
+            <element signature="e#11590#11601#1#PHP" expanded="true" />
+            <element signature="e#11990#12001#1#PHP" expanded="true" />
+            <element signature="e#12250#12260#1#PHP" expanded="true" />
+            <element signature="e#12519#12534#1#PHP" expanded="true" />
+            <element signature="e#12802#12813#1#PHP" expanded="true" />
+            <element signature="e#13313#13324#1#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/config/routes.yaml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="526">
-          <caret line="139" column="32" lean-forward="false" selection-start-line="139" selection-start-column="11" selection-end-line="139" selection-end-column="32" />
+        <state relative-caret-position="631">
+          <caret line="146" column="17" lean-forward="false" selection-start-line="146" selection-start-column="17" selection-end-line="146" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Service/Admin.php">
+    <entry file="file://$PROJECT_DIR$/templates/service/panel/panel.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="344">
-          <caret line="431" column="51" lean-forward="false" selection-start-line="431" selection-start-column="51" selection-end-line="431" selection-end-column="51" />
+        <state relative-caret-position="406">
+          <caret line="177" column="65" lean-forward="false" selection-start-line="177" selection-start-column="61" selection-end-line="177" selection-end-column="65" />
           <folding>
-            <element signature="e#111#132#0#PHP" expanded="true" />
-            <element signature="e#10775#10786#1#PHP" expanded="true" />
-            <element signature="e#11143#11155#1#PHP" expanded="true" />
-            <element signature="e#11531#11542#1#PHP" expanded="true" />
-            <element signature="e#11931#11942#1#PHP" expanded="true" />
-            <element signature="e#12191#12201#1#PHP" expanded="true" />
-            <element signature="e#12460#12475#1#PHP" expanded="true" />
-            <element signature="e#12743#12754#1#PHP" expanded="true" />
-            <element signature="e#13254#13265#1#PHP" expanded="true" />
+            <element signature="e#10720#21412#0#Twig" expanded="false" />
+            <element signature="e#21422#23839#0#Twig" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/AdminController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="526">
+          <caret line="179" column="77" lean-forward="false" selection-start-line="179" selection-start-column="77" selection-end-line="179" selection-end-column="77" />
+          <folding>
+            <element signature="e#34#56#0#PHP" expanded="true" />
+            <element signature="e#5504#5535#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
