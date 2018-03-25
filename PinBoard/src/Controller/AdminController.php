@@ -141,8 +141,8 @@ class AdminController extends Controller
         return new JsonResponse($this->admin->getTaskIds());
     }
 
-    public function getJobsNamesAction() {
-        return new JsonResponse($this->admin->getJobsNames());
+    public function getJobsNamesAction(Request $request) {
+        return new JsonResponse($this->admin->getJobsNames($request->get('lang')));
     }
 
     public function getCountriesAction() {

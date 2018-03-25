@@ -1,6 +1,5 @@
 index:
     path: /
-    host:     "localhost"
     controller: App\Controller\ServiceController::indexAction
 
 results:
@@ -9,7 +8,6 @@ results:
 
 admin:
     path: /admin
-    host:     "localhost"
     controller: App\Controller\AdminController::indexAction
 
 panel:

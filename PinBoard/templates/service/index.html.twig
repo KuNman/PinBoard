@@ -2,13 +2,15 @@
     {% block content %}
         <div class="content">
             {% include '/service/header.html.twig' %}
+            <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/horsey/4.2.2/horsey.min.css">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/horsey/4.2.2/horsey.js"></script>
             {{ form_start(form) }}
             <div class="content-content">
                 <div class="welcome">
                     <div id="#typed-welcome">I'am looking for</div>
                 </div>
                 <div class="index-form">
-                    <div class="name">
+                    <div class="name" id="search_job">
                     {{ form_widget(form.name) }}
                     </div>
                     <div class="place" id="locationField">
@@ -23,9 +25,4 @@
             </div>
             {{ form_end(form) }}
         </div>
-    {% endblock content%}
-    {% block javascripts %}
-    <script>
-        document.getElementById("form_place").value = '';
-    </script>
-    {% endblock %}
+    {% endblock content %}

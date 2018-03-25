@@ -19,13 +19,10 @@ class ServiceController extends Controller
     }
 
     public function indexAction() {
-
-        $form = $this->service->form();
-        return $this->render('/service/index.html.twig', array("form" => $form));
+        return $this->render('/service/index.html.twig', array("form" => $this->service->form()));
     }
 
     public function resultsAction(Request $request) {
-
         $results = $this->service->results($request);
         return $this->render('/service/results.html.twig', array("results" => $results));
     }
