@@ -101,19 +101,18 @@
                 <div class="admin_tab_4">
                     Znajdź task
                     <div>
-                        <form action="/admin/searchTask" method="get" target="_blank">
-                        Id <input name="id" value="65" id="search_id" onkeyup="getTaskIds()" type="number">
-                        Praca <input id="search_job" onkeyup="getJobsNames()" type="text">
-                        Kraj <input name="country" value="Polska" id="search_country" onkeyup="getCountries()" type="text">
-                        Region <input id="search_area" onkeyup="getAreas()" type="text">
-                        Miasto <input id="search_city" onkeyup="getCities()" type="text">
-                        UserId <input id="search_userid" onkeyup="getUserIdsOrUsernames('id')" type="number">
-                        UserEmail <input id="search_userusername" onkeyup="getUserIdsOrUsernames('username')" type="text">
-                        Active <select>
-                            <option value="yes">Yes</option>
-                            <option value="no">No</option>
-                            <option value="all">All</option>
-                        </select>
+                        <form action="/admin/searchTask" method="post" target="_blank">
+                        Id <input name="search_id" id="search_id" onkeyup="getTaskIds()" type="number">
+                        Praca <input name="search_job" id="search_job" onkeyup="getJobsNames()" type="text">
+                        Kraj <input name="search_country" id="search_country" onkeyup="getCountries()" type="text">
+                        Region <input name="search_area" id="search_area" onkeyup="getAreas()" type="text">
+                        Miasto <input name="search_city" id="search_city" onkeyup="getCities()" type="text">
+                        UserId <input name="search_userid" id="search_userid" onkeyup="getUserIdsOrUsernames('id')" type="number">
+                        UserEmail <input name="search_userusername" id="search_userusername" onkeyup="getUserIdsOrUsernames('username')" type="text">
+                        Active
+                            <input name="search_active" value="yes" type="checkbox">Yes</input>
+                            <input name="search_notactive" value="no" type="checkbox">No</input>
+
                         <input type="submit">
                         <button type="reset">Clear</button>
                         </form>
@@ -172,7 +171,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
         {% endif %}
 
         {% if normalUser is defined %}
@@ -348,6 +346,49 @@
                 </div>
                 {% endif %}
             </div>
+        {% endif %}
+
+        {% if searchTask is defined %}
+        <script src="{{ asset('build/searchTask_panel.js') }}"></script>
+
+        <div class="admin_tabs">
+
+            <div class="admin_tab_1">
+                <div class="">
+                    {% for key, value in searchTask %}
+                        {% if value.active == 1 %}
+                            <div class="userTask_active">
+                                {{ value.id }} |
+                                {{ value.active }} |
+                                {{ value.job.getNamePl() }} |
+                                {{ value.country.getCountryPl() }} |
+                                {{ value.area.getArea() }} |
+                                {{ value.city }} |
+                                {{ value.availability|date('Y-m-d') }} |
+                                <a target="_blank" href="/admin/user/{{ value.user.getId() }}">{{ value.user.getId() }}</a> |
+                                {{ value.user.getLangs() }}
+                                <button onclick="deactivateTask('{{ value.id }}','{{ value.user.getId() }}')">Deactivate</button>
+                                <button onclick="removeTask('{{ value.id }}', '{{ value.user.getId() }}')" type="submit">Usuń</button>
+                            </div>
+                        {% endif %}
+                        {% if value.active == 0 %}
+                            <div class="userTask_not_active">
+                                {{ value.id }} |
+                                {{ value.job.getNamePl() }} |
+                                {{ value.country.getCountryPl() }} |
+                                {{ value.area.getArea() }} |
+                                {{ value.city }} |
+                                {{ value.availability|date('Y-m-d') }} |
+                                <a target="_blank" href="/admin/user/{{ value.user.getId() }}">{{ value.user.getId() }}</a> |
+                                {{ value.user.getLangs() }}
+                                <button onclick="activateTask('{{ value.id }}','{{ value.user.getId() }}')">Activate</button>
+                                <button onclick="removeTask('{{ value.id }}', '{{ value.user.getId() }}')" type="submit">Usuń</button>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
         {% endif %}
 
     </div>

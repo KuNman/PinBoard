@@ -386,6 +386,66 @@ class Admin
         return array_filter($array);
     }
 
+    public function searchTask(Request $request, $lang = 'pl') {
+        $tasks = $this->entityManager->getRepository('App:Tasks')
+            ->createQueryBuilder('tasks');
+
+        if($id = $request->get('search_id')) {
+            $tasks->andWhere("tasks.id = $id");
+        }
+
+        if($request->get('search_job')) {
+            $job = $this->entityManager->getRepository('App:Jobs')
+                ->findOneBy(array('name_'.$lang => $request->get('search_job')))->getId();
+            $tasks->andWhere("tasks.job = $job");
+        }
+
+        if($request->get('search_country')) {
+            $country = $this->entityManager->getRepository('App:Countries')
+                ->findOneBy(array('country_'.$lang => $request->get('search_country')))->getId();
+            $tasks->andWhere("tasks.country = $country");
+        }
+
+        if($request->get('search_area')) {
+            $area = $this->entityManager->getRepository('App:Areas')
+                ->findOneBy(array('area' => $request->get('search_area')))->getId();
+            $tasks->andWhere("tasks.area = $area");
+        }
+
+        if($city = $request->get('search_city')) {
+            $tasks->andWhere("tasks.city LIKE '%$city%'");
+        }
+
+        if($userId = $request->get('search_userid')) {
+            $tasks->andWhere("tasks.user = $userId");
+        }
+
+        if($request->get('search_userusername')) {
+            $userID = $this->entityManager->getRepository('App:Users')
+                ->findOneBy(array('username' => $request->get('search_userusername')))->getId();
+            $tasks->andWhere("tasks.user = $userID");
+        }
+
+        if($request->get('search_active') && $request->get('search_notactive')) {
+            $tasks->andWhere("tasks.active = 1");
+            $tasks->orWhere("tasks.active = 0");
+            return $tasks->getQuery()->getResult();
+        }
+
+        if($request->get('search_active')) {
+            $tasks->andWhere("tasks.active = 1");
+            return $tasks->getQuery()->getResult();
+        }
+
+        if($request->get('search_notactive')) {
+            $tasks->andWhere("tasks.active = 0");
+            return $tasks->getQuery()->getResult();
+        }
+
+        return $tasks->getQuery()->getResult();
+
+    }
+
 //    public function searchTaskForm(Request $request) {
 //
 //        $formFactory = Forms::createFormFactory();

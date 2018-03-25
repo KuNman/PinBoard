@@ -12,6 +12,7 @@ Encore
     .addEntry('app', './assets/js/app.js')
     .addEntry('admin_panel', './assets/js/admin_panel.js')
     .addEntry('normalUser_panel', './assets/js/normalUser_panel.js')
+    .addEntry('searchTask_panel', './assets/js/searchTask_panel.js')
     .addEntry('footer', './assets/js/footer.js')
 
     // allow sass/scss files to be processed

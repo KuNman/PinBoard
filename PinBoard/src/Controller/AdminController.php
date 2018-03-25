@@ -158,10 +158,16 @@ class AdminController extends Controller
     }
 
     public function getUserIdsOrUsernamesAction($data) {
-        return new JsonResponse($this->admin->getUserIdsOrUsernames($data));
+        if($this->admin->isAdmin($this->login->isLogged())) {
+            return new JsonResponse($this->admin->getUserIdsOrUsernames($data));
+        }
     }
 
     public function searchTaskAction(Request $request) {
-        return new Response(var_dump($request));
+        if ($this->admin->isAdmin($this->login->isLogged())) {
+            return $this->render('service/panel/panel.html.twig', array(
+                "searchTask" => $this->admin->searchTask($request),
+            ));
+        }
     }
 }
