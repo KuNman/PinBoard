@@ -152,8 +152,6 @@ function addTask(taskId) {
    })
 }
 
-});
-
 window.removeTask = removeTask;
 function removeTask(id) {
     $.ajax({
@@ -201,3 +199,5 @@ function addUserLangs() {
         }
     })
 }
+
+});

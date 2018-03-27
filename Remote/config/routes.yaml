@@ -31,6 +31,8 @@ getUserIdsOrUsernames:
     path: /getUserIdsOrUsernames/{data}
     controller: App\Controller\ServiceController:getUserIdsOrUsernamesAction
 
+
+
 #Admin Controller
 admin:
     path: /admin
@@ -80,6 +82,8 @@ userDetails:
     path: /admin/user/{id}
     controller: App\Controller\AdminController:userDetailsAction
 
+
+
 #User Controller
 panel:
     path: /panel
@@ -113,6 +117,8 @@ searchCountries:
     path: /searchCountries/{lang}
     controller: App\Controller\UserController::searchCountriesAction
 
+
+
 #Register Controller
 checkUsernameAvaibility:
     path: /checkUsernameAvaibility
@@ -133,6 +139,8 @@ sendRegisterMail:
 activationLink:
     path: /activateUser/{username}/{time}
     controller: App\Controller\RegisterController::activateUserAction
+
+
 
 #Login Controller
 loginForm:

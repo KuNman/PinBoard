@@ -166,9 +166,9 @@ class NormalUser
         return $userLangs ? explode(",", $userLangs) : false;
     }
 
-    public function getTaskInfo($taskId) {
+    public function getTaskInfo($taskId, $userId) {
         $task = $this->entityManager->getRepository('App:Tasks')
-            ->findOneBy(array('id' => $taskId));
+            ->findOneBy(array('id' => $taskId, 'user' => $userId));
 
         return $task ? $task : false;
     }

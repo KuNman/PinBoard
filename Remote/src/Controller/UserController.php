@@ -52,13 +52,14 @@ class UserController extends Controller
     }
 
     public function editTaskAction($id) {
-        if($this->login->isLogged()) {
-            return $this->render('service/panel/panel.html.twig', array(
-                "normalUser" => true,
-                "countries" => $this->normalUser->searchCountries(),
-                "task" => $this->normalUser->getTaskInfo($id),
-            ));
+        if($userOwnsTask = $this->normalUser->getTaskInfo($id,$this->login->isLogged(1))) {
+              return $this->render('service/panel/panel.html.twig', array(
+                  "normalUser" => true,
+                  "countries" => $this->normalUser->searchCountries(),
+                  "task" => $userOwnsTask
+              ));
         }
+        return $this->redirect('/');
     }
 
     public function addUserLangsAction(Request $request) {
