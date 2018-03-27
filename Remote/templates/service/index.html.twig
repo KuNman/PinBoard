@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+    {% block content %}
+        <div class="content">
+            {% include '/service/header.html.twig' %}
+            <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/horsey/4.2.2/horsey.min.css">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/horsey/4.2.2/horsey.js"></script>
+            {{ form_start(form) }}
+            <div class="content-content">
+                <div class="welcome">
+                    <div id="#typed-welcome">I'am looking for</div>
+                </div>
+                <div class="index-form">
+                    <div class="name" id="search_job">
+                    {{ form_widget(form.name) }}
+                    </div>
+                    <div class="place" id="locationField">
+                    in {{ include('maps.html.twig') }}{{ form_widget(form.place) }}
+                    </div>
+                </div>
+            </div>
+            <div class="content-button">
+                <div class="button">
+                    {{ form_widget(form.submit)}}
+                </div>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    {% endblock content %}

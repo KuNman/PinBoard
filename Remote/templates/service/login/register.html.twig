@@ -1,0 +1,141 @@
+{% extends '/base.html.twig' %}
+    {% block content %}
+        <div class="content">
+            {% include '/service/header.html.twig' %}
+            {#{{ form_start(form) }}#}
+            <div class="content-content">
+                <div class="register-form">
+                    {% if username is not defined %}
+                    <div class="username" onkeyup="checkEmail()">
+                        Email : {{ form_widget(form.username) }}
+                    </div>
+                    {% endif %}
+                    {% if username is defined %}
+                    <div class="username" onkeyup="checkEmail()">
+                        Email : {{ form_widget(form.username, { 'attr': { 'readonly': 'true', 'value': username } }) }}
+                    </div>
+                    <div class="password" onkeyup="checkPassword()">
+                        Password : {{ form_widget(form.password) }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="content-button">
+                {% if username is not defined %}
+                    <div class="button">
+                        <span onClick="sendRegistrationMail()"> {{ form_widget(form.submit)}} </span>
+                    </div>
+                {% endif %}
+                {% if username is defined %}
+                    <div class="button">
+                        <span onClick="registerUser()"> {{ form_widget(form.submit)}} </span>
+                    </div>
+                {% endif %}
+            </div>
+            {#{{ form_end(form) }}#}
+        </div>
+    {% endblock content%}
+    {% block javascripts %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+        <script>
+            let usernameValid = 0;
+            let passwordValid = 0;
+
+            const checkEmail = () => {
+                const username = $('#form_username').val();
+                const regexEmail = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+                const checkRegexEmail = () => regexEmail.test(username);
+                if(checkRegexEmail(username)) {
+                    $.ajax({
+                        url: "/checkUsernameAvaibility",
+                        type: "post",
+                        data: { username : username },
+                        success: function(response) {
+                            if(response == 1) {
+                                usernameValid = 1;
+                                activateButtonEmail();
+                                if($('.username .emailError')) {
+                                    $('.username .emailError').remove();
+                                }
+                            } else if(response == 0) {
+                                usernameValid = 0;
+                                activateButtonEmail();
+                                const message = '<div class="emailError">This email is registered. <a href="/resetPassword">May you reset password?</a></div>';
+                                if($('.username .emailError').length == 0) {
+                                    $('.username').append(message);
+                                }
+                            }
+                        }
+                    })
+                }
+            };
+
+            $('form').keydown(function (event) {
+                var keypressed = event.keyCode || event.which;
+                if (keypressed == 13) {
+                    loginUser();
+                }
+            });
+
+            const checkPassword = () => {
+                const password = $('#form_password').val();
+                if(password.length > 7) {
+                    passwordValid = 1;
+                    activateButtonPassword();
+                } else if(password.length < 7){
+                    passwordValid = 0;
+                    activateButtonPassword();
+                }
+            };
+
+            const activateButtonEmail = () => {
+                if(usernameValid) {
+                    $("#form_submit").attr("disabled", false);
+                } else if (!usernameValid){
+                    $("#form_submit").attr("disabled", true);
+                }
+            };
+
+            const activateButtonPassword = () => {
+                const usernameValid = 1;
+                if(usernameValid && passwordValid) {
+                    $("#form_submit").attr("disabled", false);
+                } else if (!usernameValid || !passwordValid){
+                    $("#form_submit").attr("disabled", true);
+                }
+            };
+
+            const sendRegistrationMail = () => {
+                const username = $('#form_username').val();
+                $.ajax({
+                    url: "/sendRegisterMail",
+                    type: "post",
+                    data: { username : username },
+                    success: function(response) {
+                        if(response == 1) {
+                            window.location.href = '/';
+                        } else if(response == 0) {
+                            alert('Error. Please contact us');
+                        }
+                    }
+                })
+            };
+
+            const registerUser = () => {
+                const username = $('#form_username').val();
+                const password = $('#form_password').val();
+                $.ajax({
+                    url: "/registerUser",
+                    type: "post",
+                    data : { username : username, password : password },
+                    success: function(response) {
+                        if(response == 1) {
+                            window.location.href = '/';
+                        } else if(response == 0) {
+                            alert('Error. Please contact us');
+                        }
+                    }
+                });
+            };
+        </script>
+    {% endblock javascripts %}

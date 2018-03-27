@@ -7,6 +7,7 @@ $(document).ready(function(){
     let getJobsNamesCounter = 0;
 
     $('#select_lang').val(getCookie('lang'));
+    $('#select_lang').css('display', 'inline');
 
     window.getval = getval;
     function getval(sel) {
@@ -23,7 +24,6 @@ $(document).ready(function(){
         }
         document.cookie = name + "=" + (value || "")  + expires + "; path=/";
         window.location.reload(false);
-        
     }
 
     window.getCookie = getCookie;

@@ -1,0 +1,147 @@
+index:
+    path: /
+    controller: App\Controller\ServiceController::indexAction
+
+results:
+    path: /results
+    controller: App\Controller\ServiceController::resultsAction
+
+admin:
+    path: /admin
+    controller: App\Controller\AdminController::indexAction
+
+panel:
+    path: /panel
+    controller: App\Controller\UserController::indexAction
+
+checkUsernameAvaibility:
+    path: /checkUsernameAvaibility
+    controller: App\Controller\RegisterController::checkUsernameAvaibilityAction
+
+register:
+    path: /register
+    controller: App\Controller\RegisterController::indexAction
+
+addUserToDB:
+    path: /registerUser
+    controller: App\Controller\RegisterController::registerUserAction
+
+loginForm:
+    path: /login
+    controller: App\Controller\LoginController::indexAction
+
+loginUser:
+    path: /loginUser
+    controller: App\Controller\LoginController::loginAction
+
+logoutUser:
+    path: /logoutUser
+    controller: App\Controller\LoginController::logoutAction
+
+sendRegisterMail:
+    path: /sendRegisterMail
+    controller: App\Controller\RegisterController::sendRegisterMailAction
+
+activationLink:
+    path: /activateUser/{username}/{time}
+    controller: App\Controller\RegisterController::activateUserAction
+
+resetPassword:
+    path: /resetPassword
+    controller: App\Controller\LoginController::resetPasswordAction
+
+addTask:
+    path: /addTask
+    controller: App\Controller\UserController::addTaskAction
+
+editTask:
+    path: /edit/task/{id}
+    controller: App\Controller\UserController::editTaskAction
+
+removeTask:
+    path: /remove/task/{id}
+    controller: App\Controller\UserController:removeTaskAction
+
+adminRemoveTask:
+    path: /admin/remove/task/{id}/{userId}
+    controller: App\Controller\AdminController:removeTaskAction
+
+searchJobs:
+    path: /searchJobs/{lang}
+    controller: App\Controller\UserController::searchJobsAction
+
+searchCountries:
+    path: /searchCountries/{lang}
+    controller: App\Controller\UserController::searchCountriesAction
+
+addNewJobName:
+    path: /addNewJobName
+    controller: App\Controller\AdminController::addNewJobNameAction
+
+addNewCountryName:
+    path: /addNewCountryName
+    controller: App\Controller\AdminController::addNewCountryNameAction
+
+searchAreaInCountry:
+    path: /searchAreaInCountry
+    controller: App\Controller\UserController::searchAreaInCountryAction
+
+addNewAreaName:
+    path: /addNewAreaName
+    controller: App\Controller\AdminController::addNewAreaNameAction
+
+addJobEnName:
+    path: /addJobEnName
+    controller: App\Controller\AdminController:addJobEnNameAction
+
+addJobFrName:
+    path: /addJobFrName
+    controller: App\Controller\AdminController:addJobFrNameAction
+
+activateTask:
+    path: /activateTask/{id}/{userId}
+    controller: App\Controller\AdminController::activateTaskAction
+
+deactivateTask:
+    path: /deactivateTask/{id}/{userId}
+    controller: App\Controller\AdminController:deactivateTaskAction
+
+addUserLangs:
+    path: /addUserLangs
+    controller: App\Controller\UserController::addUserLangsAction
+
+userDetails:
+    path: /admin/user/{id}
+    controller: App\Controller\AdminController:userDetailsAction
+
+getTaskIds:
+    path: /getTaskIds
+    controller: App\Controller\AdminController:getTaskIdsAction
+
+getJobsNames:
+    path: /getJobsNames
+    controller: App\Controller\AdminController:getJobsNamesAction
+
+getCountries:
+    path: /getCountries
+    controller: App\Controller\AdminController:getCountriesAction
+
+getAreas:
+    path: /getAreas
+    controller: App\Controller\AdminController:getAreasAction
+
+getCities:
+    path: /getCities
+    controller: App\Controller\AdminController:getCitiesAction
+
+getUserIdsOrUsernames:
+    path: /getUserIdsOrUsernames/{data}
+    controller: App\Controller\AdminController:getUserIdsOrUsernamesAction
+
+searchTask:
+    path: /admin/searchTask
+    controller: App\Controller\AdminController:searchTaskAction
+
+sendMessageToUser:
+    path: /admin/sendMessageToUser
+    controller: App\Controller\AdminController:sendMessageToUserAction

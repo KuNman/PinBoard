@@ -1,0 +1,405 @@
+{% extends '/base.html.twig' %}
+{% block content %}
+    <div class="content">
+        {% include '/service/header.html.twig' %}
+
+        {% if admin is defined %}
+            <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/horsey/4.2.2/horsey.min.css">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/horsey/4.2.2/horsey.js"></script>
+            <script src="{{ asset('build/admin_panel.js') }}"></script>
+            <div class="admin_tabs">
+                <div class="admin_tab_1">
+                    <div class="">Nowa nazwa pracy:
+                        EN<input onkeyup="searchJobsEn()" id="new_job_en" type="text">
+                        PL<input onkeyup="searchJobsPl()" id="new_job_pl" type="text">
+                        FR<input onkeyup="searchJobsFr()" id="new_job_fr" type="text">
+                        <button onclick="addNewJobName()" type="submit">Dodaj nazwę pracy</button>
+                    </div>
+
+                    {% if missingJobNameEn|length > 0 %}
+                        <div class="">Zaktualizuj nazwę pracy EN:
+                            {% for name in missingJobNameEn %}
+                                <div class="{{ name }}">{{ name }}<input class="{{ name }}.name_en" type="text">
+                                <button type="submit" onclick="addJobEnName('{{ name }}',document.getElementsByClassName('{{ name }}.name_en')[0].value)">
+                                    Dodaj tłumaczenie w EN</button></div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    {% if missingJobNameFr|length > 0 %}
+                        <div class="">Zaktualizuj nazwę pracy FR:
+                            {% for name in missingJobNameFr %}
+                                <div class={{ name }}">{{ name }}<input class="{{ name }}.name_fr" type="text">
+                                <button type="submit" onclick="addJobFrName('{{ name }}',document.getElementsByClassName('{{ name }}.name_fr')[0].value)">
+                                Dodaj tłumaczenie w FR</button></div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <div class="">
+                        Nowa nazwa kraju:
+                        EN<input onkeyup="searchCountriesEn()" id="new_country_en" type="text">
+                        PL<input onkeyup="searchCountriesPl()" id="new_country_pl" type="text">
+                        FR<input onkeyup="searchCountriesFr()" id="new_country_fr" type="text">
+                        <button onclick="addNewCountryName()" type="submit">Dodaj nazwę kraju</button>
+                    </div>
+                    <div class="">
+                        Nowa nazwa regionu:
+                        <select onchange="resetSearchAreaInCountryCounter()" id="select_country">
+                                <option value=""></option>
+                            {% for country in countries %}
+                                <option value="{{ country }}">{{ country }}</option>
+                            {% endfor %}
+                        </select>
+                        Origin lang<input onkeyup="searchAreaInCountry()" id="new_area" type="text">
+                        <button onclick="addNewAreaName()" type="submit">Dodaj nazwę regionu</button>
+                    </div>
+                </div>
+
+                <div class="admin_tab_2">
+                    Taski do aktywacji
+                    <div class="not_active_tasks">
+                        {% if notActiveTasks|length > 0 %}
+                            {% for value in notActiveTasks %}
+                                <div>
+                                    {{ value.id }} |
+                                    {{ value.job.getNamePl() }} |
+                                    {{ value.country.getCountryPl() }} |
+                                    {{ value.area.getArea() }} |
+                                    {{ value.city }} |
+                                    {{ value.availability|date('Y-m-d') }} |
+                                    <a target="_blank" href="/admin/user/{{ value.user.getId() }}">{{ value.user.getId() }}</a> |
+                                    {{ value.user.getLangs() }}
+                                    <button onclick="activateTask('{{ value.id }}','{{ value.user.getId() }}')">Activate</button>
+                                </div>
+                                {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="admin_tab_3">
+                    Lista tasków
+                    <div class="all_tasks">
+                        {% if allTasks is defined %}
+                            {% for value in allTasks %}
+                                <div>
+                                    {{ value.id }} |
+                                    {{ value.job.getNamePl() }} |
+                                    {{ value.country.getCountryPl() }} |
+                                    {{ value.area.getArea() }} |
+                                    {{ value.city }} |
+                                    {{ value.availability|date('Y-m-d') }} |
+                                    <a target="_blank" href="/admin/user/{{ value.user.getId() }}">{{ value.user.getId() }}</a> |
+                                    {{ value.user.getLangs() }}
+                                    <button onclick="removeTask('{{ value.id }}', '{{ value.user.getId() }}')" type="submit">Usuń</button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="admin_tab_4">
+                    Znajdź task
+                    <div>
+                        <form action="/admin/searchTask" method="post" target="_blank">
+                        Id <input name="search_id" id="search_id" onkeyup="getTaskIds()" type="number">
+                        Praca <input name="search_job" id="search_job" onkeyup="getJobsNames()" type="text">
+                        Kraj <input name="search_country" id="search_country" onkeyup="getCountries()" type="text">
+                        Region <input name="search_area" id="search_area" onkeyup="getAreas()" type="text">
+                        Miasto <input name="search_city" id="search_city" onkeyup="getCities()" type="text">
+                        UserId <input name="search_userid" id="search_userid" onkeyup="getUserIdsOrUsernames('id')" type="number">
+                        UserEmail <input name="search_userusername" id="search_userusername" onkeyup="getUserIdsOrUsernames('username')" type="text">
+                        Active
+                            <input name="search_active" value="yes" type="checkbox">Yes</input>
+                            <input name="search_notactive" value="no" type="checkbox">No</input>
+
+                        <input type="submit">
+                        <button type="reset">Clear</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if userDetails is defined %}
+            <script src="{{ asset('build/admin_panel.js') }}"></script>
+            <div class="admin_tabs">
+                <div class="admin_tab_1">
+                    <div class="">Szczegóły użytkownika o id {{ user }}
+                        <div>Kontakt:
+                            <div>Email: {{ email }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="admin_tab_2">
+                        <div>Języki użytkownika:
+                            {% for lang in userLangs %}
+                                <div>{{ lang }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                <div class="admin_tab_3">
+                        <div> Taski użytkownika:
+                            {% for value in userTasks %}
+                                {% if value.active == 1 %}
+                                    <div class="userTask_active">
+                                        {{ value.active }} |
+                                        {{ value.job.getNamePl() }} |
+                                        {{ value.country.getCountryPl() }} |
+                                        {{ value.area.getArea() }} |
+                                        {{ value.city }} |
+                                        {{ value.availability|date('Y-m-d') }} |
+                                        {{ value.user.getLangs() }}
+                                        <button onclick="deactivateTask('{{ value.id }}','{{ value.user.getId() }}')">Deactivate</button>
+                                        <button onclick="removeTask('{{ value.id }}', '{{ value.user.getId() }}')" type="submit">Usuń</button>
+                                    </div>
+                                {% endif %}
+                                {% if value.active == 0 %}
+                                    <div class="userTask_not_active">
+                                        0 |
+                                        {{ value.job.getNamePl() }} |
+                                        {{ value.country.getCountryPl() }} |
+                                        {{ value.area.getArea() }} |
+                                        {{ value.city }} |
+                                        {{ value.availability|date('Y-m-d') }} |
+                                        {{ value.user.getLangs() }}
+                                        <button onclick="activateTask('{{ value.id }}','{{ value.user.getId() }}')">Activate</button>
+                                        <button onclick="removeTask('{{ value.id }}', '{{ value.user.getId() }}')" type="submit">Usuń</button>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                <div class="admin_tab_4">
+                    Wyślij wiadomość
+                    <div class="">
+                        <form action="{{ path('sendMessageToUser') }}" method="post">
+                            <textarea name="message"></textarea>
+                            <input name="id" style="display: none;" value="{{ user }}">
+                            <button type="submit">Wyślij</button>
+                        </form>
+                    </div>
+                </div>
+                </div>
+        {% endif %}
+
+        {% if normalUser is defined %}
+            <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/horsey/4.2.2/horsey.min.css">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/horsey/4.2.2/horsey.min.js"></script>
+            <script src="{{ asset('build/normalUser_panel.js') }}"></script>
+
+            <div class="admin_tabs">
+
+                <div class="admin_tab_1">
+                    <div class="">
+
+                        {% if task is defined %}
+                            Edytuj pracę o id {{ task.getId() }}
+                        {% else %}
+                            Nowa praca
+                        {% endif %}
+
+                        <div>Działalność<input onkeyup="searchJobsPl()" id="new_job_pl" type="text"
+                            {% if task is defined %}value="{{ task.job.getNamePl() }}"{% endif %}>
+                        </div>
+
+                        <div>
+                            Kraj
+                            <select onchange="resetSearchAreaInCountryCounter()" id="select_country">
+                                {% if task is defined %}
+                                    <option value="{{ task.country.getCountryEn() }}" selected>{{ task.country.getCountryEn() }}</option>
+                                {% endif %}
+                                    <option value=""></option>
+                                    {% for country in countries %}
+                                        <option value="{{ country }}">{{ country }}</option>
+                                    {% endfor %}
+                            </select>
+
+                        Obszar
+                            <input onkeyup="searchAreaInCountry()" id="new_area" type="text" {% if task is defined %} value="{{ task.area.getArea() }}"{% endif %}>
+
+                            {% if task is defined and task.city == 'wholeArea' %}
+                                <div class="wholeArea">
+                                    <input id="wholeArea"
+                                           type="checkbox" checked
+                                           onchange="if(this.checked){disableChooseCities()}if(!this.checked){enableChooseCities()}"
+                                           value="wholeArea">Cały obszar</input>
+                                </div>
+                                <div class="chooseCities inputDisabled">
+                                    <input id="chooseCities" type="checkbox"
+                                           onchange="if(this.checked){disableWholeArea();chooseCity()}if(!this.checked){enableWholeArea();hideChooseCity()}"
+                                           value="chooseCities">Wybierz miasta</input>
+                                    <div class="maps" style="display: none;">
+                                        <div class="city">
+                                            <input type="text" value="" class="input_city">
+                                            <button onclick="nextCity()">Kolejne miasto</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            {% elseif task is defined and task.city != 'wholeArea' %}
+                                <div class="wholeArea inputDisabled" >
+                                    <input id="wholeArea"
+                                           type="checkbox"
+                                           onchange="if(this.checked){disableChooseCities()}if(!this.checked){enableChooseCities()}"
+                                           value="wholeArea">Cały obszar</input>
+                                </div>
+                                <div class="chooseCities">
+                                    <input id="chooseCities" type="checkbox" checked
+                                           onchange="if(this.checked){disableWholeArea();chooseCity()}if(!this.checked){enableWholeArea();hideChooseCity()}"
+                                           value="chooseCities">Wybierz miasta</input>
+                                    {% for city in task.city|split(',') %}
+                                    <div class="maps" style="display: block;">
+                                        <div class="city">
+                                                <input type="text" value="{{ city }}" class="input_city">
+                                                <button onclick="nextCity()">Kolejne miasto</button>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+
+                            {% elseif task is not defined %}
+                                <div class="wholeArea">
+                                    <input id="wholeArea"
+                                           type="checkbox"
+                                           onchange="if(this.checked){disableChooseCities()}if(!this.checked){enableChooseCities()}"
+                                           value="wholeArea">Cały obszar</input>
+                                </div>
+                                <div class="chooseCities">
+                                    <input id="chooseCities" type="checkbox"
+                                           onchange="if(this.checked){disableWholeArea();chooseCity()}if(!this.checked){enableWholeArea();hideChooseCity()}"
+                                           value="chooseCities">Wybierz miasta</input>
+                                    <div class="maps" style="display: none;">
+                                        <div class="city">
+                                            <input type="text" value="" class="input_city">
+                                            <button onclick="nextCity()">Kolejne miasto</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                        </div>
+                        Dostępność od<input id="select_date" {% if task is defined %}value="{{ task.availability|date('Y-m-d') }}"{% endif %} type="date">
+                        {% if task is defined %}
+                            <button onclick="addTask('{{ task.id }}')" type="submit">Zmień</button>
+                            <button onclick="removeTask('{{ task.id }}')" type="submit">Usuń</button>
+                        {% else %}
+                            <button onclick="addTask()" type="submit">Dodaj</button>
+                        {% endif %}
+                    </div>
+                </div>
+
+                {% if userLangs is defined %}
+                <div class="admin_tab_2">
+                    <div class=""> Języki jakimi się posługujesz
+                        <div>
+                            {% if userLangs|length > 0 %}
+                                {% for lang in userLangs %}
+                                    <input class="lang_{{ lang }}" checked type="checkbox" value="{{ lang }}">{{ lang }}
+                                {% endfor %}
+                                {% if 'Angielski' not in userLangs %}
+                                <input class="lang_Angielski" type="checkbox" value="Angielski">Angielski
+                                {% endif %}
+                                {% if 'Polski' not in userLangs %}
+                                <input class="lang_Polski" type="checkbox" value="Polski">Polski
+                                {% endif %}
+                                {% if 'Francuski' not in userLangs %}
+                                <input class="lang_Francuski" type="checkbox" value="Francuski">Francuski
+                                {% endif %}
+                                {% if 'Niemiecki' not in userLangs %}
+                                <input class="lang_Niemiecki" type="checkbox" value="Niemiecki">Niemiecki
+                                {% endif %}
+                            <button type="submit" onclick="addUserLangs()">Zapisz</button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+
+                {% if userTasks is defined %}
+                    <div class="admin_tab_3">
+                    <div class=""> Lista tasków
+                        <div>
+                            {% if userTasks|length > 0 %}
+                                {% for value in userTasks %}
+                                    {% if value.active == 1 %}
+                                        <div class="userTask_active">
+                                            {{ value.active }} |
+                                            {{ value.job.getNamePl() }} |
+                                            {{ value.country.getCountryPl() }} |
+                                            {{ value.area.getArea() }} |
+                                            {{ value.city }} |
+                                            {{ value.availability|date('Y-m-d') }} |
+                                            {{ value.user.getId() }} |
+                                            {{ value.user.getLangs() }}
+                                            <a href="/edit/task/{{ value.id }}" target="_blank"><button type="submit">Edytuj</button></a>
+                                        </div>
+                                    {% endif %}
+                                    {% if value.active == 0 %}
+                                        <div class="userTask_not_active">
+                                            0 |
+                                            {{ value.job.getNamePl() }} |
+                                            {{ value.country.getCountryPl() }} |
+                                            {{ value.area.getArea() }} |
+                                            {{ value.city }} |
+                                            {{ value.availability|date('Y-m-d') }} |
+                                            {{ value.user.getId() }} |
+                                            {{ value.user.getLangs() }}
+                                            <a href="/edit/task/{{ value.id }}" target="_blank"><button type="submit">Edytuj</button></a>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {% if searchTask is defined %}
+        <script src="{{ asset('build/searchTask_panel.js') }}"></script>
+
+        <div class="admin_tabs">
+
+            <div class="admin_tab_1">
+                <div class="">
+                    {% for key, value in searchTask %}
+                        {% if value.active == 1 %}
+                            <div class="userTask_active">
+                                {{ value.id }} |
+                                {{ value.active }} |
+                                {{ value.job.getNamePl() }} |
+                                {{ value.country.getCountryPl() }} |
+                                {{ value.area.getArea() }} |
+                                {{ value.city }} |
+                                {{ value.availability|date('Y-m-d') }} |
+                                <a target="_blank" href="/admin/user/{{ value.user.getId() }}">{{ value.user.getId() }}</a> |
+                                {{ value.user.getLangs() }}
+                                <button onclick="deactivateTask('{{ value.id }}','{{ value.user.getId() }}')">Deactivate</button>
+                                <button onclick="removeTask('{{ value.id }}', '{{ value.user.getId() }}')" type="submit">Usuń</button>
+                            </div>
+                        {% endif %}
+                        {% if value.active == 0 %}
+                            <div class="userTask_not_active">
+                                {{ value.id }} |
+                                {{ value.job.getNamePl() }} |
+                                {{ value.country.getCountryPl() }} |
+                                {{ value.area.getArea() }} |
+                                {{ value.city }} |
+                                {{ value.availability|date('Y-m-d') }} |
+                                <a target="_blank" href="/admin/user/{{ value.user.getId() }}">{{ value.user.getId() }}</a> |
+                                {{ value.user.getLangs() }}
+                                <button onclick="activateTask('{{ value.id }}','{{ value.user.getId() }}')">Activate</button>
+                                <button onclick="removeTask('{{ value.id }}', '{{ value.user.getId() }}')" type="submit">Usuń</button>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+{% endblock content%}
