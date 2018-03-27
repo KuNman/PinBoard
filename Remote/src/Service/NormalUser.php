@@ -102,7 +102,7 @@ class NormalUser
             $this->entityManager->persist($task);
             $this->entityManager->flush();
 
-            return true;
+            return $task->getId();
         }
         return false;
     }

@@ -14,8 +14,9 @@ function searchJobsPl() {
 
 function searchJobsPlAjax() {
     $.ajax({
-        url: "/searchJobs/pl",
+        url: "/getJobsNames",
         type: "post",
+        data: { lang : getCookie('lang') },
         success: function(response) {
             horsey(document.getElementById('new_job_pl'), {
                 source: [{ list: response }]
@@ -54,7 +55,8 @@ function searchAreaInCountry() {
     }
 }
 
-const searchAreaInCountryAjax = () => {
+window.searchAreaInCountryAjax = searchAreaInCountryAjax;
+function searchAreaInCountryAjax() {
     const country = $("#select_country option:selected").text();
     $.ajax({
         url: "/searchAreaInCountry",
@@ -145,12 +147,7 @@ function addTask(taskId) {
        type: "post",
        data : { job : job, country : country, area : area, city : cities.toString(), date : date, taskId : taskId },
        success: function(response) {
-           if(response == 1) {
-               console.log('success');
-           }
-           if(response == 0) {
-               console.log('error');
-           }
+            window.location.href = '/edit/task/'+response;
        }
    })
 }

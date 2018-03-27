@@ -34,16 +34,7 @@ class LoginController extends Controller
             return $this->redirect('/');
         }
 
-        if($this->login->login($username, $password)) {
-            if($this->login->login($username, $password)->getBody() == 'admin') {
-                return new Response(2);
-            }
-            if($this->login->login($username, $password)->getBody() == 'user') {
-                return new Response(1);
-            }
-        }
-
-        return new Response(0);
+        return new Response($this->login->login($username, $password));
     }
 
     public function logoutAction() {

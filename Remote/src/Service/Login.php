@@ -49,8 +49,6 @@ class Login
 
     public function login($username, $password) {
 
-        $user = new Users();
-
         $user = $this->entityManager->getRepository("App:Users")
             ->findOneBy(array('username' => $username));
 
@@ -58,16 +56,13 @@ class Login
             return false;
         }
 
-        if(!$this->encoder->isPasswordValid($user, $password)) {
-            return false;
-        } else {
+        if($this->encoder->isPasswordValid($user, $password)) {
             $session = new Session();
             $session->set('username', $user->getUsername());
-            if($user->getRole() == 'admin') {
-                return new Response('admin');
-            }
-            return new Response('user');
+            return $user->getRole();
         }
+        return false;
+
     }
 
     public function logout() {

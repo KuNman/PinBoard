@@ -299,6 +299,7 @@ function getJobsNames() {
         $.ajax({
             url: "/getJobsNames",
             type: "post",
+            data: { lang : getCookie('lang') },
             success: function(response) {
                 horsey(document.getElementById('search_job'), {
                     source: [{ list : response }],
@@ -315,6 +316,7 @@ function getCountries() {
         $.ajax({
             url: "/getCountries",
             type: "post",
+            data: { lang : getCookie('lang') },
             success: function(response) {
                 horsey(document.getElementById('search_country'), {
                     source: [{ list : response }],

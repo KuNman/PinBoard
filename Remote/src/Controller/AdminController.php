@@ -137,32 +137,6 @@ class AdminController extends Controller
         }
     }
 
-    public function getTaskIdsAction() {
-        return new JsonResponse($this->admin->getTaskIds());
-    }
-
-    public function getJobsNamesAction(Request $request) {
-        return new JsonResponse($this->admin->getJobsNames($request->get('lang')));
-    }
-
-    public function getCountriesAction() {
-        return new JsonResponse($this->admin->getCountries());
-    }
-
-    public function getAreasAction() {
-        return new JsonResponse($this->admin->getAreas());
-    }
-
-    public function getCitiesAction() {
-        return new JsonResponse($this->admin->getCities());
-    }
-
-    public function getUserIdsOrUsernamesAction($data) {
-        if($this->admin->isAdmin($this->login->isLogged())) {
-            return new JsonResponse($this->admin->getUserIdsOrUsernames($data));
-        }
-    }
-
     public function searchTaskAction(Request $request) {
         if ($this->admin->isAdmin($this->login->isLogged())) {
             return $this->render('service/panel/panel.html.twig', array(

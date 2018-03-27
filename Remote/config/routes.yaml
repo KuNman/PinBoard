@@ -1,3 +1,4 @@
+#Service Controller
 index:
     path: /
     controller: App\Controller\ServiceController::indexAction
@@ -6,85 +7,42 @@ results:
     path: /results
     controller: App\Controller\ServiceController::resultsAction
 
+getTaskIds:
+    path: /getTaskIds
+    controller: App\Controller\ServiceController:getTaskIdsAction
+
+getJobsNames:
+    path: /getJobsNames
+    controller: App\Controller\ServiceController:getJobsNamesAction
+
+getCountries:
+    path: /getCountries
+    controller: App\Controller\ServiceController:getCountriesAction
+
+getAreas:
+    path: /getAreas
+    controller: App\Controller\ServiceController:getAreasAction
+
+getCities:
+    path: /getCities
+    controller: App\Controller\ServiceController:getCitiesAction
+
+getUserIdsOrUsernames:
+    path: /getUserIdsOrUsernames/{data}
+    controller: App\Controller\ServiceController:getUserIdsOrUsernamesAction
+
+#Admin Controller
 admin:
     path: /admin
     controller: App\Controller\AdminController::indexAction
 
-panel:
-    path: /panel
-    controller: App\Controller\UserController::indexAction
+searchTask:
+    path: /admin/searchTask
+    controller: App\Controller\AdminController:searchTaskAction
 
-checkUsernameAvaibility:
-    path: /checkUsernameAvaibility
-    controller: App\Controller\RegisterController::checkUsernameAvaibilityAction
-
-register:
-    path: /register
-    controller: App\Controller\RegisterController::indexAction
-
-addUserToDB:
-    path: /registerUser
-    controller: App\Controller\RegisterController::registerUserAction
-
-loginForm:
-    path: /login
-    controller: App\Controller\LoginController::indexAction
-
-loginUser:
-    path: /loginUser
-    controller: App\Controller\LoginController::loginAction
-
-logoutUser:
-    path: /logoutUser
-    controller: App\Controller\LoginController::logoutAction
-
-sendRegisterMail:
-    path: /sendRegisterMail
-    controller: App\Controller\RegisterController::sendRegisterMailAction
-
-activationLink:
-    path: /activateUser/{username}/{time}
-    controller: App\Controller\RegisterController::activateUserAction
-
-resetPassword:
-    path: /resetPassword
-    controller: App\Controller\LoginController::resetPasswordAction
-
-addTask:
-    path: /addTask
-    controller: App\Controller\UserController::addTaskAction
-
-editTask:
-    path: /edit/task/{id}
-    controller: App\Controller\UserController::editTaskAction
-
-removeTask:
-    path: /remove/task/{id}
-    controller: App\Controller\UserController:removeTaskAction
-
-adminRemoveTask:
-    path: /admin/remove/task/{id}/{userId}
-    controller: App\Controller\AdminController:removeTaskAction
-
-searchJobs:
-    path: /searchJobs/{lang}
-    controller: App\Controller\UserController::searchJobsAction
-
-searchCountries:
-    path: /searchCountries/{lang}
-    controller: App\Controller\UserController::searchCountriesAction
-
-addNewJobName:
-    path: /addNewJobName
-    controller: App\Controller\AdminController::addNewJobNameAction
-
-addNewCountryName:
-    path: /addNewCountryName
-    controller: App\Controller\AdminController::addNewCountryNameAction
-
-searchAreaInCountry:
-    path: /searchAreaInCountry
-    controller: App\Controller\UserController::searchAreaInCountryAction
+sendMessageToUser:
+    path: /admin/sendMessageToUser
+    controller: App\Controller\AdminController:sendMessageToUserAction
 
 addNewAreaName:
     path: /addNewAreaName
@@ -106,42 +64,91 @@ deactivateTask:
     path: /deactivateTask/{id}/{userId}
     controller: App\Controller\AdminController:deactivateTaskAction
 
-addUserLangs:
-    path: /addUserLangs
-    controller: App\Controller\UserController::addUserLangsAction
+addNewJobName:
+    path: /addNewJobName
+    controller: App\Controller\AdminController::addNewJobNameAction
+
+addNewCountryName:
+    path: /addNewCountryName
+    controller: App\Controller\AdminController::addNewCountryNameAction
+
+adminRemoveTask:
+    path: /admin/remove/task/{id}/{userId}
+    controller: App\Controller\AdminController:removeTaskAction
 
 userDetails:
     path: /admin/user/{id}
     controller: App\Controller\AdminController:userDetailsAction
 
-getTaskIds:
-    path: /getTaskIds
-    controller: App\Controller\AdminController:getTaskIdsAction
+#User Controller
+panel:
+    path: /panel
+    controller: App\Controller\UserController::indexAction
 
-getJobsNames:
-    path: /getJobsNames
-    controller: App\Controller\AdminController:getJobsNamesAction
+addTask:
+    path: /addTask
+    controller: App\Controller\UserController::addTaskAction
 
-getCountries:
-    path: /getCountries
-    controller: App\Controller\AdminController:getCountriesAction
+editTask:
+    path: /edit/task/{id}
+    controller: App\Controller\UserController::editTaskAction
 
-getAreas:
-    path: /getAreas
-    controller: App\Controller\AdminController:getAreasAction
+removeTask:
+    path: /remove/task/{id}
+    controller: App\Controller\UserController:removeTaskAction
 
-getCities:
-    path: /getCities
-    controller: App\Controller\AdminController:getCitiesAction
+searchAreaInCountry:
+    path: /searchAreaInCountry
+    controller: App\Controller\UserController::searchAreaInCountryAction
 
-getUserIdsOrUsernames:
-    path: /getUserIdsOrUsernames/{data}
-    controller: App\Controller\AdminController:getUserIdsOrUsernamesAction
+addUserLangs:
+    path: /addUserLangs
+    controller: App\Controller\UserController::addUserLangsAction
 
-searchTask:
-    path: /admin/searchTask
-    controller: App\Controller\AdminController:searchTaskAction
+searchJobs:
+    path: /searchJobs/{lang}
+    controller: App\Controller\UserController::searchJobsAction
 
-sendMessageToUser:
-    path: /admin/sendMessageToUser
-    controller: App\Controller\AdminController:sendMessageToUserAction
+searchCountries:
+    path: /searchCountries/{lang}
+    controller: App\Controller\UserController::searchCountriesAction
+
+#Register Controller
+checkUsernameAvaibility:
+    path: /checkUsernameAvaibility
+    controller: App\Controller\RegisterController::checkUsernameAvaibilityAction
+
+register:
+    path: /register
+    controller: App\Controller\RegisterController::indexAction
+
+addUserToDB:
+    path: /registerUser
+    controller: App\Controller\RegisterController::registerUserAction
+
+sendRegisterMail:
+    path: /sendRegisterMail
+    controller: App\Controller\RegisterController::sendRegisterMailAction
+
+activationLink:
+    path: /activateUser/{username}/{time}
+    controller: App\Controller\RegisterController::activateUserAction
+
+#Login Controller
+loginForm:
+    path: /login
+    controller: App\Controller\LoginController::indexAction
+
+loginUser:
+    path: /loginUser
+    controller: App\Controller\LoginController::loginAction
+
+logoutUser:
+    path: /logoutUser
+    controller: App\Controller\LoginController::logoutAction
+
+resetPassword:
+    path: /resetPassword
+    controller: App\Controller\LoginController::resetPasswordAction
+
+

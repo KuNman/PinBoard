@@ -126,8 +126,6 @@ class Admin
             return true;
 
         }
-        $cities = $this->entityManager->getRepository('App:Cities')
-            ->findOneBy(array('country' => 1));
     }
 
     private function addCity($city, $area, $country) {
@@ -312,78 +310,6 @@ class Admin
         $this->entityManager->flush();
 
         return true;
-    }
-
-    public function getTaskIds(){
-        $ids = $this->entityManager->getRepository('App:Tasks')
-            ->createQueryBuilder('id')
-            ->distinct(true)
-            ->select('id.id')
-            ->getQuery();
-
-        $array = $ids->getScalarResult();
-        $array = array_column($array, "id");
-        return array_filter($array);
-    }
-
-    public function getJobsNames($lang = 'pl') {
-        $jobs = $this->entityManager->getRepository('App:Jobs')
-            ->createQueryBuilder('job')
-            ->distinct(true)
-            ->select('job.name_'.$lang)
-            ->getQuery();
-
-        $array = $jobs->getScalarResult();
-        $array = array_column($array, "name_".$lang);
-        return array_filter($array);
-    }
-
-    public function getCountries($lang = 'pl') {
-        $countries = $this->entityManager->getRepository('App:Countries')
-            ->createQueryBuilder('countries')
-            ->distinct(true)
-            ->select('countries.country_'.$lang)
-            ->getQuery();
-
-        $array = $countries->getScalarResult();
-        $array = array_column($array, "country_".$lang);
-        return array_filter($array);
-    }
-
-    public function getAreas() {
-        $areas = $this->entityManager->getRepository('App:Areas')
-            ->createQueryBuilder('areas')
-            ->distinct(true)
-            ->select('areas.area')
-            ->getQuery();
-
-        $array = $areas->getScalarResult();
-        $array = array_column($array, 'area');
-        return array_filter($array);
-    }
-
-    public function getCities() {
-        $areas = $this->entityManager->getRepository('App:Cities')
-            ->createQueryBuilder('cities')
-            ->distinct(true)
-            ->select('cities.city')
-            ->getQuery();
-
-        $array = $areas->getScalarResult();
-        $array = array_column($array, 'city');
-        return array_filter($array);
-    }
-
-    public function getUserIdsOrUsernames($data) {
-        $areas = $this->entityManager->getRepository('App:Users')
-            ->createQueryBuilder('users')
-            ->distinct(true)
-            ->select('users.'.$data)
-            ->getQuery();
-
-        $array = $areas->getScalarResult();
-        $array = array_column($array, $data);
-        return array_filter($array);
     }
 
     public function searchTask(Request $request, $lang = 'pl') {
