@@ -25,8 +25,10 @@ class ServiceController extends Controller
         $this->login = $login;
     }
 
-    public function indexAction() {
-        return $this->render('/service/index.html.twig', array("form" => $this->service->form()));
+    public function indexAction(Request $request) {
+        if($this->service->defineLang($request)) {
+            return $this->render('/service/index.html.twig', array("form" => $this->service->form()));
+        }
     }
 
     public function resultsAction(Request $request) {

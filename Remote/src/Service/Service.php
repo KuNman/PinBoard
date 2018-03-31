@@ -12,7 +12,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Forms;
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class Service
 {
@@ -34,6 +36,28 @@ class Service
             ->getForm();
 
         return $form->createView() ? $form->createView() : false;
+    }
+
+    public function defineLang(Request $request) {
+        $lang = $request->getLocale();
+                        $response = new Response();
+        $response->headers->setCookie(new Cookie('aaa', 'bbb'));
+
+
+//        switch($lang) {
+//            case $lang == 'en':
+//            case $lang == 'pl':
+//            case $lang == 'fr':
+//                $cookie = new Cookie('lang', $lang, strtotime('now + 10 minutes'));
+//                $response = new Response();
+//                $response->headers->setCookie($cookie);
+//                break;
+//            default:
+//                $cookie = new Cookie('lang', 'ee', strtotime('now + 10 minutes'));
+//                $response = new Response();
+//                $response->headers->setCookie(new Cookie('aaa', 'bbb'));
+//        }
+        return true;
     }
 
 
