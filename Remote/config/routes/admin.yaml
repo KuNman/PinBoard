@@ -1,0 +1,48 @@
+#Admin Controller
+admin:
+    path: /admin
+    controller: App\Controller\AdminController::indexAction
+
+searchTask:
+    path: /admin/searchTask
+    controller: App\Controller\AdminController:searchTaskAction
+
+sendMessageToUser:
+    path: /admin/sendMessageToUser
+    controller: App\Controller\AdminController:sendMessageToUserAction
+
+addNewAreaName:
+    path: /addNewAreaName
+    controller: App\Controller\AdminController::addNewAreaNameAction
+
+addJobEnName:
+    path: /addJobEnName
+    controller: App\Controller\AdminController:addJobEnNameAction
+
+addJobFrName:
+    path: /addJobFrName
+    controller: App\Controller\AdminController:addJobFrNameAction
+
+activateTask:
+    path: /activateTask/{id}/{userId}
+    controller: App\Controller\AdminController::activateTaskAction
+
+deactivateTask:
+    path: /deactivateTask/{id}/{userId}
+    controller: App\Controller\AdminController:deactivateTaskAction
+
+addNewJobName:
+    path: /addNewJobName
+    controller: App\Controller\AdminController::addNewJobNameAction
+
+addNewCountryName:
+    path: /addNewCountryName
+    controller: App\Controller\AdminController::addNewCountryNameAction
+
+adminRemoveTask:
+    path: /admin/remove/task/{id}/{userId}
+    controller: App\Controller\AdminController:removeTaskAction
+
+userDetails:
+    path: /admin/user/{id}
+    controller: App\Controller\AdminController:userDetailsAction

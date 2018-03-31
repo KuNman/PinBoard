@@ -1,0 +1,16 @@
+#Login Controller
+loginForm:
+    path: /login
+    controller: App\Controller\LoginController::indexAction
+
+loginUser:
+    path: /loginUser
+    controller: App\Controller\LoginController::loginAction
+
+logoutUser:
+    path: /logoutUser
+    controller: App\Controller\LoginController::logoutAction
+
+resetPassword:
+    path: /resetPassword
+    controller: App\Controller\LoginController::resetPasswordAction

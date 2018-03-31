@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="bike">
+  <component name="PublishConfigData" serverName="bike" exclude=".svn;.cvs;.idea;.DS_Store;.git;.hg;*.hprof;*.pyc,.env">
     <serverData>
       <paths name="bike">
         <serverdata>
@@ -11,10 +11,10 @@
             <excludedPath local="true" path="$PROJECT_DIR$/node_modules" />
             <excludedPath path="/node_modules" />
             <excludedPath path="/vendor" />
+            <excludedPath local="true" path=".env" />
           </excludedPaths>
         </serverdata>
       </paths>
     </serverData>
-    <option name="myAutoUpload" value="ALWAYS" />
   </component>
 </project>

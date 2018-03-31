@@ -1,0 +1,32 @@
+#Service Controller
+index:
+    path: /
+    controller: App\Controller\ServiceController::indexAction
+
+results:
+    path: /results
+    controller: App\Controller\ServiceController::resultsAction
+
+getTaskIds:
+    path: /getTaskIds
+    controller: App\Controller\ServiceController:getTaskIdsAction
+
+getJobsNames:
+    path: /getJobsNames
+    controller: App\Controller\ServiceController:getJobsNamesAction
+
+getCountries:
+    path: /getCountries
+    controller: App\Controller\ServiceController:getCountriesAction
+
+getAreas:
+    path: /getAreas
+    controller: App\Controller\ServiceController:getAreasAction
+
+getCities:
+    path: /getCities
+    controller: App\Controller\ServiceController:getCitiesAction
+
+getUserIdsOrUsernames:
+    path: /getUserIdsOrUsernames/{data}
+    controller: App\Controller\ServiceController:getUserIdsOrUsernamesAction

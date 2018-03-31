@@ -14,12 +14,6 @@ use App\Entity\Cities;
 use App\Entity\Countries;
 use App\Entity\Jobs;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\Extension\Core\Type\ResetType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Forms;
 use Symfony\Component\HttpFoundation\Request;
 
 class Admin

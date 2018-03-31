@@ -1,0 +1,32 @@
+#User Controller
+panel:
+    path: /panel
+    controller: App\Controller\UserController::indexAction
+
+addTask:
+    path: /addTask
+    controller: App\Controller\UserController::addTaskAction
+
+editTask:
+    path: /edit/task/{id}
+    controller: App\Controller\UserController::editTaskAction
+
+removeTask:
+    path: /remove/task/{id}
+    controller: App\Controller\UserController:removeTaskAction
+
+searchAreaInCountry:
+    path: /searchAreaInCountry
+    controller: App\Controller\UserController::searchAreaInCountryAction
+
+addUserLangs:
+    path: /addUserLangs
+    controller: App\Controller\UserController::addUserLangsAction
+
+searchJobs:
+    path: /searchJobs/{lang}
+    controller: App\Controller\UserController::searchJobsAction
+
+searchCountries:
+    path: /searchCountries/{lang}
+    controller: App\Controller\UserController::searchCountriesAction

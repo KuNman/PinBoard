@@ -38,16 +38,16 @@ $(document).ready(function(){
         return null;
     }
 
-    $('#form_name').attr('autocomplete', 'off');
+    $('#form_job').attr('autocomplete', 'off');
 
-    $('#form_name').keyup(function () {
-        if($("#form_name").val().length >= 3 && getJobsNamesCounter == 0) {
+    $('#form_job').keyup(function () {
+        if($("#form_job").val().length >= 2 && getJobsNamesCounter == 0) {
             $.ajax({
                 url: "/getJobsNames",
                 type: "post",
                 data: { lang : getCookie('lang') },
                 success: function(response) {
-                    horsey(document.getElementById('form_name'), {
+                    horsey(document.getElementById('form_job'), {
                         source: [{ list : response }],
                         limit: 5,
                     });

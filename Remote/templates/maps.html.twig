@@ -17,7 +17,7 @@
 
     function initAutocomplete() {
         autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'), {
-//            types: ['(cities)'],
+           types: ['(cities)'],
         });
 
         autocomplete.addListener('place_changed', function () {

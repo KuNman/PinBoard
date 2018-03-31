@@ -1,0 +1,20 @@
+#Register Controller
+checkUsernameAvaibility:
+    path: /checkUsernameAvaibility
+    controller: App\Controller\RegisterController::checkUsernameAvaibilityAction
+
+register:
+    path: /register
+    controller: App\Controller\RegisterController::indexAction
+
+addUserToDB:
+    path: /registerUser
+    controller: App\Controller\RegisterController::registerUserAction
+
+sendRegisterMail:
+    path: /sendRegisterMail
+    controller: App\Controller\RegisterController::sendRegisterMailAction
+
+activationLink:
+    path: /activateUser/{username}/{time}
+    controller: App\Controller\RegisterController::activateUserAction

@@ -1,17 +1,17 @@
 Arguments: 
-  /usr/bin/nodejs /usr/share/yarn/bin/yarn.js run encore production
+  /usr/local/bin/node /Users/kn/.yarn/bin/yarn.js run encore dev --watchls
 
 PATH: 
-  /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+  /Users/kn/.yarn/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 
 Yarn version: 
   1.5.1
 
 Node version: 
-  4.2.6
+  8.9.4
 
 Platform: 
-  linux x64
+  darwin x64
 
 npm manifest: 
   {
@@ -5743,15 +5743,14 @@ Trace:
   Error: Command failed.
   Exit code: 1
   Command: sh
-  Arguments: -c /var/www/html/Pinboard/node_modules/.bin/encore production
-  Directory: /var/www/html/Pinboard
+  Arguments: -c /Users/kn/Workspace/PinBoard2/PinBoard/Remote/node_modules/.bin/encore dev --watchls
+  Directory: /Users/kn/Workspace/PinBoard2/PinBoard/Remote
   Output:
   
-      at ProcessTermError.Error (native)
-      at ProcessTermError.MessageError (/usr/share/yarn/lib/cli.js:186:110)
-      at new ProcessTermError (/usr/share/yarn/lib/cli.js:226:113)
-      at ChildProcess.<anonymous> (/usr/share/yarn/lib/cli.js:30281:17)
-      at emitTwo (events.js:87:13)
-      at ChildProcess.emit (events.js:172:7)
-      at maybeClose (internal/child_process.js:821:16)
-      at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
+      at ProcessTermError.MessageError (/Users/kn/.yarn/lib/cli.js:186:110)
+      at new ProcessTermError (/Users/kn/.yarn/lib/cli.js:226:113)
+      at ChildProcess.<anonymous> (/Users/kn/.yarn/lib/cli.js:30281:17)
+      at emitTwo (events.js:126:13)
+      at ChildProcess.emit (events.js:214:7)
+      at maybeClose (internal/child_process.js:925:16)
+      at Process.ChildProcess._handle.onexit (internal/child_process.js:209:5)
