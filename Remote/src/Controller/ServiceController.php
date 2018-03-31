@@ -29,8 +29,7 @@ class ServiceController extends Controller
     }
 
     public function resultsAction(Request $request) {
-        $results = $this->service->results($request);
-        return $this->render('/service/results.html.twig', array("results" => $results));
+        return $this->render('/service/results.html.twig', array("results" => $this->service->results($request)));
     }
 
     public function getJobsNamesAction(Request $request) {

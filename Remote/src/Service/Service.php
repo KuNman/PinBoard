@@ -22,6 +22,7 @@ class Service
     public function __construct(EntityManagerInterface $entityManager) {
         $this->entityManager = $entityManager;
     }
+
     public function form() {
 
         $formFactory = Forms::createFormFactory();
@@ -39,8 +40,8 @@ class Service
 
     public function defineLang(Request $request)
     {
-        $lang = $request->getLocale();
         if (!isset($_COOKIE['lang'])) {
+            $lang = $request->getLocale();
             switch ($lang) {
                 case $lang == 'en':
                 case $lang == 'pl':
@@ -58,29 +59,41 @@ class Service
     public function results(Request $request) {
         $job =  $request->get('form')['job'];
         $place =  $request->get('form')['place'];
-        return $request ? $this->isTaskAvailable($job, $place) : false;
+        return $request ? $this->isTaskAvailable($job, $place, $_COOKIE['lang']) : false;
     }
 
-    private function isTaskAvailable($job, $place) {
+    private function isTaskAvailable($job, $place, $lang) {
         $place = explode(',', $place);
-        $job = trim($job);
         $city = trim($place[0]);
         $country = trim($place[1]);
         if($this::isSearchStringValid($job) &&
            $this::isSearchStringValid($city) &&
            $this::isSearchStringValid($country)) {
-            return $this->searchTaskInDB($job, $city, $country);
+            return $this->searchTaskInDB($job, $city, $country, $lang);
         }
     }
 
-    private static function isSearchStringValid($string) {
-        return preg_match('/^([a-z])+$/i', $string) ? true : false;
+    private function searchTaskInDB($job, $city, $country, $lang) {
+        $jobId = $this->getJobIdByName($job, $lang);
+        $countryId = $this->getCountryIdByName($country, $lang);
+        if($jobId && $countryId) {
+            $tasks = $this->entityManager->getRepository('App:Tasks')
+                ->findBy(array('job' => $jobId, 'country' => $countryId));
+            return $tasks;
+        }
+        return false;
     }
 
-    private function searchTaskInDB($job, $city, $country) {
-        $task = $this->entityManager->getRepository('App:Tasks')
-            ->findOneBy(array('id' => 64));
-        return $task;
+    private function getJobIdByName($job, $lang) {
+        $job = $this->entityManager->getRepository('App:Jobs')
+            ->findOneBy(array("name_".$lang => $job));
+        return $job ? $job->getId() : false;
+    }
+
+    private function getCountryIdByName($country, $lang) {
+        $country = $this->entityManager->getRepository('App:Countries')
+            ->findOneBy(array("country_".$lang => $country));
+        return $country ? $country->getId() : false;
     }
 
     public function getJobsNames($lang = 'pl') {
@@ -92,7 +105,7 @@ class Service
 
         $array = $jobs->getScalarResult();
         $array = array_column($array, "name_".$lang);
-        return array_filter($array);
+        return array_filter($this::remapArrayAfterRemovingNulls($array));
     }
 
     public function getCountries($lang = 'pl') {
@@ -104,7 +117,7 @@ class Service
 
         $array = $countries->getScalarResult();
         $array = array_column($array, "country_".$lang);
-        return array_filter($array);
+        return array_filter($this::remapArrayAfterRemovingNulls($array));
     }
 
     public function getTaskIds(){
@@ -153,5 +166,18 @@ class Service
         $array = $areas->getScalarResult();
         $array = array_column($array, $data);
         return array_filter($array);
+    }
+
+    private static function isSearchStringValid($string) {
+        return preg_match('/^[\p{L}-. ]*$/u', $string) ? true : false;
+    }
+
+    private static function remapArrayAfterRemovingNulls($array) {
+        $arrayRemapped = array();
+        foreach ($array as $row) {
+            if ($row !== null)
+                $arrayRemapped[] = $row;
+        }
+        return $arrayRemapped ? $arrayRemapped : false;
     }
 }

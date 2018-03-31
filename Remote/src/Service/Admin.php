@@ -195,10 +195,7 @@ class Admin
             $arr[] = $name->getNamePl();
 
         }
-        if($arr) {
-            return $arr;
-        }
-        return false;
+        return $arr ? $arr : false;
     }
 
     public function checkMissingJobNameFr() {
@@ -210,11 +207,7 @@ class Admin
             $arr[] = $name->getNamePl();
 
         }
-        if($arr) {
-            return $arr;
-        }
-        return false;
-
+        return $arr ? $arr : false;
     }
 
     public function addJobEnName(Request $request) {
@@ -365,27 +358,4 @@ class Admin
         return $tasks->getQuery()->getResult();
 
     }
-
-//    public function searchTaskForm(Request $request) {
-//
-//        $formFactory = Forms::createFormFactory();
-//
-//        $form = $formFactory->createBuilder()
-//            ->setMethod('post')
-//            ->add('id', NumberType::class)
-//            ->add('praca', TextType::class)
-//            ->add('kraj', TextType::class)
-//            ->add('region', TextType::class)
-//            ->add('miasto', TextType::class)
-//            ->add('userid', NumberType::class)
-//            ->add('useremail', TextType::class)
-//            ->add('active', ChoiceType::class)
-//            ->add('search', SubmitType::class)
-//            ->add('clear', ResetType::class)
-//            ->getForm();
-//
-//        $form = $form
-//        return $form;
-//
-//    }
 }

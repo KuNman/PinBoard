@@ -4,8 +4,22 @@
             {% include "service/header.html.twig" %}
             <div class="results-content">
                 <div class="text">
-                    {{ results.getId() }}
-                    {{ results.job.getNamePl() }}
+                    {% if results|length > 0 %}
+                        {% for value in results %}
+                            <div>
+                            {{ value.id }} |
+                            {{ value.job.getNamePl() }} |
+                            {{ value.country.getCountryPl() }} |
+                            {{ value.area.getArea() }} |
+                            {{ value.city }} |
+                            {{ value.availability|date('Y-m-d') }} |
+                            <a target="_blank" href="/admin/user/{{ value.user.getId() }}">{{ value.user.getId() }}</a> |
+                            {{ value.user.getLangs() }}
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div>We don't have any task for u right now.</div>
+                    {% endif %}
                 </div>
             </div>
         </div>
