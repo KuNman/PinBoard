@@ -59,13 +59,25 @@ class Service
     public function results(Request $request) {
         $job =  $request->get('form')['job'];
         $place =  $request->get('form')['place'];
-        return $request ? $this->isTaskAvailable($job, $place, $_COOKIE['lang']) : false;
+        return $request ? $this->isTaskAvailable($job, $this->formatAddress($place), $_COOKIE['lang']) : false;
+    }
+
+    private function formatAddress($address) {
+        $array = explode(",",$address);
+        if(count($array) == 3) {
+            unset($array[1]);
+        }
+        foreach ($array as $value) {
+            $arrayFormatted[] = strip_tags($value);
+        }
+        return $arrayFormatted;
     }
 
     private function isTaskAvailable($job, $place, $lang) {
-        $place = explode(',', $place);
-        $city = trim($place[0]);
-        $country = trim($place[1]);
+        $job = trim($job);
+        $city = trim(preg_replace('/[0-9 -]+/', '', $place[0]));
+        $country = trim(preg_replace('/[0-9 -]+/', '', $place[1]));
+
         if($this::isSearchStringValid($job) &&
            $this::isSearchStringValid($city) &&
            $this::isSearchStringValid($country)) {
@@ -76,10 +88,23 @@ class Service
     private function searchTaskInDB($job, $city, $country, $lang) {
         $jobId = $this->getJobIdByName($job, $lang);
         $countryId = $this->getCountryIdByName($country, $lang);
+
         if($jobId && $countryId) {
             $tasks = $this->entityManager->getRepository('App:Tasks')
-                ->findBy(array('job' => $jobId, 'country' => $countryId));
-            return $tasks;
+                ->createQueryBuilder('tasks');
+
+            $tasks->andWhere("tasks.job = $jobId");
+            $tasks->andWhere("tasks.country = $countryId");
+
+            $tasks = $tasks->getQuery()->getResult();
+            $pattern = "/" . preg_quote($city, "/") . "/";
+
+            foreach ($tasks as $task) {
+                if($task->getCity() === 'wholeArea' || preg_match($pattern, $task->getCity())) {
+                    $tasksArray[] = $task;
+                }
+            }
+            return $tasksArray;
         }
         return false;
     }
@@ -92,7 +117,7 @@ class Service
 
     private function getCountryIdByName($country, $lang) {
         $country = $this->entityManager->getRepository('App:Countries')
-            ->findOneBy(array("country_".$lang => $country));
+            ->findOneBy(array("country_fr" => $country));
         return $country ? $country->getId() : false;
     }
 

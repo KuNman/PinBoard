@@ -22,7 +22,7 @@
 
         autocomplete.addListener('place_changed', function () {
             var place = autocomplete.getPlace();
-            var address = (place['formatted_address']);
+            var address = (place['adr_address']);
             document.getElementById("form_place").value = address;
         });
     }

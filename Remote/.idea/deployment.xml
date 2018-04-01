@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="bike" exclude=".svn;.cvs;.idea;.DS_Store;.git;.hg;*.hprof;*.pyc,.env">
+  <component name="PublishConfigData" autoUpload="Always" serverName="bike" exclude=".svn;.cvs;.idea;.DS_Store;.git;.hg;*.hprof;*.pyc,.env">
     <serverData>
       <paths name="bike">
         <serverdata>
@@ -16,5 +16,6 @@
         </serverdata>
       </paths>
     </serverData>
+    <option name="myAutoUpload" value="ALWAYS" />
   </component>
 </project>
