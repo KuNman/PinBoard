@@ -8,6 +8,7 @@
 
 namespace App\Service;
 
+use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -89,14 +90,17 @@ class Service
         $jobId = $this->getJobIdByName($job, $lang);
         $countryId = $this->getCountryIdByName($country, $lang);
 
+        $tasksArray = [];
+
         if($jobId && $countryId) {
             $tasks = $this->entityManager->getRepository('App:Tasks')
                 ->createQueryBuilder('tasks');
 
+            $tasks->where("tasks.active = 1");
             $tasks->andWhere("tasks.job = $jobId");
             $tasks->andWhere("tasks.country = $countryId");
-
             $tasks = $tasks->getQuery()->getResult();
+
             $pattern = "/" . preg_quote($city, "/") . "/";
 
             foreach ($tasks as $task) {
@@ -104,9 +108,8 @@ class Service
                     $tasksArray[] = $task;
                 }
             }
-            return $tasksArray;
         }
-        return false;
+        return $tasksArray;
     }
 
     private function getJobIdByName($job, $lang) {

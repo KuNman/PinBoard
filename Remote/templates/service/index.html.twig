@@ -17,7 +17,14 @@
                         {{ form_widget(form.place) }}
                     </div>
                     <div class="place" id="locationField">
-                        in {{ include('maps.html.twig') }}{{ form_widget(form.place) }}
+                        {% set lang = app.request.cookies.get('lang') %}
+                        {% if lang == 'en' %}
+                            in {{ include('maps_en.html.twig') }}{{ form_widget(form.place) }}
+                        {% elseif lang == 'fr' %}
+                            in {{ include('maps_fr.html.twig') }}{{ form_widget(form.place) }}
+                        {% elseif lang == 'pl' %}
+                            in {{ include('maps_pl.html.twig') }}{{ form_widget(form.place) }}
+                        {% endif %}
                     </div>
                 </div>
             </div>
